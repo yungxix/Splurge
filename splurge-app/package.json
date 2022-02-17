@@ -1,0 +1,63 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "npm run development",
+    "development": "mix  -- --stats-children",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "prod": "npm run production",
+    "production": "mix --production"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.1.0",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "@tailwindcss/typography": "^0.5.1",
+    "@types/lodash": "^4.14.178",
+    "@vitejs/plugin-vue": "^2.1.0",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "autoprefixer": "^10.4.2",
+    "axios": "^0.25",
+    "eslint": "^8.5.0",
+    "eslint-plugin-vue": "^8.2.0",
+    "laravel-mix": "^6.0.6",
+    "lodash": "^4.17.21",
+    "postcss": "^8.4.6",
+    "postcss-css-variables": "^0.18.0",
+    "postcss-import": "^14.0.2",
+    "prettier": "^2.5.1",
+    "tailwind-color-alpha": "^1.0.4",
+    "tailwindcss": "^3.0.19",
+    "vite": "^2.7.13",
+    "vue-loader": "^16.8.3"
+  },
+  "name": "splurge-app",
+  "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\"></a></p>",
+  "version": "1.0.0",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yungxix/Splurge.git"
+  },
+  "keywords": [
+    "events",
+    "weddings",
+    "planner"
+  ],
+  "author": "ifelere@gmail.com, yungxix",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yungxix/Splurge/issues"
+  },
+  "homepage": "https://github.com/yungxix/Splurge#readme",
+  "dependencies": {
+    "@chenfengyuan/vue-carousel": "^2.0.0",
+    "@headlessui/vue": "^1.4.3",
+    "@heroicons/vue": "^1.0.5",
+    "jquery": "^3.6.0",
+    "vue": "^3.2.29",
+    "vue-flux": "^6.4.0"
+  }
+}
