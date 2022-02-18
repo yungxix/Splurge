@@ -76,3 +76,6 @@ assets/img2/slider7.jpg
 assets/img2/splurge.png
 assets/index.html
 assets/Videos/res.mp4
+*.dev
+*.dev
+*.prod

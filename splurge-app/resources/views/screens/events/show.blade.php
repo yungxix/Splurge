@@ -23,8 +23,8 @@
             @endif
             <em>{{ $post->created_at->diffForHumans() }}</em>
         </div>    
-        <div class="lg:flex flex-row">
-            <div class="lg:w-2/3 px-4">
+        <div class="md:flex flex-row">
+            <div class="md:w-2/3 md:px-4">
                 <article>
                     
         
@@ -65,7 +65,7 @@
                     
                 </article>
             </div>
-            <div class="lg:w-1/3 px-2 bg-gray-200">
+            <div class="md:w-1/3 px-2 bg-gray-200">
                 <x-widgets.other-posts :post-id="$post->id"></x-widgets.other-posts>
             </div>
         </div>

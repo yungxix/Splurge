@@ -12,39 +12,39 @@ $items = [
     [
         'text' => 'Celebrations',
         'url' => url('/events/celebrations'),
-        'active' => Request::is('/events/celebrations')
+        'active' => Request::is('events/celebrations')
     ],
     [
         'text' => 'Weddings',
         'url' => url('/events/weddings'),
-        'active' => Request::is('/events/weddings')
+        'active' => Request::is('events/weddings')
     ],
     [
         'text' => 'Gallery',
         'url' => url('/gallery'),
-        'active' => Request::is('/gallery')
+        'active' => Request::is('gallery*')
     ],
     [
         'text' => 'Services',
         'url' => url('/services'),
-        'active' => Request::is('/services')
+        'active' => Request::is('services')
     ],
     [
         'text' => 'About',
         'url' => url('/about'),
-        'active' => Request::is('/about')
+        'active' => Request::is('about')
     ],
     [
         'text' => 'Contact',
         'url' => url('/about/contact'),
-        'active' => Request::is('/about/contact')
+        'active' => Request::is('about/contact')
     ]
 
 ];
 @endphp
 
-<nav class="bg-pink-600 primary">
-    <div class="w-full mx-auto py-2 px-4 sm:px-6 lg:px-8">
+<nav id="navbar" class="bg-pink-600 primary">
+    {{-- <div class="w-full mx-auto py-2 px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center justify-between">
                 <div class="flex-shrink-0">
@@ -133,10 +133,10 @@ $items = [
                 </button>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="hidden" id="mobile-menu">
+    {{-- <div class="hidden" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             @foreach ($items as $item)
                 <a href="{{ $item['url'] }}"
@@ -179,5 +179,18 @@ $items = [
             @endif
 
         </div>
-    </div>
+    </div> --}}
 </nav>
+
+@push('scripts')
+    <script>
+    Splurge.navbar.render(document.querySelector('#navbar'), {
+        items: {{ Js::from($items) }},
+        logo: '{{ asset('/images/v2/splurge.png') }}',
+        logoUrl: '{{ url('/') }}',
+        authenticated: false,
+        username: '',
+
+    })
+    </script>
+@endpush
