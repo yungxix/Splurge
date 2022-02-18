@@ -25,10 +25,8 @@
       </div>
     </div>
   @endforeach
-  <div class="clear-both">
-    <div class="float-right">
-      {{ $posts->links() }}
-    </div>
+  <div class="flex flex-row items-center justify-end">
+    {{ $posts->links() }}
   </div>
   @include('partials.dummy_trailer')
 </section>

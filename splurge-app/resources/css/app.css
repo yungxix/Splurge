@@ -763,7 +763,7 @@ video:focus {
 
 /*--footer----*/
 #footer {
-    @apply pt-4 bg-pink-700 text-white;
+    @apply py-8 md:py-12 bg-pink-700 text-white;
 }
 
 .title-footer h4 {

@@ -1,10 +1,11 @@
 require('./bootstrap');
-require('./components/navbar.js');
 import  {createApp} from 'vue';
 
 import MediaItemSliders from './components/media-item-slides.vue';
 
 import GalleryView from './components/gallery/collage.vue';
+
+import NavBar from './components/navbar.vue';
 
 
 window.Splurge = window.Splurge || {};
@@ -25,4 +26,13 @@ window.Splurge.gallery = {
         app.mount(target);
     }
 
-}
+};
+
+
+window.Splurge.navbar = {
+    render: function (target, options) {
+        const app = createApp(NavBar, options);
+        app.mount(target);
+    }
+
+};

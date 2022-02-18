@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
             @foreach ($group as $post)
                 <div class="p-2">
                     <a href="{{ route('events.show', ['post' => $post->id]) }}">
-                        <h4 class="text-lg lg:text-xl">{{ $post->name }}</h4>
+                        <h4 class="text-lg md:text-2xl">{{ $post->name }}</h4>
                     </a>
                     {{ HtmlHelper::toParagraphs(Str::limit($post->description, 350, '...')) }}
                     <p>

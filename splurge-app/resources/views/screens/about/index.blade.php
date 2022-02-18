@@ -12,11 +12,9 @@
             <div class="md:flex flex-row">
                 <div class="md:w-2/3 md:pr-4">
                     @include('partials.contact')
-                    <p class="mb-8"></p>
-                    
+                    <hr class="mt-4 md:mt-8 bg-pink-500 h-px text-pink-300" />
                     @if (true)
-                    <div class="block">
-                        <hr id="hori" />
+                    <div class="mt-4 md:mt-10">
                         <div class="flex flex-row gap-x-4 justify-between items-center">
                             <div>
                                 <img src="{{ asset('images/p4.jpeg') }}" alt="">

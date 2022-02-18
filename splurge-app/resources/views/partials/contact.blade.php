@@ -1,4 +1,4 @@
-<div class="ml-8 md:ml-10 mt-4">
+<div class="ml-8 md:ml-10 mt-4 mb-10 md:mb-12">
     <h3 class="font-bold text-red-800">Contact Us</h3>
     <p class="lix">SereneSplurge Weddings and Party Planning</p>
     <div class="mt-4">
