@@ -15,6 +15,34 @@
                         </template>
                     </div>
                 </div>
+               
+            </div>
+
+            <div ref="userDowndown" class="hidden md:block" v-if="authenticated">
+                    <dropdown width="188px" @close="showUserdropdown = false" :show="showUserdropdown">
+                        <template  v-slot:trigger>
+                              <button @click="toggleUserDropdownMenu()" class="flex items-center text-sm font-medium text-white hover:text-gray-200 hover:border-pink-300 focus:outline-none focus:text-pink-700 focus:border-pink-300 transition duration-150 ease-in-out">
+                                <div>{{ username }}</div>
+                                <div class="ml-1">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </button>
+                        </template>
+
+                        <template v-for="(item, index) in userDropdownItems" :key="index">
+                            <a class="block mb-2 cursor-pointer p-2 text-gray-700 hover:font-bold"  @click="actOnUserItem($event, item)" v-text="item.text"></a>    
+                        </template>
+                      
+                    </dropdown>
+                    
+                    
+                    
+            </div>
+
+            <div ref="userDowndown" class="hidden md:block" v-else>
+                <a :href="loginUrl" :class="getItemClass({active: false}, false)">Login</a>
             </div>
            
 
@@ -56,15 +84,30 @@
                 <template v-for="(item, index) in items" :key="`${index}_mobile_item`">
                     <a :href="item.url" :class="getItemClass(item, true)" v-bind="getExtraItemAttributes(item)" v-text="item.text"></a>    
                 </template>
+                 <div class="border-t border-pink-900 mx-2"></div>
+                <template v-if="authenticated">
+                    <p>Hi, {{ username }}</p>
+                    <template v-for="(item, index) in userDropdownItems" :key="index">
+                        <a :class="getItemClass(item, true)" @click="actOnUserItem($event, item)" v-text="item.text"></a>    
+                    </template>
+                </template>
+                <a v-else :href="loginUrl" :class="getItemClass({}, true)">Login</a>
             </div>
         </div>
     </transition>
-    
+    <form ref="postForm" class="hidden h-0 w-0" :method="formMethod" :action="formUrl">
+        <input type="hidden" name="_token" :value="xsrfToken" />
+        <input type="hidden" name="_method" :value="formMethod" v-if="!isVirtualFormMethod()" />
+        <template v-for="(value, key) in formParams" :key="key">
+            <input type="hidden" :name="key" :value="value" />
+        </template>
+    </form>
   </div>
 </template>
 
 <script>
 
+import Dropdown from './dropdown.vue';
 
 
 const EMPTY_ARGS = {};
@@ -72,6 +115,7 @@ const EMPTY_ARGS = {};
 const CURRENT_ITEM_ARGS = {'aria-current': 'page'};
 
 export default {
+    components: {Dropdown},
     props: {
         logo: {
             type: String,
@@ -90,18 +134,51 @@ export default {
             type: Array,
             required: true
         },
-
+        userDropdownItems: {
+            type: Array,
+            default() {
+                return [];
+            }
+        },
+        loginUrl: {
+            type: String,
+            default: '/login'
+        }
     },
     data() {
         return {
             showMobileMenu: false,
             activeItemAttrs: CURRENT_ITEM_ARGS,
-            inactiveItemAttrs: EMPTY_ARGS
+            inactiveItemAttrs: EMPTY_ARGS,
+            showUserdropdown: false,
+            xsrfToken: '',
+            formMethod: 'POST',
+            formUrl: '#',
+            formParams: {},
+            submitting: false
         };
+    },
+    mounted() {
+       this.xsrfToken =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+       this.globalClickHander = (event) => {
+           if (!this.$refs.userDowndown.contains(event.target)) {
+               this.showUserdropdown = false;
+           }
+       };
+       document.addEventListener('click', this.globalClickHander);
+    },
+    beforeUnmount() {
+        document.removeEventListener('click', this.globalClickHander);
     },
     methods: {
         toggleMobileMenu() {
             this.showMobileMenu = !this.showMobileMenu;
+        },
+        toggleUserDropdownMenu() {
+            this.showUserdropdown = !this.showUserdropdown;
+        },
+        isVirtualFormMethod() {
+            return !((/POST|GET/i).test(this.formMethod));
         },
         getItemClass(item, mobileItem) {
             if (mobileItem) {
@@ -121,6 +198,23 @@ export default {
                 return this.activeItemAttrs
             }
             return this.inactiveItemAttrs;
+        },
+        actOnUserItem(event, item) {
+            event.preventDefault();
+            if (item.form) {
+                if (this.submitting) {
+                    return;
+                }
+                this.formMethod = item.form;
+                this.formParams = item.params || {};
+                this.formUrl = item.url;
+                this.submitting = true;
+                this.$nextTick(() => {
+                    this.$refs.postForm.submit();
+                });
+            } else {
+                window.location.href = item.url;
+            }
         }
     }
 }

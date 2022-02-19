@@ -1,4 +1,5 @@
 require('./bootstrap');
+
 import  {createApp} from 'vue';
 
 import MediaItemSliders from './components/media-item-slides.vue';
@@ -7,8 +8,11 @@ import GalleryView from './components/gallery/collage.vue';
 
 import NavBar from './components/navbar.vue';
 
+import Alpine from 'alpinejs';
+
 
 window.Splurge = window.Splurge || {};
+
 window.Splurge.slides = {
     render: function (target, options) {
         const app = createApp(MediaItemSliders, options);
@@ -36,3 +40,9 @@ window.Splurge.navbar = {
     }
 
 };
+
+
+
+window.Alpine = Alpine;
+
+Alpine.start();

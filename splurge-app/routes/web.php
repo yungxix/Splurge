@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EventsController;
@@ -18,7 +19,10 @@ use App\Http\Controllers\ServicesController;
 |
 */
 
-Route::get('/', HomeController::class);
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', 'index')->name('home');
+    Route::get('/dashboard', 'showDashboard')->middleware(['auth'])->name('dashboard');
+});
 
 Route::prefix('services')->name('services.')->controller(ServicesController::class)->group(function () {
     Route::get('/', 'index')->name('index');
@@ -44,3 +48,6 @@ Route::prefix('about')->controller(AboutController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/contact', 'showContact');
 });
+
+
+require __DIR__.'/auth.php';

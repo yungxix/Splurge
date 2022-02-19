@@ -10,11 +10,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/x-icon" href="{{ asset('images/splurge.ico') }}" />
     <title>
-        @section('title')
-            {{ config('app.name') }}
-        @show
+        {{ $title ?? config('app.name') }}
          | EVENTS HUB IN AFRICA</title>
-
         <!-- Fonts -->
     <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -23,16 +20,15 @@
      rel="stylesheet">
      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
      <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
-
      @stack('header_includes')
 </head>
-<body class="bg-white splurge @yield('body_class')">
+<body class="bg-white splurge">
     <div class="min-h-full">
         @include('partials.navbar')
         <main>
           <div class="w-full">
             <!-- Replace with your content -->
-            @yield('content')
+            {{ $slot }}
             <!-- /End replace -->
             @include('partials.footer')
           </div>
@@ -41,9 +37,6 @@
       <script src="{{ asset('js/app.js') }}"></script>
 
       @stack('scripts')
-
-      
-        
       <script src="https://apps.elfsight.com/p/platform.js" defer></script>
       <div class="elfsight-app-6bd84fdd-7b06-4127-8cfc-f4d68a37be7c"></div>
 </body>
