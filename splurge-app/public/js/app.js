@@ -23353,8 +23353,7 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     contentClass: function contentClass() {
-      var positionClass = 'left' === this.align ? 'top-5 left-0' : 'top-5 left-auto right-0';
-      return "bg-".concat(this.color || 'white', " absolute ").concat(positionClass, " z-50 mt-2 rounded-md shadow-md");
+      return "drowndown-content ".concat(this.align);
     }
   }
 });
@@ -23687,18 +23686,20 @@ var CURRENT_ITEM_ARGS = {
       return !/POST|GET/i.test(this.formMethod);
     },
     getItemClass: function getItemClass(item, mobileItem) {
-      if (mobileItem) {
-        return {
-          'bg-pink-900 text-white block px-3 py-2 rounded-md text-base font-medium': item.active,
-          'text-white hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium': !item.active
-        };
-      }
-
       return {
-        'text-bold': true,
-        'bg-pink-900 text-white px-3 py-2 rounded-md text-sm font-medium': item.active,
-        'text-white hover:bg-pink-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium': !item.active
-      };
+        desktop: !mobileItem,
+        active: item.active === true,
+        mobile: mobileItem
+      }; // if (mobileItem) {
+      //     return {
+      //         'bg-pink-900 text-white block px-3 py-2 rounded-md text-base font-medium': item.active,
+      //         'text-white hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium': !item.active
+      //     };
+      // }
+      // return {
+      //     'bg-pink-900 text-white px-3 py-2 rounded-md text-sm font-medium': item.active,
+      //     'text-white hover:bg-pink-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium': !item.active
+      // };
     },
     getExtraItemAttributes: function getExtraItemAttributes(item) {
       if (item.active) {
@@ -23997,7 +23998,7 @@ var _hoisted_25 = {
 var _hoisted_26 = ["href", "textContent"];
 
 var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "border-t border-pink-900 mx-2"
+  "class": "navbar-separator"
 }, null, -1
 /* HOISTED */
 );
@@ -24088,10 +24089,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.toggleMobileMenu();
     }),
     id: "mobile-menu-trigger",
-    "class": "bg-pink-800 inline-flex items-center justify-center p-2 rounded-md text-pink-400 hover:text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-pink-800 focus:ring-white",
     "aria-controls": "mobile-menu",
     "aria-expanded": "false"
-  }, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("\r\n                    Heroicon name: outline/menu\r\n\r\n                    Menu open: \"hidden\", Menu closed: \"block\"\r\n                "), !$data.showMobileMenu ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_18, _hoisted_20)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("\r\n                    Heroicon name: outline/x\r\n\r\n                    Menu open: \"block\", Menu closed: \"hidden\"\r\n                "), $data.showMobileMenu ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_21, _hoisted_23)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Mobile menu, show/hide based on menu state. "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(vue__WEBPACK_IMPORTED_MODULE_0__.Transition, {
+  }, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("\r\n                        Heroicon name: outline/menu\r\n\r\n                        Menu open: \"hidden\", Menu closed: \"block\"\r\n                    "), !$data.showMobileMenu ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_18, _hoisted_20)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("\r\n                        Heroicon name: outline/x\r\n\r\n                        Menu open: \"block\", Menu closed: \"hidden\"\r\n                    "), $data.showMobileMenu ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_21, _hoisted_23)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Mobile menu, show/hide based on menu state. "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(vue__WEBPACK_IMPORTED_MODULE_0__.Transition, {
     "enter-active-class": "origin-top-left duration-200 ease-out",
     "enter-from-class": "opacity-0 scale-y-50",
     "enter-to-class": "opacity-100 scale-y-100",

@@ -43,7 +43,7 @@ $items = [
 ];
 @endphp
 
-<nav id="navbar" class="bg-pink-600 primary">
+<nav id="navbar" class="{{ isset($theme) ? $theme : 'admin' }}">
     
 </nav>
 

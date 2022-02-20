@@ -907,3 +907,75 @@ body.has-collage {
 .collage-content .heading {
     @apply py-4 text-center;
 }
+
+#navbar {
+    @apply text-white;
+
+    .dropdown-content {
+        @apply absolute top-2 bg-white text-gray-800  z-50 mt-2 rounded-md shadow-md;
+        a {
+            @apply block text-gray-700 hover:text-gray-900 px-4 py-2;
+        }
+
+        &.right {
+            @apply left-auto right-0;
+        }
+    }
+
+   
+
+    &.default {
+        @apply bg-pink-600;
+
+
+        a.desktop {
+            @apply text-white hover:bg-pink-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium;
+        }
+        a.desktop.active {
+            @apply bg-pink-900 text-white px-3 py-2 rounded-md text-sm font-medium; 
+        }
+
+        a.mobile {
+            @apply text-white hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium;
+        }
+        a.mobile.active {
+            @apply bg-pink-900 text-white block px-3 py-2 rounded-md text-base font-medium;
+        }
+    
+        #mobile-menu-trigger {
+            @apply bg-pink-800 inline-flex items-center justify-center p-2 rounded-md text-pink-400 hover:text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-pink-800 focus:ring-white;
+        }
+        .navbar-separator {
+            @apply border-t border-pink-900 mx-2;
+        }
+    }
+
+    &.admin {
+        @apply bg-gray-700;
+
+        #mobile-menu-trigger {
+            @apply bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white;
+        }
+
+        a.desktop {
+            @apply text-white hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium;
+        }
+        a.desktop.active {
+            @apply bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium; 
+        }
+
+        a.mobile {
+            @apply text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium;
+        }
+        a.mobile.active {
+            @apply bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium;
+        }
+
+        .navbar-separator {
+            @apply border-t border-gray-900 mx-2;
+        }
+
+    }
+
+
+}
