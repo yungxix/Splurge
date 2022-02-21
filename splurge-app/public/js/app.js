@@ -23353,7 +23353,7 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     contentClass: function contentClass() {
-      return "drowndown-content ".concat(this.align);
+      return "dropdown-content ".concat(this.align);
     }
   }
 });
@@ -23660,21 +23660,9 @@ var CURRENT_ITEM_ARGS = {
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
     this.xsrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-    this.globalClickHander = function (event) {
-      if (!_this.$refs.userDowndown.contains(event.target)) {
-        _this.showUserdropdown = false;
-      }
-    };
-
-    document.addEventListener('click', this.globalClickHander);
   },
-  beforeUnmount: function beforeUnmount() {
-    document.removeEventListener('click', this.globalClickHander);
-  },
+  beforeUnmount: function beforeUnmount() {},
   methods: {
     toggleMobileMenu: function toggleMobileMenu() {
       this.showMobileMenu = !this.showMobileMenu;
@@ -23690,16 +23678,7 @@ var CURRENT_ITEM_ARGS = {
         desktop: !mobileItem,
         active: item.active === true,
         mobile: mobileItem
-      }; // if (mobileItem) {
-      //     return {
-      //         'bg-pink-900 text-white block px-3 py-2 rounded-md text-base font-medium': item.active,
-      //         'text-white hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium': !item.active
-      //     };
-      // }
-      // return {
-      //     'bg-pink-900 text-white px-3 py-2 rounded-md text-sm font-medium': item.active,
-      //     'text-white hover:bg-pink-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium': !item.active
-      // };
+      };
     },
     getExtraItemAttributes: function getExtraItemAttributes(item) {
       if (item.active) {
@@ -23709,21 +23688,21 @@ var CURRENT_ITEM_ARGS = {
       return this.inactiveItemAttrs;
     },
     actOnUserItem: function actOnUserItem(event, item) {
-      var _this2 = this;
+      var _this = this;
 
       event.preventDefault();
 
-      if (item.form) {
+      if (item.form || item.method) {
         if (this.submitting) {
           return;
         }
 
-        this.formMethod = item.form;
+        this.formMethod = item.form || item.method;
         this.formParams = item.params || {};
         this.formUrl = item.url;
         this.submitting = true;
         this.$nextTick(function () {
-          _this2.$refs.postForm.submit();
+          _this.$refs.postForm.submit();
         });
       } else {
         window.location.href = item.url;
@@ -24003,12 +23982,15 @@ var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_28 = ["onClick", "textContent"];
-var _hoisted_29 = ["href"];
-var _hoisted_30 = ["method", "action"];
-var _hoisted_31 = ["value"];
+var _hoisted_28 = {
+  "class": "ml-4 mb-4"
+};
+var _hoisted_29 = ["onClick", "textContent"];
+var _hoisted_30 = ["href"];
+var _hoisted_31 = ["action"];
 var _hoisted_32 = ["value"];
-var _hoisted_33 = ["name", "value"];
+var _hoisted_33 = ["value"];
+var _hoisted_34 = ["name", "value"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_dropdown = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("dropdown");
 
@@ -24046,8 +24028,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onClick: _cache[0] || (_cache[0] = function ($event) {
           return $options.toggleUserDropdownMenu();
         }),
-        "class": "flex items-center text-sm font-medium text-white hover:text-gray-200 hover:border-pink-300 focus:outline-none focus:text-pink-700 focus:border-pink-300 transition duration-150 ease-in-out"
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.username), 1
+        "class": "dropdown-toggle"
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, "Welcome, " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.username), 1
       /* TEXT */
       ), _hoisted_12])];
     }),
@@ -24114,7 +24096,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* KEYED_FRAGMENT */
       )), _hoisted_27, $props.authenticated ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
         key: 0
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Hi, " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.username), 1
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_28, "Welcome, " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.username), 1
       /* TEXT */
       ), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.userDropdownItems, function (item, index) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
@@ -24126,7 +24108,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           textContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.text)
         }, null, 10
         /* CLASS, PROPS */
-        , _hoisted_28);
+        , _hoisted_29);
       }), 128
       /* KEYED_FRAGMENT */
       ))], 64
@@ -24137,7 +24119,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($options.getItemClass({}, true))
       }, "Login", 10
       /* CLASS, PROPS */
-      , _hoisted_29))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
+      , _hoisted_30))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
     }),
     _: 1
     /* STABLE */
@@ -24145,7 +24127,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     ref: "postForm",
     "class": "hidden h-0 w-0",
-    method: $data.formMethod,
+    method: "POST",
     action: $data.formUrl
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "hidden",
@@ -24153,14 +24135,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     value: $data.xsrfToken
   }, null, 8
   /* PROPS */
-  , _hoisted_31), !$options.isVirtualFormMethod() ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("input", {
+  , _hoisted_32), !$options.isVirtualFormMethod() ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("input", {
     key: 0,
     type: "hidden",
     name: "_method",
     value: $data.formMethod
   }, null, 8
   /* PROPS */
-  , _hoisted_32)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.formParams, function (value, key) {
+  , _hoisted_33)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.formParams, function (value, key) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("input", {
       key: key,
       type: "hidden",
@@ -24168,12 +24150,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       value: value
     }, null, 8
     /* PROPS */
-    , _hoisted_33);
+    , _hoisted_34);
   }), 128
   /* KEYED_FRAGMENT */
   ))], 8
   /* PROPS */
-  , _hoisted_30)]);
+  , _hoisted_31)]);
 }
 
 /***/ }),

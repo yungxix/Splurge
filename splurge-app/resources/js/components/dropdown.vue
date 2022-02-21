@@ -55,7 +55,7 @@ export default {
             };
         },
         contentClass() {
-            return `drowndown-content ${this.align}`;
+            return `dropdown-content ${this.align}`;
         }
     }
 }

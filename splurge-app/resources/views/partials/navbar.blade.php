@@ -39,11 +39,18 @@ $items = [
         'url' => url('/about/contact'),
         'active' => Request::is('about/contact')
     ]
-
 ];
+
+if (Auth::check()) {
+    $items[] = [
+        'url' => url('/dashboard'),
+        'text' => 'Dashboard',
+        'active' => Request::is('dashboard*')
+    ];
+}
 @endphp
 
-<nav id="navbar" class="{{ isset($theme) ? $theme : 'admin' }}">
+<nav id="navbar" class="default">
     
 </nav>
 

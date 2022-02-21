@@ -912,7 +912,7 @@ body.has-collage {
     @apply text-white;
 
     .dropdown-content {
-        @apply absolute top-2 bg-white text-gray-800  z-50 mt-2 rounded-md shadow-md;
+        @apply absolute top-4 bg-white text-gray-800  z-50 mt-2 rounded-md shadow-md;
         a {
             @apply block text-gray-700 hover:text-gray-900 px-4 py-2;
         }
@@ -948,6 +948,13 @@ body.has-collage {
         .navbar-separator {
             @apply border-t border-pink-900 mx-2;
         }
+        .dropdown-toggle {
+            @apply flex items-center text-sm font-medium text-white 
+            hover:text-pink-200 
+            hover:border-pink-300 focus:outline-none 
+            focus:text-pink-700 focus:border-pink-300 
+            transition duration-150 ease-in-out;
+        }
     }
 
     &.admin {
@@ -973,6 +980,13 @@ body.has-collage {
 
         .navbar-separator {
             @apply border-t border-gray-900 mx-2;
+        }
+
+        .dropdown-toggle {
+            @apply flex items-center text-sm font-medium text-white 
+            hover:text-gray-200 hover:border-gray-300 
+            focus:outline-none focus:text-gray-200 
+            focus:border-gray-300 transition duration-150 ease-in-out;
         }
 
     }

@@ -21,8 +21,8 @@
             <div ref="userDowndown" class="hidden md:block" v-if="authenticated">
                     <dropdown width="188px" @close="showUserdropdown = false" :show="showUserdropdown">
                         <template  v-slot:trigger>
-                              <button @click="toggleUserDropdownMenu()" class="flex items-center text-sm font-medium text-white hover:text-gray-200 hover:border-pink-300 focus:outline-none focus:text-pink-700 focus:border-pink-300 transition duration-150 ease-in-out">
-                                <div>{{ username }}</div>
+                              <button @click="toggleUserDropdownMenu()" class="dropdown-toggle">
+                                <div>Welcome, {{ username }}</div>
                                 <div class="ml-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -86,7 +86,7 @@
                 </template>
                  <div class="navbar-separator"></div>
                 <template v-if="authenticated">
-                    <p>Hi, {{ username }}</p>
+                    <p class="ml-4 mb-4">Welcome, {{ username }}</p>
                     <template v-for="(item, index) in userDropdownItems" :key="index">
                         <a :class="getItemClass(item, true)" @click="actOnUserItem($event, item)" v-text="item.text"></a>    
                     </template>
@@ -95,7 +95,7 @@
             </div>
         </div>
     </transition>
-    <form ref="postForm" class="hidden h-0 w-0" :method="formMethod" :action="formUrl">
+    <form ref="postForm" class="hidden h-0 w-0" method="POST" :action="formUrl">
         <input type="hidden" name="_token" :value="xsrfToken" />
         <input type="hidden" name="_method" :value="formMethod" v-if="!isVirtualFormMethod()" />
         <template v-for="(value, key) in formParams" :key="key">
@@ -160,15 +160,10 @@ export default {
     },
     mounted() {
        this.xsrfToken =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-       this.globalClickHander = (event) => {
-           if (!this.$refs.userDowndown.contains(event.target)) {
-               this.showUserdropdown = false;
-           }
-       };
-       document.addEventListener('click', this.globalClickHander);
+       
     },
     beforeUnmount() {
-        document.removeEventListener('click', this.globalClickHander);
+        
     },
     methods: {
         toggleMobileMenu() {
@@ -186,16 +181,6 @@ export default {
                 active: item.active === true,
                 mobile: mobileItem
             };
-            // if (mobileItem) {
-            //     return {
-            //         'bg-pink-900 text-white block px-3 py-2 rounded-md text-base font-medium': item.active,
-            //         'text-white hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium': !item.active
-            //     };
-            // }
-            // return {
-            //     'bg-pink-900 text-white px-3 py-2 rounded-md text-sm font-medium': item.active,
-            //     'text-white hover:bg-pink-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium': !item.active
-            // };
         },
         getExtraItemAttributes(item) {
             if (item.active) {
@@ -205,11 +190,11 @@ export default {
         },
         actOnUserItem(event, item) {
             event.preventDefault();
-            if (item.form) {
+            if (item.form || item.method) {
                 if (this.submitting) {
                     return;
                 }
-                this.formMethod = item.form;
+                this.formMethod = item.form || item.method;
                 this.formParams = item.params || {};
                 this.formUrl = item.url;
                 this.submitting = true;
@@ -223,7 +208,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

@@ -1,4 +1,4 @@
-@extends(config('view.defaults.layout', 'layouts.old'))
+@extends('layouts.admin')
 
 @section('content')
     @include('partials.page-header', ['title' =>  __('Dashboard')])
