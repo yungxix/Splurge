@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@yield('title', 'Posts')
+@section('title', 'Posts')
 
 
 @section('content')
