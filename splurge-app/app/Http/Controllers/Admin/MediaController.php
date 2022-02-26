@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MediumRequest;
+use App\Http\Resources\MediaOwnerResource;
+use App\Models\MediaOwner;
+use App\Support\ModelResolver;
 use Illuminate\Http\Request;
 
 class MediaController extends Controller
@@ -33,9 +37,18 @@ class MediaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MediumRequest $request)
     {
-        //
+        $medium = $request->store();
+        
+        if ($request->wantsJson()) {
+            return new  MediaOwnerResource($medium);
+        }
+        $request->session()->flash('success_message', sprintf('Uploaded "%s" successfully', $medium->name));
+        if ($request->has('redir')) {
+            return redirect()->to($request->input('redir'));
+        }
+        return redirect()->back();
     }
 
     /**
@@ -78,8 +91,14 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $m =  ModelResolver::fromRoute($request->route('medium'), MediaOwner::class);
+        $m->delete();
+        if ($request->wantsJson()) {
+            return response()->json(['messge' => 'Deleted']);
+        }
+        $request->session()->flash('success_message', 'Medium has been deleted');
+        return redirect()->back();
     }
 }

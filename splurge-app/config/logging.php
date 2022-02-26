@@ -32,6 +32,8 @@ return [
 
     'deprecations' => env('LOG_DEPRECATIONS_CHANNEL', 'null'),
 
+    'log_queries' => env('LOG_QUERIES', false),
+
     /*
     |--------------------------------------------------------------------------
     | Log Channels

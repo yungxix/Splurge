@@ -27,6 +27,8 @@
      @stack('header_includes')
 </head>
 <body class="bg-white splurge @yield('body_class')">
+    <x-flash-grabber></x-flash-grabber>
+    
     <div class="min-h-full">
         @include('admin.partials.navbar')
         <main>

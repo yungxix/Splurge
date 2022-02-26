@@ -270,14 +270,14 @@
 }
 
 
-hr {
+/* hr {
     background: #fff;
     height    : 2px;
     border    : 0;
     margin    : 15px auto;
     width     : 60%;
 
-}
+} */
 /* 
 .service-desc p {
     font-size: 14px;
@@ -705,14 +705,7 @@ p {
     font-size  : 15px;
 }
 
-.btn {
-    width    : 60px;
-    position : absolute;
-    left     : 50%;
-    top      : 50%;
-    transform: translate(-50%, -50%);
-    cursor   : pointer;
-}
+
 
 .video-player {
     width    : 85%;
@@ -787,8 +780,8 @@ video:focus {
     cursor: pointer;
 }
 
-.link {
-    text-align: center;
+a.link {
+    @apply cursor-pointer text-pink-700 hover:text-pink-900;
 }
 
 .link .fa {
@@ -992,4 +985,44 @@ body.has-collage {
     }
 
 
+}
+
+
+.form-group {
+    @apply md:flex flex-row justify-start items-center mb-4;
+
+    .label-wrapper {
+        @apply md:w-1/4;
+    }
+
+    .control-wrapper {
+        @apply md:w-3/4;
+    }
+
+    .control-label {
+        @apply block font-medium text-sm text-gray-700;
+    }
+
+    .control {
+        @apply rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+    }
+
+
+    &.error {
+        .control-label {
+            @apply text-red-700;
+        }
+    
+        .control {
+            @apply border-red-300 focus:border-red-500 focus:ring focus:ring-red-700 focus:ring-opacity-50;
+        }   
+    }
+}
+
+.btn {
+    @apply inline-flex items-center px-4 py-2 bg-pink-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-pink-700
+     active:bg-pink-900 focus:outline-none
+      focus:border-pink-900 focus:ring
+       ring-pink-300 disabled:opacity-25
+        transition ease-in-out duration-150;
 }

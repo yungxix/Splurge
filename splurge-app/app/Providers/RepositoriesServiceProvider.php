@@ -22,6 +22,10 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->singleton(\App\Repositories\PostRepository::class, function ($app) {
             return new \App\Repositories\PostRepository();
         });
+
+        $this->app->singleton(\App\Repositories\MediaOwnerRepository::class, function ($app) {
+            return new \App\Repositories\MediaOwnerRepository();
+        });
     }
 
     /**

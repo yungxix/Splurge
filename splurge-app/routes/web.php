@@ -37,8 +37,9 @@ Route::prefix('events')->controller(EventsController::class)->name('events.')->g
 
 
 
-Route::prefix('gallery')->controller(GalleryController::class)->group(function () {
-    Route::get('/', 'index');
+Route::prefix('gallery')->name('gallery.')->controller(GalleryController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/{gallery}', 'show')->name('show');
 });
 
 

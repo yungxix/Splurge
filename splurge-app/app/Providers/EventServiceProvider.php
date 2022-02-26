@@ -2,6 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\Gallery;
+use App\Models\GalleryItem;
+use App\Models\PostItem;
+use App\Models\Post;
+use App\Observers\GalleryItemObserver;
+use App\Observers\GalleryObserver;
+use App\Observers\PostItemObserver;
+use App\Observers\PostObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +26,13 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+    ];
+
+    protected $observers = [
+        Gallery::class => [GalleryObserver::class],
+        GalleryItem::class => [GalleryItemObserver::class],
+        Post::class => [PostObserver::class],
+        PostItem::class => [PostItemObserver::class],
     ];
 
     /**

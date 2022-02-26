@@ -23,6 +23,7 @@
      @stack('header_includes')
 </head>
 <body class="bg-white splurge">
+    <x-flash-grabber></x-flash-grabber>
     <div class="min-h-full">
         @include('partials.navbar')
         <main>
