@@ -55,8 +55,7 @@ export default {
             };
         },
         contentClass() {
-            const positionClass = 'left' === this.align ? 'top-5 left-0' : 'top-5 left-auto right-0';
-            return `bg-${this.color || 'white'} absolute ${positionClass} z-50 mt-2 rounded-md shadow-md`;
+            return `dropdown-content ${this.align}`;
         }
     }
 }

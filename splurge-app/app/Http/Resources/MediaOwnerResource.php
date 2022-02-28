@@ -22,7 +22,8 @@ class MediaOwnerResource extends JsonResource
             'created_at' => $this->resource->created_at,
             'owner_type' => $this->resource->owner_type,
             'owner_id' => $this->resource->owner_id,
-            'image_options' => $this->resource->image_options ?: ['_x' => '0']
+            'image_options' => $this->resource->image_options ?: ['_x' => '0'],
+            'name' => $this->resource->name
         ];
     }
 }

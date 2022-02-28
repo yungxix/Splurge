@@ -21,16 +21,16 @@ $items = [
     ],
     [
         'text' => 'Gallery',
-        'url' => url('/gallery'),
-        'active' => Request::is('gallery*')
+        'url' => route('gallery.index'),
+        'active' => Request::is('*gallery*')
     ],
     [
         'text' => 'Services',
-        'url' => url('/services'),
-        'active' => Request::is('services')
+        'url' => route('services.index'),
+        'active' => Request::is('*services*')
     ],
     [
-        'text' => 'About',
+        'text' => 'About Us',
         'url' => url('/about'),
         'active' => Request::is('about')
     ],
@@ -39,11 +39,18 @@ $items = [
         'url' => url('/about/contact'),
         'active' => Request::is('about/contact')
     ]
-
 ];
+
+if (Auth::check()) {
+    $items[] = [
+        'url' => url('/dashboard'),
+        'text' => 'Dashboard',
+        'active' => Request::is('dashboard*')
+    ];
+}
 @endphp
 
-<nav id="navbar" class="bg-pink-600 primary">
+<nav id="navbar" class="default">
     
 </nav>
 

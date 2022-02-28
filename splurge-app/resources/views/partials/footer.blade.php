@@ -13,7 +13,7 @@
       <p class="text-sm"> <a href="#">Contacts</a> / <a href="https://instagram.co"> Teams </a> / <a>About Us</a> / <a>Terms</a></p>
     
   </div>
-  <hr />
+  <hr class="my-8" />
   <div class="container mx-auto">
     <div class="flex justify-between text-white">
       <span>

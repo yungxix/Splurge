@@ -32,7 +32,7 @@ const PageComponent = {
                 <template  v-for="(item, index) in page.group" :key="item.id">
                      <figure :class="gridItemClass(item)">
                         <img :alt="item.name" :src="item.url" />
-                        <figcaption v-text="item.name"></figcaption>
+                        <figcaption v-text="item.name" class="text-white"></figcaption>
                     </figure>
                 </template>
             </div>

@@ -46,3 +46,4 @@ coverage
 assets/*
 /public/images/
 /storage/
+/resources/js/components/admin

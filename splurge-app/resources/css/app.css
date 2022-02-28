@@ -270,14 +270,14 @@
 }
 
 
-hr {
+/* hr {
     background: #fff;
     height    : 2px;
     border    : 0;
     margin    : 15px auto;
     width     : 60%;
 
-}
+} */
 /* 
 .service-desc p {
     font-size: 14px;
@@ -705,14 +705,7 @@ p {
     font-size  : 15px;
 }
 
-.btn {
-    width    : 60px;
-    position : absolute;
-    left     : 50%;
-    top      : 50%;
-    transform: translate(-50%, -50%);
-    cursor   : pointer;
-}
+
 
 .video-player {
     width    : 85%;
@@ -787,8 +780,8 @@ video:focus {
     cursor: pointer;
 }
 
-.link {
-    text-align: center;
+a.link {
+    @apply cursor-pointer text-pink-700 hover:text-pink-900;
 }
 
 .link .fa {
@@ -906,4 +899,128 @@ body.has-collage {
 }
 .collage-content .heading {
     @apply py-4 text-center;
+}
+
+#navbar {
+    @apply text-white;
+
+    .dropdown-content {
+        @apply absolute top-4 bg-white text-gray-800  z-50 mt-2 rounded-md shadow-md;
+        a {
+            @apply block text-gray-700 hover:text-gray-900 px-4 py-2;
+        }
+
+        &.right {
+            @apply left-auto right-0;
+        }
+    }
+
+   
+
+    &.default {
+        @apply bg-pink-600;
+
+
+        a.desktop {
+            @apply text-white hover:bg-pink-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium;
+        }
+        a.desktop.active {
+            @apply bg-pink-900 text-white px-3 py-2 rounded-md text-sm font-medium; 
+        }
+
+        a.mobile {
+            @apply text-white hover:bg-pink-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium;
+        }
+        a.mobile.active {
+            @apply bg-pink-900 text-white block px-3 py-2 rounded-md text-base font-medium;
+        }
+    
+        #mobile-menu-trigger {
+            @apply bg-pink-800 inline-flex items-center justify-center p-2 rounded-md text-pink-400 hover:text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-pink-800 focus:ring-white;
+        }
+        .navbar-separator {
+            @apply border-t border-pink-900 mx-2;
+        }
+        .dropdown-toggle {
+            @apply flex items-center text-sm font-medium text-white 
+            hover:text-pink-200 
+            hover:border-pink-300 focus:outline-none 
+            focus:text-pink-700 focus:border-pink-300 
+            transition duration-150 ease-in-out;
+        }
+    }
+
+    &.admin {
+        @apply bg-gray-700;
+
+        #mobile-menu-trigger {
+            @apply bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white;
+        }
+
+        a.desktop {
+            @apply text-white hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium;
+        }
+        a.desktop.active {
+            @apply bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium; 
+        }
+
+        a.mobile {
+            @apply text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium;
+        }
+        a.mobile.active {
+            @apply bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium;
+        }
+
+        .navbar-separator {
+            @apply border-t border-gray-900 mx-2;
+        }
+
+        .dropdown-toggle {
+            @apply flex items-center text-sm font-medium text-white 
+            hover:text-gray-200 hover:border-gray-300 
+            focus:outline-none focus:text-gray-200 
+            focus:border-gray-300 transition duration-150 ease-in-out;
+        }
+
+    }
+
+
+}
+
+.control-label {
+    @apply block font-medium text-sm text-gray-700;
+}
+
+.control {
+    @apply rounded-md px-4 py-2 shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+}
+
+.form-group {
+    @apply md:flex flex-row justify-start items-start mb-4;
+
+    .label-wrapper {
+        @apply md:w-1/4;
+    }
+
+    .control-wrapper {
+        @apply md:w-3/4;
+    }
+
+    &.error {
+        .control-label {
+            @apply text-red-700;
+        }
+    
+        .control {
+            @apply border-red-300 focus:border-red-500 focus:ring focus:ring-red-700 focus:ring-opacity-50;
+        }   
+    }
+}
+
+.btn {
+    @apply inline-flex items-center px-4 py-2 bg-pink-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-pink-700
+     active:bg-pink-900 focus:outline-none
+      focus:border-pink-900 focus:ring
+       ring-pink-300 disabled:opacity-25
+        transition ease-in-out duration-150;
 }

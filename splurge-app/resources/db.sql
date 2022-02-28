@@ -28,3 +28,6 @@ alter table `media_owners` add `image_options` json null;
 alter table `galleries` add `image_options` json null;
 alter table `posts` add `image_options` json null;
 alter table `services` add `image_options` json null;
+
+ create table `user_roles` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `name` varchar(255) not null, `user_id` bigint unsigned not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+ alter table `user_roles` add index `user_roles_user_id_index`(`user_id`);
