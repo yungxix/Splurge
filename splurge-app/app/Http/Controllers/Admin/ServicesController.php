@@ -3,10 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ServiceRequest;
+use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
+use App\Models\Service;
 
 class ServicesController extends Controller
 {
+    private $repository;
+
+    public function __construct(ServiceRepository $repository)
+    {
+        $this->repository = $repository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class ServicesController extends Controller
      */
     public function index()
     {
-        return view('admin.screens.services.index');
+        return view('admin.screens.services.index', ['services' => $this->repository->all()]);
     }
 
     /**
@@ -22,9 +31,13 @@ class ServicesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $service = new Service([
+            'name' => $request->old('name', ''),
+            'description' => $request->old('description', '')
+        ]);
+        return view('admin.screens.services.create', ['service' => $service]);
     }
 
     /**
@@ -33,9 +46,11 @@ class ServicesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
-        //
+        $service = $request->saveItem();
+        $request->session()->flash('success_message', 'Saved new service');
+        return redirect()->to(route('admin.services.show', $service));
     }
 
     /**
@@ -44,9 +59,9 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Service $service)
     {
-        //
+        return view('admin.screens.services.show', ['service' => $service]);
     }
 
     /**
@@ -55,9 +70,9 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Service $service)
     {
-        //
+        return view('admin.screens.services.edit', ['service' => $service]);
     }
 
     /**
@@ -67,9 +82,11 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ServiceRequest $request, Service $service)
     {
-        //
+        $request->updateItem($service);
+        $request->session()->flash('success_message', 'Updated service');
+        return redirect()->to(route('admin.services.show', $service));
     }
 
     /**
@@ -78,8 +95,11 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Service $service)
     {
-        //
+
+        $service->delete();
+        $request->session()->flash('success_message', 'Service has been deleted');
+        return redirect()->route('admin.services.index');
     }
 }

@@ -38,9 +38,14 @@
     @push('scripts')
         <script>
             Splurge.gallery.render(document.getElementById('gallery_{{ $gallery->id }}_view'),
-            {{{ Js::from((new GalleryResource($gallery))->resolve(app('request'))) }}}, {});
+            {
+                {!! Js::from((new GalleryResource($gallery))->resolve(app('request'))) !!}
+            }, {});
         </script>
     @endpush
+
+
+    <x-tags :model="$gallery"></x-tags>
 </section>
 
 <p class="mb-6"></p>

@@ -19,37 +19,50 @@ use App\Http\Controllers\ServicesController;
 |
 */
 
+
+require __DIR__.'/auth.php';
+require __DIR__ . '/admin.php';
+
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/dashboard', 'showDashboard')->middleware(['auth'])->name('dashboard');
-});
-
-Route::prefix('services')->name('services.')->controller(ServicesController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/{service}', 'show')->name('show');
-});
-
-Route::prefix('events')->controller(EventsController::class)->name('events.')->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/{post}', 'show')->where(['post' => '[0-9]+'])->name('show');
-    Route::get('/{event_type}', 'ofType')->name('events_of_type');
+    Route::get('/search', 'getSearch')->name('search');
+    Route::get('/search/tagged', 'getTaggedSearch')->name('tagged');
 });
 
 
 
-Route::prefix('gallery')->name('gallery.')->controller(GalleryController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/{gallery}', 'show')->name('show');
+Route::controller(GalleryController::class)->prefix('splurge_gallery')->group(function () {
+    
+    Route::get('/{gallery}', 'show')->name('gallery.show');
+
+    Route::get('/', 'index')->name('gallery.index');
+});
+
+
+Route::controller(ServicesController::class)->prefix('splurge_services')->group(function () {
+    
+    Route::get('/{service}', 'show')->name('services.show');
+    Route::get('/', 'index')->name('services.index');
+});
+
+Route::controller(EventsController::class)->prefix('events')->name('events.')->group(function () {
+    Route::get('', 'index')->name('index');
+    Route::get('{post}', 'show')->where(['post' => '[0-9]+'])->name('show');
+    Route::get('{event_type}', 'ofType')->name('events_of_type');
+});
+
+Route::controller(EventsController::class)->prefix('posts')->name('posts..')->group(function () {
+    Route::get('', 'index')->name('index');
+    Route::get('{post}', 'show')->where(['post' => '[0-9]+'])->name('show');
+    Route::get('{event_type}', 'ofType')->name('events_of_type');
 });
 
 
 
-
-Route::prefix('about')->controller(AboutController::class)->group(function () {
+Route::prefix('/about')->controller(AboutController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/contact', 'showContact');
 });
 
 
-require __DIR__.'/auth.php';
-require __DIR__ . '/admin.php';

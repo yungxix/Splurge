@@ -16,4 +16,11 @@ class Post extends Model
     public function items() {
         return $this->hasMany(PostItem::class);
     }
+
+    public function scopeSearch($builder, $term) {
+        if (empty($term)) {
+            return $builder;
+        }
+        return $builder->where('name', 'like', "%$term%");
+    }
 }

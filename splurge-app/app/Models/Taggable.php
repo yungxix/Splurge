@@ -9,13 +9,13 @@ class Taggable extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tag_id'];
+    protected $fillable = ['tag_id', 'taggeable_id', 'taggeable_type'];
 
     public function tag() {
         return $this->belongsTo(Tag::class);
     }
 
     public function taggable() {
-        return $this->morphTo();
+        return $this->morphTo('taggeable');
     }
 }

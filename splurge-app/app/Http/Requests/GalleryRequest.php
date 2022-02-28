@@ -12,8 +12,11 @@ use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Support\Facades\DB;
+
 class GalleryRequest extends FormRequest
 {
+    use TaggableResourceRequest;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -36,37 +39,36 @@ class GalleryRequest extends FormRequest
                 'caption' => 'nullable|max:255',
                 'image_url' => 'nullable|mimes:jpg,jpeg,png|max:' . (4 * 1024),
                 'tags' => 'nullable|array',
-                'description' => 'nullable|max:1200'
+                'description' => 'nullable|max:1200',
+                'tags' => 'nullable|array',
             ];    
         }
         return [
             'caption' => 'required|max:255',
             'image_url' => 'required|mimes:jpg,jpeg,png|max:' . (4 * 1024),
             'tags' => 'nullable|array',
-            'description' => 'required|max:1200'
+            'description' => 'required|max:1200',
+            'tags' => 'nullable|array',
         ];
     }
 
     public function newGallery() {
-        $keys = ['caption', 'description'];
-        return new Gallery([
+        $gallery = new Gallery([
             'caption' => $this->old('caption'),
             'description' => $this->old('description')
         ]);
+
+
+        return $gallery;
     }
 
-    private function createTaggables() {
-        return array_map(function ($tag) {
-            return new Taggable(['tag_id' =>  $tag]);
-        }, $this->input('tags', []));
-    }
+
     public function createGallery() {
         $validated = $this->safe()->only(['caption', 'description']);
         $gallery = new Gallery(array_merge($validated, $this->storeMedia()));
-        if ($this->has("tags")) {
-            $gallery->taggables =  $this->createTaggables();
-        }
         $gallery->saveOrFail();
+        
+        $this->saveTags($gallery);
         return $gallery;
     }
 
@@ -74,10 +76,7 @@ class GalleryRequest extends FormRequest
         $validated = $this->safe()->only(['caption', 'description']);
         $gallery->fill(array_merge($validated, $this->storeMedia()));
         $gallery->saveOrFail();
-        if ($this->has('tags')) {
-            $gallery->taggables()->delete();
-            $gallery->taggables()->saveMany($this->createTaggables());
-        }
+        $this->saveTags($gallery);
         return $gallery;
     }
 

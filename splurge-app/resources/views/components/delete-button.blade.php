@@ -9,8 +9,16 @@
 </form>
 @push('scripts')
     <script>
-        document.querySelector('#{{ $uniqueId }}_trigger').onclick = function () {
+        document.querySelector('#{{ $uniqueId }}_trigger').onclick = function (e) {
+            e.preventDefault();
+            @unless (empty($prompt))
+                if (!confirm("{{ $prompt }}")) {
+                    return false;
+                }    
+            @endunless
+            
             document.querySelector('#{{ $uniqueId }}_form').submit();
+            return false;
         };
     </script>
 @endpush

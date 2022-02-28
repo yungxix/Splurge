@@ -27,11 +27,7 @@ class PostObserver
      */
     public function updated(Post $post)
     {
-        MediaOwner::where([
-            'owner_type' => PostItem::class,
-            'owner_id' => PostItem::select('id')->where('post_id', $post->id)])->delete();
-
-        $post->items()->delete();
+       
     }
 
     /**
@@ -42,7 +38,12 @@ class PostObserver
      */
     public function deleted(Post $post)
     {
-        //
+        MediaOwner::where([
+            'owner_type' => PostItem::class,
+            'owner_id' => PostItem::select('id')->where('post_id', $post->id)])->delete();
+
+        $post->items()->delete();
+        $post->taggables()->delete();
     }
 
     /**

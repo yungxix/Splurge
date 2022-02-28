@@ -24,42 +24,19 @@
             <em>{{ $post->created_at->diffForHumans() }}</em>
         </div>    
         <div class="md:flex flex-row">
-            <div class="md:w-2/3 md:px-4">
+            <div class="md:w-2/3 md:px-4 pb-8">
                 <article>
                     
         
                     <div class="">
                         {{ HtmlHelper::toParagraphs($post->description, 'text-justify') }}
             
-                    @foreach ($post->items as $item)
-                        <section>
-                            @unless (empty($item->image_url))
-                            <div class="grid grid-cols-2 mb-1">
-                                <div class="bg-pink-500">
-                                    <img class="block w-full" src="{{ $item->image_url }}" />
-                                </div>
-                                <div class="bg-white p-2">
-                                    <h5 class="font-bold">{{ $item->name }}</h5>
-                                </div>
-                            </div>
-                            @else
-                            <h5 class="font-bold mb-1">{{ $item->name }}</h5>    
-                            @endunless
-                            {{ HtmlHelper::toParagraphs($item->content, 'text-justify') }}
-                        </section>
-                    @endforeach
-        
-        
-                    @unless ($post->taggables->isEmpty())
-                        <div class="mt-4 p-2">
-                            Tags: 
-                            @foreach ($post->taggables as $t)
-                                <span class="px-4 py-2 bg-pink-500 text-black rounded">
-                                    {{ $t->tag->name }}
-                                </span>
-                            @endforeach
-                        </div>
-                    @endunless
+                        @foreach ($post->items as $item)
+                            <x-post-item :post_item="$item"></x-post-item>
+                        @endforeach
+            
+            
+                        <x-tags :model="$post"></x-tags>
                     </div>
             
                     

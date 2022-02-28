@@ -26,6 +26,9 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->singleton(\App\Repositories\MediaOwnerRepository::class, function ($app) {
             return new \App\Repositories\MediaOwnerRepository();
         });
+        $this->app->singleton(\App\Repositories\Tag::class, function ($app) {
+            return new \App\Repositories\TagRepository();
+        });
     }
 
     /**

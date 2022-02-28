@@ -5,6 +5,7 @@
     if (!isset($method)) {
         $method = 'POST';
     }
+    $taggable = ['id' => $gallery->id ?: -1, 'type' => 'gallery'];
 @endphp
 <form  enctype="multipart/form-data" class="mt-4" action="{{ $url }}" method="POST">
     @unless ($method === 'POST')
@@ -47,9 +48,17 @@
                 Description
             </x-label>
         </x-slot:label>
-        <textarea name="description" class="control w-full" required>{{ $gallery->description }}</textarea>
+        <textarea name="description" rows="15" class="control w-full" required>{{ $gallery->description }}</textarea>
     </x-forms.form-group>
-
+    
+    <x-forms.form-group :field="'tags'" :errors="$errors">
+        <x-slot:label>
+            <x-label>
+                Tags
+            </x-label>
+        </x-slot:label>
+        <x-admin.tags-selector :name="'tags[]'" :taggable="$taggable"></x-admin.tags-selector>
+    </x-forms.form-group>
     <div class="p-4 flex flex-row items-center gap-x-4 justify-end">
         <a href="{{ $cancel_url }}" class="btn">Cancel</a>
         <button type="submit" class="btn">

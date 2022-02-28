@@ -16,7 +16,7 @@
             </thead>
             @if (isset($footer))
             <tfoot class="bg-pink-100">
-                <t>
+                <tr>
                     <td colspan="{{ count($columns)}}">
                         {{ $footer }}
                     </td>

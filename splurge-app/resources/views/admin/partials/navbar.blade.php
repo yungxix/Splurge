@@ -44,6 +44,19 @@ $items = [
         logoUrl: '{{ url('/') }}',
         authenticated: {{ Auth::check() ? 'true' : 'false'  }}, {{-- I am doing the check this way because it returns an empty value when no logged in user--}}
         username: "{{ Auth::check() ?  Auth::user()->name : '' }}",
+        @can('admin')
+        userDropdownItems: [
+            {
+                text: 'Manage tags',
+                url: '{{ route('admin.tags.index') }}'
+            },
+            {
+                text: 'Sign out',
+                url: '{{ route('logout') }}',
+                form: 'POST'
+            }
+        ],
+        @else    
         userDropdownItems: [
             {
                 text: 'Sign out',
@@ -51,6 +64,8 @@ $items = [
                 form: 'POST'
             }
         ],
+        @endcan
+        
         loginUrl: '{{ url('/login') }}'
     })
     </script>

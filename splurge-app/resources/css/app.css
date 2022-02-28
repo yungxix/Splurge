@@ -987,9 +987,16 @@ body.has-collage {
 
 }
 
+.control-label {
+    @apply block font-medium text-sm text-gray-700;
+}
+
+.control {
+    @apply rounded-md px-4 py-2 shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+}
 
 .form-group {
-    @apply md:flex flex-row justify-start items-center mb-4;
+    @apply md:flex flex-row justify-start items-start mb-4;
 
     .label-wrapper {
         @apply md:w-1/4;
@@ -998,15 +1005,6 @@ body.has-collage {
     .control-wrapper {
         @apply md:w-3/4;
     }
-
-    .control-label {
-        @apply block font-medium text-sm text-gray-700;
-    }
-
-    .control {
-        @apply rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
-    }
-
 
     &.error {
         .control-label {

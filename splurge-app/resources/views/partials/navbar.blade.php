@@ -21,16 +21,16 @@ $items = [
     ],
     [
         'text' => 'Gallery',
-        'url' => url('/gallery'),
-        'active' => Request::is('gallery*')
+        'url' => route('gallery.index'),
+        'active' => Request::is('*gallery*')
     ],
     [
         'text' => 'Services',
-        'url' => url('/services'),
-        'active' => Request::is('services')
+        'url' => route('services.index'),
+        'active' => Request::is('*services*')
     ],
     [
-        'text' => 'About',
+        'text' => 'About Us',
         'url' => url('/about'),
         'active' => Request::is('about')
     ],

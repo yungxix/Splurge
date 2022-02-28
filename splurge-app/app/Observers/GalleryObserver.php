@@ -43,7 +43,8 @@ class GalleryObserver
             'owner_id' => GalleryItem::select('id')->where('gallery_id', $gallery->id)])
         ->delete();
 
-        GalleryItem::where('gallery_id', $gallery->id)->delete();
+        $gallery->items()->delete();
+        $gallery->taggables()->delete();
     }
 
     /**

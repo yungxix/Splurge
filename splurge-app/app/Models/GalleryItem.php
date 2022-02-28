@@ -14,4 +14,11 @@ class GalleryItem extends Model
     public function gallery() {
         return $this->belongsTo(Gallery::class);
     }
+
+    public function scopeSearch($builder, $term) {
+        if (empty($term)) {
+            return $builder;
+        }
+        return $builder->where('heading', 'like', "%$term%");
+    }
 }

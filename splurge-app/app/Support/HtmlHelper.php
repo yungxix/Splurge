@@ -9,9 +9,11 @@ class HtmlHelper {
     public static function toParagraphs(string $text, $class_name = NULL) {
         $class_str = is_null($class_name) ? '' : e($class_name);
 
-        $lines =  implode(", ", array_map(function ($str) use ($class_str) {
+        $lines1 = array_filter(preg_split("/\r\n|\n|\r/", e($text)), fn ($str) => !empty($str));
+
+        $lines =  implode("", array_map(function ($str) use ($class_str) {
             return "<p class=\"$class_str\">$str</p>";
-        }, explode('\n', e($text))));
+        }, $lines1));
 
         return new HtmlString($lines);
     }

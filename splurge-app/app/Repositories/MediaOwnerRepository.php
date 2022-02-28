@@ -14,7 +14,10 @@ class MediaOwnerRepository {
         if ($request->has('type')) {
             $query = $query->where('owner_type', static::translateType($request->input('type')));
         }
-        return $query->orderBy('created_at', 'desc')->paginage()->appends($request->only(['type']));
+        if (!empty($request->input('q', ''))) {
+            $query = $query->where('name', 'like', "%{$request->input('q')}%");
+        }
+        return $query->orderBy('created_at', 'desc')->paginate()->appends($request->only(['type', 'q']));
     }
 
 

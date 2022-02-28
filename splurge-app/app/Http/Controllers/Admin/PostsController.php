@@ -3,18 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
+use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostsController extends Controller
 {
+    private $repository;
+
+    public function __construct(PostRepository $repository)
+    {
+        $this->repository = $repository;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.screens.posts.index');
+        return view('admin.screens.posts.index',
+         ['posts' => $this->repository->findAll($request, null, ['load_authors', 'load_items_count'])]);
     }
 
     /**
@@ -22,9 +32,13 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $post = new Post([
+            'name' => $request->old('name'),
+            'description' => $request->old('description')
+        ]);
+        return view('admin.screens.posts.create', ['post' => $post]);
     }
 
     /**
@@ -33,9 +47,11 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $post = $request->createItem();
+        $request->session()->flash('success_message', 'Saved new post');
+        return redirect()->route('admin.posts.show', $post);
     }
 
     /**
@@ -44,9 +60,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        $post->load(['items' => fn ($q) => $q->orderBy('created_at', 'asc'), 'items.mediaItems', 'author']);
+        return view('admin.screens.posts.show', ['post' => $post]);
     }
 
     /**
@@ -55,9 +72,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('admin.screens.posts.edit', ['post' => $post]);
     }
 
     /**
@@ -67,9 +84,11 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+        $request->updateItem($post);
+        $request->session()->flash('success_message', 'Updated post');
+        return redirect()->route('admin.posts.show', $post);
     }
 
     /**
@@ -78,8 +97,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Post $post)
     {
-        //
+        $post->delete();
+        $request->session()->flash('success_message', 'Deleted post');
+        return redirect()->route('admin.posts.index');
     }
 }

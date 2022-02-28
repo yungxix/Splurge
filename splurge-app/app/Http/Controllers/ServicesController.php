@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
+use App\Models\Service;
 
 class ServicesController extends Controller
 {
@@ -17,7 +18,7 @@ class ServicesController extends Controller
          ['services' => $this->repository->all()]);
     }
 
-    public function show(Request $request) {
-        return $this->index($request);
+    public function show(Request $request, Service $service) {
+        return view('screens.services.show', ['service' => $service]);
     }
 }

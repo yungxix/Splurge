@@ -5,6 +5,7 @@ namespace App\Repositories;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class PostRepository {
     public function forWidget() {
@@ -17,8 +18,14 @@ class PostRepository {
         return Post::where("id", "<>", $postId)->orderBy('created_at', 'desc')->limit($limit)->get();
     }
 
-    public function findAll(Request $request, $tag = NULL) {
-        $posts = Post::whereRaw("1=1");
+    public function findAll(Request $request, $tag = NULL, $options = []) {
+        $posts = (new Post())->newQuery();
+        if (Arr::get($options, 'load_authors', false)) {
+            $posts = $posts->with('author');
+        }
+        if (Arr::get($options, 'load_items_count', false)) {
+            $posts = $posts->withCount('items');
+        }
         if (!is_null($tag)) {
             $posts = $posts->whereHas('taggables', function ($query) use ($tag) {
                 return $query->whereHas('tag', function ($q) use ($tag) {
@@ -34,4 +41,5 @@ class PostRepository {
         }
         return $posts->orderBy('created_at', 'desc')->simplePaginate();
     }
+
 }

@@ -6,19 +6,30 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MediumRequest;
 use App\Http\Resources\MediaOwnerResource;
 use App\Models\MediaOwner;
+use App\Repositories\MediaOwnerRepository;
 use App\Support\ModelResolver;
 use Illuminate\Http\Request;
 
 class MediaController extends Controller
 {
+    private $repository;
+
+    public function __construct(MediaOwnerRepository $repo)
+    {
+        $this->repository = $repo;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.screens.media.index');
+        $items = $this->repository->findAll($request);
+        if ($request->wantsJson()) {
+            return MediaOwnerResource::collection($items);
+        }
+        return view('admin.screens.media.index', ['media_owners' => $items]);
     }
 
     /**
