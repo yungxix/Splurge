@@ -87,7 +87,7 @@ class GalleryRequest extends FormRequest
     private function storeMedia() {
         $key = 'image_url';
         if ($this->hasFile($key)) {
-            $path = 'gallery';
+            $path = 'images/gallery';
             $file = $this->file($key);
             $name = 'gallery_' . Str::random() . '.' . $file->getClientOriginalExtension();
             Storage::putFileAs($path,

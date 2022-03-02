@@ -78,8 +78,8 @@ class GalleryItemRequest extends FormRequest
         string $name,
         UploadedFile $file
     ) {
-        $path = 'gallery';
-        $thumbnail_path = 'gallery/thumbnails';
+        $path = 'images/gallery';
+        $thumbnail_path = "$path/thumbnails";
 
         $dest = Storage::putFile($path, $file, ['visibility' => 'public', 'access' => 'public']);
 

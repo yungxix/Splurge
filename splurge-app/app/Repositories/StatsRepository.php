@@ -2,15 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Models\Gallery;
 use App\Models\Service;
 use App\Models\Post;
 use Illuminate\Support\Carbon;
 use App\Models\GalleryItem;
 
 use App\Models\PostItem;
-
-use Illuminate\Support\Collection;
 
 use Illuminate\Support\Facades\Cache;
 

@@ -51,7 +51,7 @@ class ServiceRequest extends FormRequest
         return DB::transaction(function () {
             $attributes = $this->safe()->only(['name', 'description']);
 
-            $uploader = new UploadProcessor($this, 'services', 'image_url', true);
+            $uploader = new UploadProcessor($this, 'images/services', 'image_url', true);
 
             if (($extra = $uploader->handle())) {
                 $attributes = array_merge($attributes, $extra);

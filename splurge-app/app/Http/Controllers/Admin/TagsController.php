@@ -113,7 +113,7 @@ class TagsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Tag $tag, Request $request)
+    public function update(Tag $tag, TagRequest $request)
     {
         $tag = $request->updateTag($tag);
         if ($request->wantsJson()) {

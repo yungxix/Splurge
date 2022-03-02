@@ -65,7 +65,7 @@ class PostItemRequest extends FormRequest
         $file_key  = 'medium_file';
         if ($this->hasFile($file_key)) {
             $file = $this->file($file_key);
-            $uploader = new UploadProcessor($this, 'posts', $file_key, true, 'url', 'thumbnail_url');
+            $uploader = new UploadProcessor($this, 'images/posts', $file_key, true, 'url', 'thumbnail_url');
             $image_attrs = $uploader->handleFile($file);
             $name = $this->input('medium_name');
             if (empty($name)) {

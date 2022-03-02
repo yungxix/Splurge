@@ -30,8 +30,7 @@
                     </a>
                     {{HtmlHelper::toParagraphs(Str::limit($item->description, 250, '...'))}}
                     <p class="mt-8 text-gray-700 text-right text-sm">
-                        {{$item->items_count}} {{ Str::plural('section', $item->items_count) }},&nbsp;
-                        created {{ $item->created_at->diffForHumans() }}.
+                        Created {{ $item->created_at->diffForHumans() }}.
                         @if (Auth::id() === $item->author_id)
                             <em>Posted by me</em>
                         @elseif (!is_null($item->author))

@@ -97,8 +97,8 @@ window.Splurge.admin = {
         }
     },
     tags : {
-        renderTableView(target, tags) {
-            const app = createApp(TagsTableView, {tags});
+        renderTableView(target, tags, options = {}) {
+            const app = createApp(TagsTableView, {tags, ...options});
             app.mount(target);
         },
         renderAssignment(target, options) {

@@ -5,7 +5,8 @@
     <script>
         Splurge.admin.tags.renderAssignment(document.getElementById('assignments_app'), {
             taggable: {!! Js::from($taggable) !!},
-            indexUrl: '{{ route('admin.tags.index') }}'
+            indexUrl: '{{ route('admin.tags.index') }}',
+            baseURL: '{{ route('admin.tags.index') }}'
         })
     </script>
 @endpush

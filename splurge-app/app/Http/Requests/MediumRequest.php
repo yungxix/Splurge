@@ -30,10 +30,10 @@ class MediumRequest extends FormRequest
 
 
     static $paths = [
-        Post::class => 'posts',
-        Service::class => 'services',
-        GalleryItem::class => 'gallery',
-        Gallery::class => 'gallery'
+        Post::class => 'images/posts',
+        Service::class => 'images/services',
+        GalleryItem::class => 'images/gallery',
+        Gallery::class => 'images/gallery'
     ];
     /**
      * Determine if the user is authorized to make this request.
