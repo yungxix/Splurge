@@ -32,7 +32,7 @@ $items = [
 ];
 @endphp
 
-<nav id="navbar" class="admin">
+<nav id="navbar">
     
 </nav>
 

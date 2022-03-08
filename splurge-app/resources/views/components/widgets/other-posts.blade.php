@@ -12,14 +12,14 @@
             @endif
             @if (empty($post->image_url) && empty($post->thumbnail_image_url) )
                 
-                <a href="{{ route('events.show', ['post' => $post->id]) }}" class="block my-4 p-2 hover:bg-pink-700  hover:text-white">
+                <a href="{{ route('events.show', ['post' => $post->id]) }}" class="block my-4 p-2 hover:bg-splarge-700  hover:text-white">
                     <h5 class="font-semibold">{{ $post->name }}</h5>
                     <p>
                         {{ Str::limit($post->description, 120, '...') }}
                     </p>
                 </a>
             @else
-                <a href="{{ route('events.show', ['post' => $post->id]) }}" class="block my-4 p-2 hover:bg-pink-700  hover:text-white">
+                <a href="{{ route('events.show', ['post' => $post->id]) }}" class="block my-4 p-2 hover:bg-splarge-700  hover:text-white">
                     <div class="grid grid-cols-2">
                         <div>
                             <img class="w-full rounded-tl-md"  alt="{{ $post->name  }} image" src="{{ asset($post->thumbnail_image_url ?: $post->image_url) }}" />

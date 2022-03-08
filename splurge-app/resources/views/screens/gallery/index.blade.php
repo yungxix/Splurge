@@ -11,7 +11,7 @@
 
 
 @section('content')
-<section id="gallery" class="bg-stone-900 text-white py-8 md:py-12">
+<section id="gallery" class="bg-splurge-900 text-gray-800 py-8 md:py-12">
     <div class="galla">
         <h5 class="text-center text-3xl mb-4">LUXURY WEDDINGS IMAGE GALLERY</h5>
         <p class="text-center"> Thank you to all the talented photographers we work with who so beautifully capture the celebrations we plan and produce.<br>

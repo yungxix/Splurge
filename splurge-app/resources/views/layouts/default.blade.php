@@ -28,8 +28,8 @@
 </head>
 <body class="bg-white splurge @yield('body_class')">
   <x-flash-grabber></x-flash-grabber>
+  @include('partials.navbar', ['class' => isset($navbar_class) ? $navbar_class : ''])
     <div class="min-h-full">
-        @include('partials.navbar')
         <main>
           <div class="w-full">
             <!-- Replace with your content -->
@@ -39,6 +39,7 @@
           </div>
         </main>
       </div>
+      
       <script src="{{ mix('js/app.js') }}"></script>
 
       @stack('scripts')

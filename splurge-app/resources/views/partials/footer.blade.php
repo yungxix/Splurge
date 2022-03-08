@@ -15,8 +15,8 @@
   </div>
   <hr class="my-8" />
   <div class="container mx-auto">
-    <div class="flex justify-between text-white">
-      <span>
+    <div class="md:grid grid-cols-2  text-white">
+      <p>
         @php
           $follow_items = [
               [
@@ -46,9 +46,11 @@
               <i class="{{ $item['icon_class'] }}"></i>
             </a>
           @endforeach
-      </span>
+      </p>
+      <p class="text-center pt-4 md:pt-0 md:text-right">
+        <em>Copyrights {{ Carbon::now()->format('Y') }} SerenSplurge Events. All right reserved</em>
+      </p>
       
-      <em>Copyrights {{ Carbon::now()->format('Y') }} SerenSplurge Events. All right reserved</em>
     </div>
   </div>
  

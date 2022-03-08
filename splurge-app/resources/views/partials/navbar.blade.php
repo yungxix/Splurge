@@ -50,7 +50,7 @@ if (Auth::check()) {
 }
 @endphp
 
-<nav id="navbar" class="default">
+<nav id="navbar" class="{{ isset($class) ? $class : "" }}">
     
 </nav>
 

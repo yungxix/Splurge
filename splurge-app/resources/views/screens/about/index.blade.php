@@ -1,5 +1,6 @@
-@extends(config('view.defaults.layout', ['title' => 'About']))
+@extends(config('view.defaults.layout'), ['navbar_class' => 'overbanner'])
 
+@section('title', 'About')
 
 @section('content')
   @include('partials.landing.slides')
@@ -18,15 +19,15 @@
                         <div class="flex flex-row gap-x-4 justify-between items-center">
                             <div>
                                 <img src="{{ asset('images/p4.jpeg') }}" alt="">
-                                <p class="text-red-800 md:text-lg font-semibold text-center">Eloquent Events</p>
+                                <p class="text-splarge-800 md:text-lg font-semibold text-center">Eloquent Events</p>
                             </div>
                             <div>
                                 <img src="{{ asset('images/l1.jpg') }}" alt="">
-                                <p class="text-red-800 md:text-lg font-semibold text-center">Memorable Momments</p>
+                                <p class="text-splarge-800 md:text-lg font-semibold text-center">Memorable Momments</p>
                             </div>
                             <div>
                                 <img src="{{ asset('images/q2.jpeg') }}" alt="">
-                                <p class="text-red-800 md:text-lg font-semibold text-center">Luxurious Weddings</p>
+                                <p class="text-splarge-800 md:text-lg font-semibold text-center">Luxurious Weddings</p>
                             </div>      
                         </div>
                         <p class="mb-8"></p>
@@ -34,7 +35,7 @@
                     @endif
                     @include('partials.map')
                 </div>
-                <div class="md:w-1/3 bg-gray-300 p-4 md:rounded-md">
+                <div class="md:w-1/3 bg-gray-50 p-4 md:rounded-md">
                     <x-widgets.other-posts title="Recent Events" :post_id="-1"></x-widgets.other-posts>
                     <x-widgets.recent-gallery></x-widgets.recent-gallery>
                 </div>

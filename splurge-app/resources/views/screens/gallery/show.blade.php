@@ -11,7 +11,7 @@
 
 
 @section('content')
-<section id="gallery" class="bg-stone-900 text-white py-8 md:py-12">
+<section id="gallery" class="bg-splurge-900 text-gray-800 py-8 md:py-12">
     <div class="flex flex-row justify-center">
         <figure class="max-h-56 block overflow-clip">
             <img class="block shadow-md" src="{{ asset($gallery->image_url) }}" alt="{{ $gallery->caption }} banner picture" />
