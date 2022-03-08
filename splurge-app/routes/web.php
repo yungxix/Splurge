@@ -25,6 +25,7 @@ require __DIR__ . '/admin.php';
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
+    Route::get('', 'index')->name('home2');
     Route::get('/dashboard', 'showDashboard')->middleware(['auth'])->name('dashboard');
     Route::get('/search', 'getSearch')->name('search');
     Route::get('/search/tagged', 'getTaggedSearch')->name('tagged');
