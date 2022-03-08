@@ -14,7 +14,9 @@
 
     @push('scripts')
         <script>
-            Splurge.admin.tags.renderTableView(document.querySelector('#tags_app'), {!! Js::from($tags) !!});
+            Splurge.admin.tags.renderTableView(document.querySelector('#tags_app'), {!! Js::from($tags) !!}, {
+                baseURL: '{{ route('admin.tags.index') }}'
+            });
         </script>
     @endpush
 @endsection

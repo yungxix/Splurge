@@ -50,7 +50,7 @@ class PostRequest extends FormRequest
         return DB::transaction(function () {
             $attributes = $this->safe()->only(['name', 'description']);
 
-            $uploader = new UploadProcessor($this, 'posts', 'image_url', true);
+            $uploader = new UploadProcessor($this, 'images/posts', 'image_url', true);
 
             if (($extra = $uploader->handle())) {
                 $attributes = array_merge($attributes, $extra);

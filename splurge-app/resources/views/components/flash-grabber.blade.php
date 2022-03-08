@@ -1,10 +1,11 @@
 @php
-    use App\Support\HtmlHelper;    
+    use App\Support\HtmlHelper;
+
 @endphp
 
 
-@unless (empty($messages))
-    <div id="flash_container" class="absolute z-50 flex flex-col justify-end gap-y-4 left-auto right-0 overflow-visible">
+@unless (($messages)->isEmpty())
+    <div id="flash_container" class="absolute z-50 flex flex-col mt-24 justify-end gap-y-4 left-auto right-0 overflow-visible">
         
     </div>    
 
