@@ -18,11 +18,11 @@
       @foreach ($services->chunk(3) as $group)
         <div class="grid md:grid-cols-3 gap-2 lg:gap-4">
           @foreach ($group as $service)
-          <a class="rounded-lg  mb-4  overflow-hidden ring ring-pink-600 block focus:ring-pink-300 hover:ring-pink-300" href="{{ route('services.show', ['service' => $service['id']]) }}">
+          <a class="rounded-lg  mb-4  overflow-hidden ring ring-splarge-600 block focus:ring-splarge-300 hover:ring-splarge-300" href="{{ route('services.show', ['service' => $service['id']]) }}">
             <div class="overflow-clip">
               <img class="block w-full" src="{{ asset($service['image_url']) }}" alt="{{ $service['name'] }} service picture"  />
             </div>
-            <div class="px-4 py-2 bg-pink-900 text-white">
+            <div class="px-4 py-2 bg-splarge-900 text-white">
               {{ $service['name'] }}
             </div>
             <div class="px-4 pt-2 bg-white text-gray-900">

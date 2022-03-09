@@ -22,7 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Italianno&family=Itim&family=Poppins:ital,wght@0,200;0,400;0,500;1,200;1,500&display=swap"
      rel="stylesheet">
      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}" />
 
      @stack('header_includes')
 </head>
@@ -40,7 +40,7 @@
         </main>
       </div>
       
-      <script src="{{ mix('js/app.js') }}"></script>
+      <script src="{{ asset(mix('js/app.js')) }}"></script>
 
       @stack('scripts')
 

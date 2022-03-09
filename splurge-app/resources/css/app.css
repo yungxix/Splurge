@@ -767,20 +767,8 @@ a.link {
     display: inline-block;
 }
 
-#wedding {
-    /* width:100vh; */
-    /* padding-left: 2px; */
-}
 
 #lerop {
-    height: 100%;
-}
-
-#carouselExampleCaptions {
-    height: 100%;
-}
-
-#seren {
     height: 100%;
 }
 
@@ -838,7 +826,7 @@ body.has-collage {
     }
 
     a.desktop {
-        @apply text-white hover:bg-splarge-800 px-3 py-2 rounded-md text-sm font-medium;
+        @apply text-splarge-800 hover:bg-splarge-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium;
     }
     a.desktop.active {
         @apply bg-splarge-900 text-white px-3 py-2 rounded-md text-sm font-medium; 

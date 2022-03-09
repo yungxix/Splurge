@@ -9,7 +9,7 @@
         </h4>
         <div class="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4">
             @foreach ($posts as $post)
-                <a class="block rounded-md overflow-clip hover:ring ring-pink-700" href="{{ route('events.show', $post) }}">
+                <a class="block rounded-md overflow-clip hover:ring ring-splarge-700" href="{{ route('events.show', $post) }}">
                     <figure class="w-full">
                         <img class="w-full" src="{{ splurge_asset($post->thumbnail_image_url ?: $post->image_url) }}" alt="{{ $post->name }} event picture" />
                         <figcaption class="px-4">

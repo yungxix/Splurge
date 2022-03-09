@@ -13,7 +13,7 @@
             <div class="md:flex flex-row">
                 <div class="md:w-2/3 md:pr-4">
                     @include('partials.contact')
-                    <hr class="mt-4 md:mt-8 bg-pink-500 h-px text-pink-300" />
+                    <hr class="mt-4 md:mt-8 bg-splarge-500 h-px text-splarge-300" />
                     @if (true)
                     <div class="mt-4 md:mt-10">
                         <div class="flex flex-row gap-x-4 justify-between items-center">
