@@ -60,6 +60,9 @@
                 Tags
             </x-label>
         </x-slot:label>
+        <p class="bg-gray-200 rounded-md m-4 p-4">
+            <em>Adding tags to services will create links between the service and events or a selection of gallery items</em>
+        </p>
         <x-admin.tags-selector :name="'tags[]'" :taggable="$taggable"></x-admin.tags-selector>
     </x-forms.form-group>
 

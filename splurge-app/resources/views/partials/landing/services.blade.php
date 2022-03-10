@@ -14,15 +14,17 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
             @foreach ($services as $service)
             <div class="single-service">
-              <img src="{{ asset($service['image_url']) }}" alt="{{ $service['name'] }}" />
-              <div class="overlay"></div>
-              <div class="service-desc">
-                  <h4>{{ $service['name'] }}</h4>
-                  <hr>
-                  <p>
-                    {{ Str::limit($service['description'], 120, '...') }}
-                  </p>
-              </div>
+              <a href="{{ route('services.show', $service) }}?events=1">
+                <img src="{{ asset($service['image_url']) }}" alt="{{ $service['name'] }}" />
+                <div class="overlay"></div>
+                <div class="service-desc">
+                    <h4>{{ $service['name'] }}</h4>
+                    <hr>
+                    <p>
+                      {{ Str::limit($service['description'], 120, '...') }}
+                    </p>
+                </div>
+              </a>
             </div>
             @endforeach
   

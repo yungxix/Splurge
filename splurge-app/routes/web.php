@@ -29,6 +29,9 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/dashboard', 'showDashboard')->middleware(['auth'])->name('dashboard');
     Route::get('/search', 'getSearch')->name('search');
     Route::get('/search/tagged', 'getTaggedSearch')->name('tagged');
+    Route::get('/book', 'getBooking')->name('book');
+    Route::get('/book/{service}', 'getBookingForService')->name('book_service');
+    Route::post('/book', 'submitBooking')->name('post_book');
 });
 
 
@@ -53,7 +56,7 @@ Route::controller(EventsController::class)->prefix('events')->name('events.')->g
     Route::get('{event_type}', 'ofType')->name('events_of_type');
 });
 
-Route::controller(EventsController::class)->prefix('posts')->name('posts..')->group(function () {
+Route::controller(EventsController::class)->prefix('posts')->name('posts.')->group(function () {
     Route::get('', 'index')->name('index');
     Route::get('{post}', 'show')->where(['post' => '[0-9]+'])->name('show');
     Route::get('{event_type}', 'ofType')->name('events_of_type');

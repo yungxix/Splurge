@@ -10,12 +10,13 @@
 @section('content')
 
 <section class="container mx-auto py-6">
+  <img class="w-full" src="{{ splurge_asset($service->image_url) }}" alt="{{ $service->name }} banner" />
   <div class="pt-8 mb-4">
     <h1 class="text-3xl font-bold">{{ $service->name }}</h1>
   </div>
   <div class="md:flex flex-row">
     <div class="md:w-2/3 md:p-4">
-        <img class="mx-auto" src="{{ splurge_asset($service->image_url) }}" alt="{{ $service->name }} banner" />
+        
       <div class="my-4">
         {{ HtmlHelper::toParagraphs($service->description) }}
       </div>

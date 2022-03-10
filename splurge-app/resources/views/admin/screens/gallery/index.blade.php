@@ -17,8 +17,8 @@
         </div>
         <div>
             @foreach ($gallery as $item)
-            <div class="md:flex flex-row mb-4 divide-y divide-slate-500 hover:bg-slate-400">
-                <a href="{{ route('admin.gallery.show', ['gallery' => $item->id]) }}" class="m-4 block rounded-md shadow-md w-36 md:w-1/3 overflow-clip">
+            <div class="stacked">
+                <a href="{{ route('admin.gallery.show', ['gallery' => $item->id]) }}" class="image-link">
                     <figure>
                         <img src="{{ splurge_asset($item->image_url) }}" />
                     </figure>

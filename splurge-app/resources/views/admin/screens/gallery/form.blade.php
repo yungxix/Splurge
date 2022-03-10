@@ -57,6 +57,11 @@
                 Tags
             </x-label>
         </x-slot:label>
+        <div class="form-info">
+            <p>
+                Tags help to link gallery to services
+            </p>
+        </div>
         <x-admin.tags-selector :name="'tags[]'" :taggable="$taggable"></x-admin.tags-selector>
     </x-forms.form-group>
     <div class="p-4 flex flex-row items-center gap-x-4 justify-end">

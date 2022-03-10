@@ -17,6 +17,6 @@
      </p>          
     </div>
     <p class="mt-8">
-        <a class="rounded-md md:rounded-lg text-white bg-splarge-800 hover:bg-splarge-900 ring-0 hover:ring-1 px-6 py-4" href="https://docs.google.com/forms/d/e/">Tell us about your next event</a>
+        <a class="rounded-md md:rounded-lg text-white bg-splarge-800 hover:bg-splarge-900 ring-0 hover:ring-1 px-6 py-4" href="{{ route('book') }}">Tell us about your next event</a>
     </p>
 </div>

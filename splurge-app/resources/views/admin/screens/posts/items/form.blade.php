@@ -18,7 +18,7 @@
                 Name
             </x-label>
         </x-slot:label>
-        <input text="text" id="service_name" name="name" class="control w-full" value="{{ $post_item->name }}" required />
+        <input text="text" id="service_name" name="name" autofocus class="control w-full" value="{{ $post_item->name }}" required />
     </x-forms.form-group>
 
 

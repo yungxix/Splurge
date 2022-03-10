@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Service;
+use App\Repositories\ServiceRepository;
 use App\Repositories\StatsRepository;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     private $statsRepo;
-    public function __construct(StatsRepository $statsRepo)
+    private $serviceRepo;
+    public function __construct(StatsRepository $statsRepo, ServiceRepository $serviceRepo)
     {
         $this->statsRepo = $statsRepo;
+        $this->serviceRepo = $serviceRepo;
     }
     public function index() {
         return view('screens.welcome');
@@ -32,4 +36,13 @@ class HomeController extends Controller
         $provider = app("{$type}_search_provider");
         return $provider->search($request);
     }
+
+    public function getBookingForService(Request  $request, Service $service) {
+        return view('screens.welcome');
+    }
+
+    public function getBooking(Request  $request, Service $service) {
+        return view('screens.welcome');
+    }
+
 }

@@ -77,4 +77,10 @@ class GalleryRepository {
         ->where('media_type', 'image')
         ->orderBy('created_at', 'desc')->limit($limit)->get();
     }
+
+    public function findForTags(Request $request, $tags, $pageName = 'page') {
+        return Gallery::whereHas('taggables', fn ($q) => $q->whereIn('tag_id', $tags))
+        ->orderBy('created_at', 'desc')
+        ->simplePaginate(3, ['*'], $pageName)->withQueryString();
+    }
 }

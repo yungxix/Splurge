@@ -204,7 +204,7 @@
 
 #pages .page-item h4,
 #pages a {
-    @apply text-red-700;
+    @apply text-splurge-500;
     font-family: 'Italianno';
 }
 
@@ -826,7 +826,7 @@ body.has-collage {
     }
 
     a.desktop {
-        @apply text-splarge-800 hover:bg-splarge-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium;
+        @apply  hover:bg-splarge-800 text-white px-3 py-2 rounded-md text-sm font-medium;
     }
     a.desktop.active {
         @apply bg-splarge-900 text-white px-3 py-2 rounded-md text-sm font-medium; 
@@ -891,4 +891,27 @@ body.has-collage {
       focus:border-splarge-900 focus:ring
        ring-splarge-300 disabled:opacity-25
         transition ease-in-out duration-150;
+}
+
+.stacked {
+    @apply flex flex-col md:flex-row mb-4 divide-y hover:bg-splurge-50 hover:ring ring-splarge-600 rounded-md overflow-clip;
+
+    .image-link {
+        @apply m-4 block rounded-md shadow-md w-1/3 overflow-clip;
+
+        figure {
+            @apply block w-full;
+
+            img {
+                @apply w-full;
+            }
+        }
+    }
+}
+.action-links {
+    @apply flex flex-row flex-wrap items-center justify-end gap-2;
+}
+
+.form-info {
+    @apply bg-gray-200 rounded-md m-4 leading-5 font-mono p-4;   
 }

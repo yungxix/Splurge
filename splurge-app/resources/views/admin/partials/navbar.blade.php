@@ -11,8 +11,8 @@ $items = [
     ],
     [
         'text' => 'Posts / Events',
-        'url' => url('/admin/posts'),
-        'active' => Request::is('admin/posts*')
+        'url' => route('admin.posts.index'),
+        'active' => Request::is('admin/posts*') || Request::is('admin/events*')
     ],
     [
         'text' => 'Gallery',

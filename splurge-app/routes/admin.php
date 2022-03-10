@@ -27,19 +27,32 @@ Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group
         Route::delete('/detach', 'detach')->name('detach');
         Route::post('/detach', 'detach')->name('post_detach');
     });
+
+    
     
     Route::resources([
         'tags' => TagsController::class,
         'gallery' => GalleryController::class,
-        'posts' => PostsController::class,
-        'events' => PostsController::class,
         'services' => ServicesController::class,
         'media' => MediaController::class,
     ]);
 
+    
+
+    
+
     Route::prefix('/posts/{post}')->name('post_detail.')->group(function () {
         Route::resource('post_items', PostItemsController::class);
     });
+
+    
+
+    Route::prefix('/events/{post}')->name('event_detail.')->group(function () {
+        Route::resource('event_items', PostItemsController::class);
+    });
+
+    Route::resource('posts', PostsController::class);
+    
     
 });
 

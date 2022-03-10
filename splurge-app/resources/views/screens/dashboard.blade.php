@@ -25,8 +25,8 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="grid grid-cols-2 lg:grid-cols-3">
                         @foreach ($stats['counts'] as $item )
-                            <a href="{{ splurge_stat_url($item) }}" class="focus:ring hover:ring ring-purple-900 block md:flex flex-row rounded-md bg-slate-300 m-4  overflow-clip">
-                                <div class="bg-purple-800 p-4 text-white md:w-2/5 text-center flex flex-col items-center justify-center">
+                            <a href="{{ splurge_stat_url($item) }}" class="focus:ring hover:ring ring-splarge-900 block md:flex flex-row rounded-md bg-splurge-50 m-4  overflow-clip">
+                                <div class="bg-splarge-800 p-4 text-white md:w-2/5 text-center flex flex-col items-center justify-center">
                                     <h3 class="text-lg">
                                         {{ $item['section']}}
                                     </h3>
@@ -47,8 +47,8 @@
                     <div class="grid grid-cols-2 lg:grid-cols-3">
                         @foreach ($stats['dates'] as $item )
                             @unless (is_null($item['date_value']))
-                            <a href="{{ splurge_stat_url($item) }}"  class="block focus:ring hover:ring ring-purple-900 md:flex flex-row rounded-md bg-slate-300 m-4 overflow-clip">
-                                <div class="md:w-2/5 text-center bg-purple-800 p-4 text-white flex flex-col items-center justify-center">
+                            <a href="{{ splurge_stat_url($item) }}"  class="block focus:ring hover:ring ring-splarge-900 md:flex flex-row rounded-md bg-splurge-50 m-4 overflow-clip">
+                                <div class="md:w-2/5 text-center bg-splarge-800 p-4 text-white flex flex-col items-center justify-center">
                                     <h3 class="text-lg">
                                         {{ $item['section']}}
                                     </h3>

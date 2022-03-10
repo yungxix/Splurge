@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.default', ['navbar_class' => 'overbanner'])
 
 @section('title', $title)
 

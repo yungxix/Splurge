@@ -60,6 +60,11 @@
                 Tags
             </x-label>
         </x-slot:label>
+        <div class="form-info">
+            <p>
+                Tags help to link posts/events to services
+            </p>
+        </div>
         <x-admin.tags-selector :name="'tags[]'" :taggable="$taggable"></x-admin.tags-selector>
     </x-forms.form-group>
 
