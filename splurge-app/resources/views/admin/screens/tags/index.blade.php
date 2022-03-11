@@ -13,7 +13,7 @@
     </section>
 
     @push('scripts')
-        <script>
+        <script   nonce="{{ csp_nonce() }}">
             Splurge.admin.tags.renderTableView(document.querySelector('#tags_app'), {!! Js::from($tags) !!}, {
                 baseURL: '{{ route('admin.tags.index') }}'
             });

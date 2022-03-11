@@ -56,7 +56,7 @@
             </div>
         </div>
         @push('scripts')
-            <script>
+            <script  nonce="{{ csp_nonce() }}">
                 Splurge.gallery.render(document.getElementById('gallery_{{ $gallery->id }}_view'),
                 {{{ Js::from((new GalleryResource($gallery))->resolve(app('request'))) }}}, {});
             </script>

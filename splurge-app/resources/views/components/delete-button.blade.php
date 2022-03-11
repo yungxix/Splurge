@@ -8,7 +8,7 @@
     <input type="hidden" name="_method" value="DELETE" />
 </form>
 @push('scripts')
-    <script>
+    <script   nonce="{{ csp_nonce() }}">
         document.querySelector('#{{ $uniqueId }}_trigger').onclick = function (e) {
             e.preventDefault();
             @unless (empty($prompt))

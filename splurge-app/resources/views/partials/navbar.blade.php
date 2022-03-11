@@ -55,7 +55,7 @@ if (Auth::check()) {
 </nav>
 
 @push('scripts')
-    <script>
+    <script  nonce="{{ csp_nonce() }}">
     Splurge.navbar.render(document.querySelector('#navbar'), {
         items: {{ Js::from($items) }},
         logo: '{{ asset('/images/v2/splurge.png') }}',

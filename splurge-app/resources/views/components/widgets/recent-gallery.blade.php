@@ -8,7 +8,7 @@
     <div id="{{ $hostId }}"></div>
 
     @push('scripts')
-        <script>
+        <script  nonce="{{ csp_nonce() }}">
             window.addEventListener('load', function () {
                 Splurge.slides.render(document.getElementById('{{ $hostId }}'), {
                     items: {{{ Js::from($items->all()) }}}

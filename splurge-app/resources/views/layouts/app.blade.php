@@ -35,7 +35,9 @@
           </div>
         </main>
       </div>
-      <script src="{{ asset(mix('js/app.js')) }}"></script>
+      <scrip nonce="{{ csp_nonce() }}" t src="{{ asset('/js/manifest.js') }}"></script>
+      <script  nonce="{{ csp_nonce() }}" src="{{ asset('/js/vendor.js') }}"></script>
+      <script  nonce="{{ csp_nonce() }}" src="{{ asset(mix('js/app.js')) }}"></script>
 
       @stack('scripts')
       <script src="https://apps.elfsight.com/p/platform.js" defer></script>

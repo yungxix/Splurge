@@ -32,7 +32,7 @@
                         </template>
 
                         <template v-for="(item, index) in userDropdownItems" :key="index">
-                            <a class="block mb-2 cursor-pointer p-2 text-gray-700 hover:font-bold"  @click="actOnUserItem($event, item)" v-text="item.text"></a>    
+                            <a class="block mb-2 cursor-pointer p-2 hover:font-bold"  @click="actOnUserItem($event, item)" v-text="item.text"></a>    
                         </template>
                       
                     </dropdown>
