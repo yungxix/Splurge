@@ -1,9 +1,11 @@
 
-import React, {FC, useState, createRef, useRef, useEffect} from "react";
+import React, {FC, useState, useRef} from "react";
 
 import axios from '../../../../axios-proxy';
 
 import classNames from "classnames";
+
+import SplurgeModal from '../../modal';
 
 enum Status {
     idle = 0,
@@ -21,7 +23,7 @@ interface TagModel {
 
 export interface TableViewProps {
     tags: Array<TagModel>;
-    baseUrl: string;
+    baseURL: string;
 }
 
 interface EditModel {
@@ -33,7 +35,7 @@ interface EditModel {
 const defaultEditModel = (): EditModel => ({show: false, index: -1, data: {name: ''}});
 
 const saveTag = async (tag: TagModel, options: {baseURL: string}): Promise<TagModel> => {
-    if (tag.id) {
+    if (!tag.id) {
         const resp = await axios.post<{data: TagModel}>(options.baseURL, tag);
 
         return resp.data.data;
@@ -52,6 +54,12 @@ const destroyTag = async (tag: {id: number}, options: {baseURL: string}): Promis
     return resp2.data;
 };
 
+interface DeleteRequest {
+    tagId: any;
+    show: boolean;
+    name?: string;
+}
+
 
 
 const TableView: FC<TableViewProps> = (props) => {
@@ -60,13 +68,14 @@ const TableView: FC<TableViewProps> = (props) => {
     const [editing, setEditing] = useState(defaultEditModel());
     const [status, setStatus] = useState(Status.idle);
     const [errorMessage, setErrorMessage] = useState('');
+    const [deleteRequest, setDeleteRequest] = useState<DeleteRequest>({tagId: null, show: false});
 
-    const editorRef = createRef<HTMLInputElement>();
+    const editorRef = useRef(null);
 
     const focusOnEditor = () => {
         setTimeout(() => {
             if (editorRef.current) {
-                editorRef.current.focus();
+                (editorRef.current as HTMLInputElement).focus();
             }
         }, 400);
     };
@@ -83,7 +92,7 @@ const TableView: FC<TableViewProps> = (props) => {
         setStatus(Status.busy);
         setErrorMessage('');
         try {
-            const r = await saveTag(editing.data, {baseURL: props.baseUrl});
+            const r = await saveTag(editing.data, {baseURL: props.baseURL});
             if (editing.index >= 0) {
                 setTags(tags.map((t) => {
                     if (t.id === r.id) {
@@ -106,11 +115,12 @@ const TableView: FC<TableViewProps> = (props) => {
         setStatus(Status.busy);
         setErrorMessage('');
         try {
-            await destroyTag({id: tag.id || 0}, {baseURL: props.baseUrl});
+            await destroyTag({id: tag.id || 0}, {baseURL: props.baseURL});
             setTags(tags.filter(t => t.id !== tag.id));
             if (tag.id === editing.data.id) {
                 setEditing(defaultEditModel());
             }
+            setStatus(Status.idle);
         } catch (ex: any) {
             setStatus(Status.failed);
             setErrorMessage(ex.message);
@@ -118,39 +128,39 @@ const TableView: FC<TableViewProps> = (props) => {
     };
 
     return <div className="flex flex-col">
-    <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-        <div className="shadow overflow-hidden border-b border-pink-200 sm:rounded-lg">
-            <p v-if="errorMessage" className="text-center p-4 text-red-700" v-text="errorMessage">
-
-            </p>
-          <table className="min-w-full divide-y divide-pink-200">
-            <thead className="bg-pink-100">
-              <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    #
-                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Name
-                 </th>
-                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        
-                 </th>      
-              </tr>
-              
-            </thead>
-            <tbody className="bg-white divide-y divide-pink-200">
-                <tr>
-                  <td colSpan={3}>
-                      {
-                          errorMessage && (<div className="w-full m-4 rounded-md p-8 text-center bg-red-200 text-red-900">
-                              <a className="float-right hover:font-bold" onClick={(e) => setErrorMessage('')}>
+         {
+                          errorMessage && (<div className="mx-12 mb-4 rounded-md p-8 text-center bg-red-200 text-red-900">
+                              <a className="cursor-pointer float-right hover:font-bold" onClick={(e) => setErrorMessage('')}>
                                 &times;  
                               </a>
                               <em>{errorMessage}</em>
                               <br className="clear-both" />
                           </div>)
                       }
+    <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div className="shadow overflow-hidden border-b border-splarge-200 sm:rounded-lg">
+            
+           
+          <table className="min-w-full divide-y divide-splarge-200">
+            <thead className="bg-gray-100">
+              <tr>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                    #
+                 </th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                    Name
+                 </th>
+                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                        
+                 </th>      
+              </tr>
+              
+            </thead>
+            <tbody className="bg-white divide-y divide-splarge-200">
+                <tr>
+                  <td colSpan={3}>
+                     
                       <div className="w-full flex flex-row items-center px-6 py-4">
                           <input disabled={status === Status.busy} onKeyUp={(e) => {
                               if ((/enter/i).test(e.key)) {
@@ -161,7 +171,7 @@ const TableView: FC<TableViewProps> = (props) => {
                               setEditing({...editing, data: {...editing.data, name: e.target.value}})
                           }}
                            placeholder={editing.index === -1 ? 'New Tag' : 'Edit Tag'}
-                           className="grow rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+                           className="grow rounded-md shadow-sm px-4 py-2 border-splarge-200 focus:border-splarge-300 focus:ring focus:ring-splarge-200 focus:ring-opacity-50" />
                            {
                                status !== Status.busy && (<div className="ml-4 flex flex-row items-center justify-end gap-2">
                              
@@ -206,7 +216,9 @@ const TableView: FC<TableViewProps> = (props) => {
                               status !== Status.busy && (<>
                                 <a onClick={(e) => edit(tag, index)} className="link mr-8">Edit</a>
                             
-                            <a  onClick={(e) => deleteTag(tag)} className="link">Delete</a>
+                            <a  onClick={(e) => {
+                                setDeleteRequest({tagId: tag.id, show: true, name: tag.name});
+                            }} className="link">Delete</a>
                               </>)
                           }
                       </td>
@@ -217,6 +229,32 @@ const TableView: FC<TableViewProps> = (props) => {
         </div>
       </div>
     </div>
+    <SplurgeModal title="Confirm delete" show={deleteRequest.show} onClose={() => {
+        setDeleteRequest({tagId: null, show: false})
+    } }>
+
+        <p className="mb-8">
+            Are you sure you want to delete &quot;{deleteRequest.name}&quot;?
+        </p>
+
+        <div className="flex flex-row justify-end items-center px-6 gap-x-4">
+            <button className="btn" type="button" onClick={(e) => {
+                deleteTag({id: deleteRequest.tagId, name: deleteRequest.name || ''})
+                setDeleteRequest({tagId: null, show: false})
+            }}>
+                Yes, delete it
+            </button>
+
+
+            <button className="btn" type="button" onClick={(e) => {
+                    setDeleteRequest({tagId: null, show: false})
+                }}>
+                    No
+                </button>
+
+        </div>
+
+    </SplurgeModal>
   </div>
 
 

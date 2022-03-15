@@ -1,4 +1,4 @@
-import React, {FC, useState, createRef, useEffect} from "react";
+import React, {FC, useState, useRef, useEffect} from "react";
 
 import uniqueId from "lodash/uniqueId";
 
@@ -66,7 +66,7 @@ const renderer: FC<MessagesProps> = (props) => {
     });
 
 
-    const containerRef = createRef<HTMLDivElement>();
+    const containerRef = useRef(null);
 
     const autoCloseAll = () => {
         setTimeout(() => {
@@ -79,7 +79,7 @@ const renderer: FC<MessagesProps> = (props) => {
 
     useEffect(() => {
         if (containerRef.current) {
-            containerRef.current.style.marginTop = `${window.screenTop + 10}px`; 
+            (containerRef.current as HTMLElement).style.marginTop = `${window.screenTop + 10}px`; 
         }
         autoCloseAll();
     }, []);

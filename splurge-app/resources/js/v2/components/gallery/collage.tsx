@@ -1,8 +1,8 @@
 
 
-import React, {FC, useEffect, useState, createRef, useCallback} from "react";
+import React, {FC, useEffect, useState, useCallback} from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation} from 'swiper';
+import { Navigation, Autoplay} from 'swiper';
 import { Gallery } from "./types";
 import classNames from "classnames";
 import Lines from '../lines';
@@ -12,6 +12,8 @@ import debounce from "lodash/debounce";
 import 'swiper/css';
 
 import 'swiper/css/navigation';
+
+import 'swiper/css/autoplay';
 
 export interface CollageProps {
     item: Gallery;
@@ -55,7 +57,7 @@ const CollagePageComponent: FC<{page: CollagePage; gridClass: string;}> = ({page
         {
             page.group.map((item) => (<figure key={item.id} className={gridItemClass(item)}>
                 <img src={item.url} alt={item.name} />
-                <figcaption className="text-white">{item.name}</figcaption>
+                <figcaption>{item.name}</figcaption>
             </figure>))
         }
     </div>
@@ -99,8 +101,6 @@ const calculatePreferredGridSize = (width: number) => {
 
 
 const Collage: FC<CollageProps> = (props) => {
-    const rootRef = createRef<HTMLDivElement>();
-
     const [pages, setPages] = useState<CollagePage[]>([]);
 
     const [gridClass, setGridClass] = useState('');
@@ -108,13 +108,15 @@ const Collage: FC<CollageProps> = (props) => {
 
 
     const itemsCalculator = useCallback(() => {
-        if (!rootRef.current) {
+        
+        const bounds = document.querySelector('body')?.getBoundingClientRect();
+
+        if (!bounds) {
             return {
-                gridClass: '',
-                pages: []
+                pages: [],
+                gridClass: ''
             };
         }
-        const bounds = rootRef.current.getBoundingClientRect();
 
         const result: CollagePage[] = [];
 
@@ -191,19 +193,17 @@ const Collage: FC<CollageProps> = (props) => {
         };
 
     }, [props.item.id]);
-
-    if (pages.length === 0) {
-        return null;
-    }
     return <div className={props.className || ''}>
-        <Swiper modules={[Navigation]} navigation>
-            {
-                pages.map((page) => <SwiperSlide key={page.id}>
-                    <CollagePageComponent page={page} gridClass={gridClass} />
-                </SwiperSlide>)
-            }
-        </Swiper>
-
+        {
+            pages.length > 0 && (<Swiper autoplay={true} modules={[Navigation, Autoplay]} navigation>
+                {
+                    pages.map((page) => <SwiperSlide key={page.id}>
+                        <CollagePageComponent page={page} gridClass={gridClass} />
+                    </SwiperSlide>)
+                }
+            </Swiper>)
+        }
+        
     </div>
 };
 

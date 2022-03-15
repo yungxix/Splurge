@@ -84,7 +84,7 @@
 
 
 .single-service {
-    @apply text-white relative overflow-clip rounded-md md:rounded-lg shadow-md bg-fuchsia-800;
+    @apply text-white relative overflow-clip rounded-md md:rounded-lg shadow-md bg-gray-800;
     height: 60vh;
 }
 
@@ -752,51 +752,37 @@ a.link {
 
 
 
-
-/* .single-service .smx {
-    width : 100vh;
-    height: 100%;
-} */
-
-
-.photo-1 {
-    display: inline-block;
-}
-
-.photo-2 {
-    display: inline-block;
-}
-
-
 #lerop {
     height: 100%;
 }
 
 
-.carousel-item .active {
-    height: 100%;
-}
-
 
 body.has-collage {
-    background: rgb(23,3,9);
-    background: linear-gradient(90deg, rgba(23,3,9,1) 0%, rgba(245,44,160,1) 87%);
+    @apply bg-white;
+    background-image: url('/images/moroccan-flower.png');
+    background-position: top left;
+    background-repeat: repeat;
 }
 
 .collage-content {
     @apply lg:bottom-3 border-white p-2 md:p-4;
+
+    h4, p {
+        @apply text-splarge-800;
+    }
+
+    .footer {
+        @apply py-4 px-4 text-center;
+    }
     
-}
+    .heading {
+        @apply py-4 text-center capitalize;
+    }
 
-.collage-content h4, .collage-content p {
-    @apply text-white;
-} 
-
-.collage-content .footer {
-    @apply py-4 px-4 text-center;
-}
-.collage-content .heading {
-    @apply py-4 text-center;
+    img {
+       @apply block shadow rounded-md shadow-splarge-200;
+    }
 }
 
 .with-navbar {
@@ -805,20 +791,11 @@ body.has-collage {
 
 #navbar {
     @apply bg-splurge-900;
+    
     &.overbanner {
         @apply text-splarge-700 bg-splurge-200 bg-opacity-10 absolute left-0 top-0 z-20 w-full;
     }
 
-    .dropdown-content {
-        @apply absolute top-4 bg-white text-gray-800  z-50 mt-2 rounded-md shadow-md;
-        a {
-            @apply block text-splurge-700 hover:text-splurge-900 px-4 py-2;
-        }
-
-        &.right {
-            @apply left-auto right-0;
-        }
-    }
 
     #mobile-menu {
         @apply bg-white m-1 shadow rounded;

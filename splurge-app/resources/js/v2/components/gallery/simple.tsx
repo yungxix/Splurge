@@ -3,8 +3,14 @@ import { Gallery } from "./types";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { Navigation, Autoplay } from 'swiper';
+
 
 import 'swiper/css';
+
+import 'swiper/css/navigation';
+
+import 'swiper/css/autoplay';
 
 export interface SimpleGalleryProps {
     gallery: Gallery;
@@ -47,9 +53,9 @@ const SimpleGallery: FC<SimpleGalleryProps> = (props) => {
     return <div>
         {
             groups.map((grp) => (<div key={grp.id}>
-                <Swiper>
+                <Swiper modules={[Navigation, Autoplay]} navigation autoplay>
                     {
-                        grp.items.map((item) => (<SwiperSlide key={item.id}>
+                        grp.items.map((item) => (<SwiperSlide   key={item.id}>
                             <figure className="block">
                                 <img src={item.imageUrl} />
                                 <figcaption>{item.name}</figcaption>

@@ -10,15 +10,16 @@
 @section('body_class', 'has-collage')
 
 
+
 @section('content')
-<section id="gallery" class="bg-splurge-900 text-gray-800 py-8 md:py-12">
+{{-- <section id="gallery" class="bg-splurge-900 text-gray-800 py-8 md:py-12">
     <div class="galla">
         <h5 class="text-center text-3xl mb-4">LUXURY WEDDINGS IMAGE GALLERY</h5>
         <p class="text-center"> Thank you to all the talented photographers we work with who so beautifully capture the celebrations we plan and produce.<br>
              We hope you love their imagery as much as we do.....</p>
     </div>
       
-</section>
+</section> --}}
 
 
 
@@ -32,19 +33,19 @@
             <h4 class="text-xl mb-4 font-bold uppercase">{{ $gallery->caption }}</h4>
         </div>
     @else
-    <div class="flex flex-row justify-center">
-        <figure class="max-h-56 block overflow-clip">
-            <img class="block shadow-md" src="{{ asset($gallery->image_url) }}" alt="{{ $gallery->caption }} banner picture" />
-            <figcaption>
-                {{ $gallery->caption }}
-            </figcaption>
-        </figure>
+    <div class="flex flex-col justify-center">
+        <div class="max-h-96 block overflow-clip">
+            <img class="block mx-auto  shadow-md" src="{{ asset($gallery->image_url) }}" alt="{{ $gallery->caption }} banner picture" />
+        </div>
+        <h4 class="text-center capitalize text-3xl my-4 py-8">
+            {{ $gallery->caption }}
+        </h4>
     </div>
     
     @endif
     
-    <section>
-        <div class="bg-gray-200 p-4">
+    <section class="container mx-auto">
+        <div class="bg-gray-100 p-4 rounded md:rounded-lg">
             {{ HtmlHelper::toParagraphs($gallery->description) }}
         </div>
        

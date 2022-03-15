@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState, useRef, createRef, useEffect } from "react";
+import React, { FC, Fragment, useState, useRef, useEffect } from "react";
 import ReactDOM from 'react-dom';
 import { DropdownItems, SingleItem } from './Item';
 import { NavBarItem } from "./types";
@@ -18,13 +18,13 @@ const createFormContainer = () => {
 
 const ItemForm: FC<{ item: NavBarItem }> = (props) => {
     const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || "";
-    const formRef = createRef<HTMLFormElement>();
+    const formRef = useRef(null);
 
     const containerRef = useRef(createFormContainer());
 
     useEffect(() => {
         if (formRef.current) {
-            formRef.current.submit();
+            (formRef.current as HTMLFormElement).submit();
         }
         return () => {
             if (containerRef.current) {
@@ -166,10 +166,11 @@ const MobileItems: FC<NavBarProps & { show: boolean; onSelect: (item: NavBarItem
             </div>
             {
                 props.authenticated && (<>
+                    <hr />
                     <p className="ml-4 mb-4">Hi, {props.username}</p>
                     {
                         props.userDropdownItems.map((item, i) =>
-                        (<SingleItem className={classNames(item.className,
+                        (<SingleItem key={`child_si_${i}`} className={classNames(item.className,
                             'mobile', { active: item.active === true })}
                             onSelect={props.onSelect} item={item} />))
                     }

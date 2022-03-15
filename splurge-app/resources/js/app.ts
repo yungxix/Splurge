@@ -80,7 +80,7 @@ const admin = {
     tags : {
         renderTableView(target: HTMLElement,
              tags: Array<{id: number; name: string; category?: string}>,
-              options: {baseUrl: string}) {
+              options: {baseURL: string}) {
             ReactDOM.render(React.createElement(TagsTableView, {tags, ...options}), target);
         },
         renderAssignment(target: HTMLElement, options: ManagerProps) {

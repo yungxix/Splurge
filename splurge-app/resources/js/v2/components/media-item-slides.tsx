@@ -3,12 +3,15 @@ import React, {FC} from "react";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { EffectFade } from 'swiper';
+import { Navigation, Autoplay } from 'swiper';
 
 
 import 'swiper/css';
 
-import 'swiper/css/effect-fade';
+
+import 'swiper/css/navigation';
+
+import 'swiper/css/autoplay';
 
 export interface  SlidesProps {
     items: Array<{caption: string; image_url: string}>
@@ -16,7 +19,7 @@ export interface  SlidesProps {
 
 
 const SlidesRenderer: FC<SlidesProps> = (props) => {
-    return <Swiper modules={[EffectFade]} effect="fade" autoplay={true}>
+    return <Swiper modules={[Autoplay, Navigation]} autoHeight={true} navigation autoplay={true}>
         {
             props.items.map((item, i) => (<SwiperSlide key={`slide_${i}`}>
                 <figure className="media-item-figure">
