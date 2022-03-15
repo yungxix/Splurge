@@ -11,14 +11,15 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-.vue()
+mix.ts('resources/js/app.ts', 'public/js')
+.react()
+.extract(['react', 'react-dom', 'lodash', 'axios'])
 .postCss('resources/css/app.css', 'public/css', [
     require('tailwindcss/nesting'),
     require('postcss-import'),
     require('tailwindcss'),
     require('autoprefixer'),
-]);
+]).sourceMaps();
 
 
 

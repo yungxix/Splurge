@@ -16,7 +16,7 @@
   <hr class="my-8" />
   <div class="container mx-auto">
     <div class="md:grid grid-cols-2  text-white">
-      <p>
+      <p class="text-center md:text-left">
         @php
           $follow_items = [
               [
