@@ -7,6 +7,7 @@ use App\Http\Requests\PostItemRequest;
 use App\Models\PostItem;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\DB;
 
 class PostItemsController extends Controller
 {
@@ -90,7 +91,7 @@ class PostItemsController extends Controller
      */
     public function destroy(Request $request, Post $post, PostItem $post_item)
     {
-        $post_item->delete();
+        DB::transaction(fn () => $post_item->delete());
 
         $request->session()->flash('success_message', 'Deleted section');
 

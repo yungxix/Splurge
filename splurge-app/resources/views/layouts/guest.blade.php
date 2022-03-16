@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
     <meta name="description" content="EVENTS HUB IN AFRICA" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/x-icon" href="{{ asset('images/splurge.ico') }}" />
     <title>
@@ -14,9 +12,11 @@
          | EVENTS HUB IN AFRICA</title>
         <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Italianno&family=Itim&family=Poppins:ital,wght@0,200;0,400;0,500;1,200;1,500&display=swap"
-     rel="stylesheet">
+     rel="stylesheet" />
+
      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-     <link  nonce="{{ csp_nonce() }}" rel="stylesheet" href="{{ asset(mix('css/app.css')) }}" />
+     
+     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}" />
      @stack('header_includes')
 </head>
 <body class="bg-white splurge">
@@ -32,12 +32,14 @@
           </div>
         </main>
       </div>
-      <script  nonce="{{ csp_nonce() }}" src="{{ asset('/js/manifest.js') }}"></script>
-      <script nonce="{{ csp_nonce() }}" src="{{ asset('/js/vendor.js') }}"></script>
-      <script  nonce="{{ csp_nonce() }}" src="{{ asset(mix('js/app.js')) }}"></script>
+      @foreach (['manifest', 'vendor', 'app'] as $name)
+      <script src="{{ asset(mix(sprintf('js/%s.js', $name))) }}"></script>
+      @endforeach
 
       @stack('scripts')
-      <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+      @if (false)
+      <script src="https://apps.elfsight.com/p/platform.js" defer async></script>
       <div class="elfsight-app-6bd84fdd-7b06-4127-8cfc-f4d68a37be7c"></div>
+      @endif
 </body>
 </html>

@@ -14,7 +14,7 @@
         <div class="mt-4 md:mt-2">
           <h1>Serene 
             <br><span>World class Experience</span></h1>
-             <a  href="{{ url('/services') }}">Explore More</a>
+             <a  href="{{ route('services.index') }}">Explore More</a>
         </div>
       </div>
     </div>

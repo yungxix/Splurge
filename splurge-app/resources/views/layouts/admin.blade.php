@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
     <meta name="description" content="EVENTS HUB IN AFRICA" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/x-icon" href="{{ asset('images/splurge.ico') }}" />
     <title>
@@ -17,7 +15,7 @@
 
         <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Italianno&family=Itim&family=Poppins:ital,wght@0,200;0,400;0,500;1,200;1,500&display=swap"
-     rel="stylesheet">
+     rel="stylesheet" />
      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
      <link nonce="{{ csp_nonce() }}" rel="stylesheet" href="{{ asset(mix('css/app.css')) }}" />
 
@@ -37,11 +35,11 @@
           </div>
         </main>
       </div>
-      <script nonce="{{ csp_nonce() }}"  src="{{ asset('/js/manifest.js') }}"></script>
-      <script  nonce="{{ csp_nonce() }}" src="{{ asset('/js/vendor.js') }}"></script>
-      <script nonce="{{ csp_nonce() }}" src="{{ asset(mix('js/app.js')) }}"></script>
+      @foreach (['manifest', 'vendor', 'app'] as $name)
+      <script src="{{ asset(mix(sprintf('js/%s.js', $name))) }}"></script>
+      @endforeach
+      
 
       @stack('scripts')
-
 </body>
 </html>

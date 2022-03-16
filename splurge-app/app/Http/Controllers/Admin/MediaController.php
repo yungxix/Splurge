@@ -9,6 +9,7 @@ use App\Models\MediaOwner;
 use App\Repositories\MediaOwnerRepository;
 use App\Support\ModelResolver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MediaController extends Controller
 {
@@ -105,7 +106,7 @@ class MediaController extends Controller
     public function destroy(Request $request)
     {
         $m =  ModelResolver::fromRoute($request->route('medium'), MediaOwner::class);
-        $m->delete();
+        DB::transaction(fn () => $m->delete());
         if ($request->wantsJson()) {
             return response()->json(['messge' => 'Deleted']);
         }
