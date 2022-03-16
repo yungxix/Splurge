@@ -12,7 +12,7 @@
     <div class="post-item mt-4 grid grid-cols-3 md:grid-cols-4">
       @unless (empty($post->image_url) && empty($post->thumbnail_image_url))
         <div class="col-span-1 overflow-hidden">
-          <a class="block hover:border-2 border-splarge-800" href="{{ route('events.show', ['post' => $post->id]) }}">
+          <a class="block hover:border-2 rounded-md border-splarge-800" href="{{ route('events.show', ['post' => $post->id]) }}">
           <img  src="{{ $post->thumbnail_image_url ?: $post->image_url }}" />
           </a>
         </div>  
