@@ -10,14 +10,9 @@ $items = [
         'active' => Request::is('/')
     ],
     [
-        'text' => 'Celebrations',
-        'url' => url('/events/celebrations'),
-        'active' => Request::is('events/celebrations')
-    ],
-    [
-        'text' => 'Weddings',
-        'url' => url('/events/weddings'),
-        'active' => Request::is('events/weddings')
+        'text' => 'Events',
+        'url' => route('events.index'),
+        'active' => Request::is('events/*')
     ],
     [
         'text' => 'Gallery',

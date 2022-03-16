@@ -7,6 +7,7 @@ use App\Http\Requests\GalleryRequest;
 use App\Models\Gallery;
 use App\Repositories\GalleryRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GalleryController extends Controller
 {
@@ -110,7 +111,7 @@ class GalleryController extends Controller
      */
     public function destroy(Request $request, Gallery $item)
     {
-        $item->delete();
+        DB::transaction(fn () => $item->delete());
         $request->session()->flash('success_message', 'Gallery has been deleted');
         return redirect()->route('admin.gallery.index');
     }

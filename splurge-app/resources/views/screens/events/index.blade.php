@@ -22,6 +22,9 @@
           <h4 class="font-bold">{{  $post->name }}</h4>
         </a>
         {{ HtmlHelper::toParagraphs($post->description) }}
+        <p class="text-right mt-4 text-gray-700 text-sm">
+          {{ $post->created_at->diffForHumans() }}
+        </p>
       </div>
     </div>
   @endforeach

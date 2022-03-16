@@ -9,6 +9,7 @@ use App\Models\Gallery;
 use App\Models\GalleryItem;
 use App\Support\ModelResolver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GalleryItemsController extends Controller
 {
@@ -107,8 +108,7 @@ class GalleryItemsController extends Controller
     public function destroy(Request $request)
     {
         $gallery_item = ModelResolver::fromRoute($request->route('gallery_item'), GalleryItem::class);
-        
-        $gallery_item->delete();
+        DB::transaction(fn () => $gallery_item->delete());
         if ($request->wantsJson()) {
             return response()->json(['message' => 'Deleted page']);
         }

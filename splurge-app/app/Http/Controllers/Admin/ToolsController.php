@@ -16,7 +16,6 @@ class ToolsController extends Controller
             $request->session()->flash('info_message', "Called task with exit code: $code");
             
         } catch (\Throwable $th) {
-            //throw $th;
             $request->session()->flash('error_message', "Task failed");
             Log::error($th);
         }

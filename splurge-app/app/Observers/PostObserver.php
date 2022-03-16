@@ -38,9 +38,15 @@ class PostObserver
      */
     public function deleted(Post $post)
     {
-        MediaOwner::where([
-            'owner_type' => PostItem::class,
-            'owner_id' => PostItem::select('id')->where('post_id', $post->id)])->delete();
+        MediaOwner::ownedBy(PostItem::class)
+        ->whereExists(function ($query) use ($post) {
+            $media_table = (new MediaOwner())->getTable();
+            $post_item_table = (new PostItem())->getTable();
+            return $query->selectRaw("1")
+            ->from($post_item_table)
+            ->whereColumn("{$post_item_table}.id", "=", "{$media_table}.owner_id")
+            ->where("{$post_item_table}.post_id", "=", $post->id);
+        })->delete();
 
         $post->items()->delete();
         $post->taggables()->delete();

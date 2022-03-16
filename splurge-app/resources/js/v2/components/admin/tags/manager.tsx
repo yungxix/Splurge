@@ -111,9 +111,9 @@ const Manager: FC<ManagerProps> = (props) => {
 
     return <div>
         {
-            status > Status.idle && (<div className="flex flex-row items-center justify-end bg-white">
+            status > Status.idle && tags.length > 0 && (<div className="flex flex-row items-center bg-white">
                 <span className="text-gray-700 mr-8">Tags:</span>
-                <Selector tags={tags} inputName="tags" onSelect={handleSelect} onRemove={handleDelete} />
+                <Selector tags={tags} onSelect={handleSelect} onRemove={handleDelete} />
             </div>)
         }
 

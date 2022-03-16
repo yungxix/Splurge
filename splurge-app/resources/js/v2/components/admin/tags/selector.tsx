@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState, useMemo } from "react";
+import React, { FC, Fragment, useEffect, useState, useMemo } from "react";
 
 
 import { Popover, Transition } from '@headlessui/react';
@@ -13,7 +13,7 @@ export interface SelectableTag {
 
 export interface SelectorProps {
     tags: SelectableTag[];
-    inputName: string;
+    inputName?: string;
     onRemove: (tag: { id: number }) => void;
     onSelect: (tag: { id: number }) => void;
 }
@@ -66,27 +66,18 @@ const TagSelector: FC<SelectorProps> = (props) => {
         props.onSelect(tag);
     };
 
-
     return <div className="flex flex-row flex-wrap items-center p-2 gap-4">
         {
-            selectedTags.map((tag) => (<input key={tag.id} name={props.inputName} type="hidden" value={tag.id} />))
+            props.inputName && (
+                <div>
+                    {
+                        selectedTags.map((tag) => (<input key={tag.id} name={props.inputName} type="hidden" value={tag.id} />))
+                    }
+                </div>
+            )
         }
-        {
-            selectedTags.map((tag) => (<span key={`selected_tag_${tag.id}`} className="bg-gray-200
-            inline-flex
-            items-center
-            rounded-md
-            ring
-            ring-gray-400
-            px-4 py-2
-            content-between
-            justify-center">
-                <span>{tag.name}</span>
-                <a onClick={(e) => removeTag(tag)} className="ml-4 cursor-pointer hover:font-bold">
-                    &times;
-                </a>
-            </span>))
-        }
+        
+        
         {
             availableTags.length > 0 && (<div>
                 <Popover className="relative">
@@ -113,32 +104,22 @@ const TagSelector: FC<SelectorProps> = (props) => {
                                 leaveFrom="opacity-100 translate-y-0"
                                 leaveTo="opacity-0 translate-y-1"
                             >
-                                <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 transform -translate-x-1/2 left-1/2 sm:px-0 lg:max-w-3xl">
+                                <Popover.Panel className="absolute z-10 bg-white w-screen max-w-sm px-4 mt-3 transform sm:px-0 lg:max-w-3xl">
                                     <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                         <div className="p-4">
                                             <input type="search" value={search}
                                                 onChange={(e) => setSearch(e.target.value)}
                                                 className="rounded-md shadow-sm border-gray-300 focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-50" placeholder="Search" />
                                         </div>
-                                        <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
+                                        <div className="relative grid gap-8  p-7 lg:grid-cols-2">
                                             {
-                                                filteredTags.map((tag) => (<div key={tag.id} className=" flex
-                        items-center
-                        p-2
-                        -m-3
-                        transition
-                        duration-150
-                        ease-in-out
-                        rounded-lg
-                        hover:bg-gray-50">
-                                                    <span className="grow text-gray-700">
+                                                filteredTags.map((tag) => (<div key={tag.id} className="hover:bg-gray-50">
+                                                    <span className="">
                                                         {tag.name}
-                                                    </span>
-                                                    <div className="ml-4">
-                                                        <a className="link" onClick={(e) => addTag(tag)}>
+                                                        <a className="link ml-4" onClick={(e) => addTag(tag)}>
                                                             Add
                                                         </a>
-                                                    </div>
+                                                    </span>
 
                                                 </div>))
                                             }
@@ -152,6 +133,22 @@ const TagSelector: FC<SelectorProps> = (props) => {
 
 
             </div>)
+        }
+        {
+            selectedTags.map((tag, idx) => (<span key={`selected_tag_${tag.id}_${idx}`} className="bg-gray-200
+            inline-flex
+            items-center
+            rounded-md
+            ring
+            ring-gray-400
+            px-4 py-2
+            content-between
+            justify-center">
+                <span>{tag.name}</span>
+                <a onClick={(e) => removeTag(tag)} className="ml-4 cursor-pointer hover:font-bold">
+                    &times;
+                </a>
+            </span>))
         }
     </div>
 

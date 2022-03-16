@@ -4,7 +4,7 @@
 @endphp
 @unless ($posts->isEmpty())
 <div class="text-gray-500 text-base">
-    <h4 class="text-lg font-semibold mb-2">{{ $title }}</h4>
+    <h4 class="ml-2 text-lg font-semibold mb-2">{{ $title }}</h4>
     <div class="">
         @foreach ($posts as $post)
             @if (!$loop->first)
@@ -17,6 +17,9 @@
                     <p>
                         {{ Str::limit($post->description, 120, '...') }}
                     </p>
+                    <p class="text-right">
+                        {{ $post->created_at->diffForHumans() }}
+                    </p>
                 </a>
             @else
                 <a href="{{ route('events.show', ['post' => $post->id]) }}" class="block my-4 p-2 hover:bg-splarge-700  hover:text-white">
@@ -28,6 +31,9 @@
                             <h5 class="font-semibold">{{ $post->name }}</h5>
                             <p>
                                 {{ Str::limit($post->description, 90, '...') }}
+                            </p>
+                            <p class="text-right">
+                                {{ $post->created_at->diffForHumans() }}
                             </p>
                         </div>
                     </div>    

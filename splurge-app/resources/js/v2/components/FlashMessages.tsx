@@ -5,7 +5,7 @@ import uniqueId from "lodash/uniqueId";
 import classnames from 'classnames';
 
 export interface FlashMessage {
-    text: string;
+    message: string;
     type: string;
     important?: boolean;
 }
@@ -74,7 +74,7 @@ const renderer: FC<MessagesProps> = (props) => {
             if (m) {
                 closeMessage(m).then(autoCloseAll);
             }
-        }, 1000);
+        }, 3000);
     };
 
     useEffect(() => {
@@ -86,13 +86,13 @@ const renderer: FC<MessagesProps> = (props) => {
 
     return <div ref={containerRef} className="relative md:w-52">
         {
-            messages.map((msg) => (<div className={classnames('ease-in flex flex-row justify-between items-center rounded px-4 py-2 w-full',
-            'rounded mb-2 duration-300 transition-opacity bg-opacity-70', translateTypeToClass(msg.type), {
+            messages.map((msg) => (<div className={classnames('ease-out flex flex-row justify-between items-center rounded px-4 py-2 w-full',
+            'rounded mb-2 duration-700 transition-opacity bg-opacity-70', translateTypeToClass(msg.type), {
                 'opacity-100': !msg.closing,
-                'opacity-10': msg.closing,
+                'opacity-0': msg.closing,
             })}>
                 <span>
-                {msg.text}
+                {msg.message}
                 </span>
                 <a className="closing" onClick={(e) => {
                     closeMessage(msg);
