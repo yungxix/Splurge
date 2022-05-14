@@ -1,5 +1,10 @@
 @php
     use App\Support\HtmlHelper;
+
+    $breadcrumbItems = [
+        ['text' => 'Dashboard', 'url' => route('admin.admin_dashboard')] ,
+        ['text' => 'All Services', 'url' => route('admin.services.index')]
+    ];
 @endphp
 @extends('layouts.admin')
 
@@ -7,6 +12,7 @@
 
 
 @section('content')
+    <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
     @include('partials.page-header', ['title' => 'Services'])
     <section class="container mx-auto">
         <div class="flex flex-row justify-end p-4 items-center mb-4">

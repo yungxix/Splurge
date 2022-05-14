@@ -8,6 +8,10 @@ use App\Http\Controllers\EventsController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ServicesController;
 
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PaymentsController;
+use App\Http\Controllers\AccessController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,18 +26,47 @@ use App\Http\Controllers\ServicesController;
 
 require __DIR__.'/auth.php';
 require __DIR__ . '/admin.php';
+require __DIR__  . '/my.php';
+
+Route::controller(AccessController::class)->prefix('access')->name('access.')->group(function () {
+    Route::get('/', 'index');
+    Route::get("/{entity}/{uuid}", "create")->name('create');
+    Route::post("/logout", "destroy")->name('destroy');
+});
+
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
+    
     Route::get('', 'index')->name('home2');
+    
     Route::get('/dashboard', 'showDashboard')->middleware(['auth'])->name('dashboard');
+    
     Route::get('/search', 'getSearch')->name('search');
+
     Route::get('/search/tagged', 'getTaggedSearch')->name('tagged');
-    Route::get('/book', 'getBooking')->name('book');
-    Route::get('/book/{service}', 'getBookingForService')->name('book_service');
-    Route::post('/book', 'submitBooking')->name('post_book');
+
+    Route::get("/redir", "redirectForRole")->middleware(["auth"]);
+
+    Route::get("/rdir", "redirectForRole")->middleware(["auth"]);
 });
 
+
+Route::controller(BookingController::class)->prefix('book')->group(function () {
+    Route::get('/', 'index')->name('book');
+
+    Route::post('/{service}', 'store')->name('post_booking');
+
+    Route::get('/{service}', 'create')->name('book_service');
+
+    Route::get("/{booking}", "show")->name("show_booking");
+});
+
+Route::prefix("bookings/{booking}")->name("booking_details.")->group(function () {
+    Route::resource("payments", PaymentsController::class);
+});
+
+Route::resource("payments", PaymentsController::class);
 
 
 Route::controller(GalleryController::class)->prefix('splurge_gallery')->group(function () {

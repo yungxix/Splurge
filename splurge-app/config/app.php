@@ -198,4 +198,11 @@ return [
         'Image' => Intervention\Image\Facades\Image::class
     ])->toArray(),
 
+
+    /*
+        Splurge specific keys
+
+        default_splurge_access_duration is default access duration in days
+    */
+    'default_splurge_access_duration' => env("DEFAULT_SPLURGE_ACCESS_DURATION", 30),
 ];

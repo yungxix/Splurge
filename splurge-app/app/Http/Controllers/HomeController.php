@@ -4,24 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use App\Repositories\ServiceRepository;
-use App\Repositories\StatsRepository;
+
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    private $statsRepo;
     private $serviceRepo;
-    public function __construct(StatsRepository $statsRepo, ServiceRepository $serviceRepo)
+    public function __construct(ServiceRepository $serviceRepo)
     {
-        $this->statsRepo = $statsRepo;
         $this->serviceRepo = $serviceRepo;
     }
-    public function index() {
+
+    public function redirectForRole(Request $request) {
+        if ($request->user()->can("admin")) {
+            return redirect()->route("admin.admin_dashboard");
+        }
+        return redirect()->to("/dashboard");
+    }
+    public function index(Request $request) {
+        if (!empty($request->input('q'))) {
+            return $this->getSearch($request);
+        }
         return view('screens.welcome');
     }
 
     public function showDashboard() {
-        return view('screens.dashboard', ['stats' => $this->statsRepo->loadDashboardStats()]);
+        return view('screens.dashboard');
     }
 
     public function getSearch(Request $request) {
@@ -38,11 +46,12 @@ class HomeController extends Controller
     }
 
     public function getBookingForService(Request  $request, Service $service) {
-        return view('screens.welcome');
+        return view('screens.book.create', ['service' => $service]);
     }
 
-    public function getBooking(Request  $request, Service $service) {
-        return view('screens.welcome');
+    public function getBooking(Request  $request) {
+
+        return view('screens.book.index', ['services' => $this->serviceRepo->all(true)]);
     }
 
 }

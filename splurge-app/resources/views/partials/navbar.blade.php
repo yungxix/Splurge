@@ -37,11 +37,20 @@ $items = [
 ];
 
 if (Auth::check()) {
-    $items[] = [
-        'url' => url('/dashboard'),
-        'text' => 'Dashboard',
-        'active' => Request::is('dashboard*')
-    ];
+    if (Auth::user()->can("admin")) {
+        $items[] = [
+            'url' => route("admin.admin_dashboard"),
+            'text' => 'Dashboard',
+            'active' => Request::is('admin/dashboard*')
+        ];
+    } else {
+        $items[] = [
+            'url' => url('/dashboard'),
+            'text' => 'My Dashboard',
+            'active' => Request::is('dashboard*')
+        ];
+    }
+    
 }
 @endphp
 

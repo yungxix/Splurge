@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             TagSeeder::class,
             ServiceSeeder::class,
             PostSeeder::class,
-            GallerySeeder::class
+            GallerySeeder::class,
+            CompanySettingSeeder::class
         ]);
     }
 

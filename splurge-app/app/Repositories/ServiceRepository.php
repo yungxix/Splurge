@@ -18,7 +18,15 @@ class ServiceRepository {
         });
     }
 
-    public function all() {
+    public function all($withItems = false) {
+        if ($withItems) {
+            return Service::with('tiers')->orderBy('created_at', 'desc')->get();    
+        }
         return Service::orderBy('created_at', 'desc')->get();
     }
+
+    public function bookAbleServices() {
+        return Service::has("tiers")->orderBy("created_at", "desc")->get();
+    }
+     
 }

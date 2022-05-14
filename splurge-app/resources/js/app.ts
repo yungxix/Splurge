@@ -30,6 +30,20 @@ import TaggedLoader, {ItemProps} from './v2/components/search/tagged-loader-item
 
 import GroupedLoader, {LoaderProps} from './v2/components/search/tagged-loader';
 
+import PricingView, {PricingProps} from "./v2/components/admin/services/pricing";
+
+import ServiceTierOptionsEditor, { ServiceTierOptionsProps } from "./v2/components/admin/services/tiers/options-editor";
+
+import BookingTierSelector, {TierSelectionProps} from './v2/components/booking-tier-selector';
+
+import BookingForm, {BookingProps} from "./v2/components/booking/form";
+
+import AdminBookingDetails, {BookingDetailsProps} from "./v2/components/admin/booking/details/app";
+
+import MyBooking, {BookingDetailsProps as  MyBookingDetailsProps} from './v2/components/my/bookings/main';
+import MyBookingCombined, {BookingDetailsProps as  MyCombinedBookingDetailsProps} from './v2/components/my/bookings/combined';
+import MyBookingService, {BookingServiceProps} from './v2/components/my/bookings/service';
+
 const flash = {
     render(target: HTMLElement, options: MessagesProps) {
         ReactDOM.render(React.createElement(FlashComponent, options), target);
@@ -89,6 +103,45 @@ const admin = {
         renderSelector(target: HTMLElement, options: TagSelectorProps) {
             ReactDOM.render(React.createElement(TagsSelector, options), target);
         }
+    },
+    pricing: {
+        renderTableView(target: HTMLElement, options: PricingProps) {
+            ReactDOM.render(React.createElement(PricingView, options), target);
+        }
+    },
+    serviceTiers: {
+        renderOptionsEditor(target: HTMLElement, options: ServiceTierOptionsProps) {
+            ReactDOM.render(React.createElement(ServiceTierOptionsEditor, options), target);
+        }
+    },
+    bookings: {
+        renderDetails(target: HTMLElement, options: BookingDetailsProps) {
+            ReactDOM.render(React.createElement(AdminBookingDetails, options), target);
+        }
+    }
+}
+
+const booking = {
+
+    tierSelector(target: HTMLElement, options: TierSelectionProps) {
+        ReactDOM.render(React.createElement(BookingTierSelector, options), target);
+    },
+    renderForm(target: HTMLElement, options: BookingProps) {
+        ReactDOM.render(React.createElement(BookingForm, options), target);
+    }
+};
+
+const my = {
+    bookings : {
+        renderDetails(target: HTMLElement, options: MyBookingDetailsProps) {
+            ReactDOM.render(React.createElement(MyBooking, options), target);
+        },
+        renderCombinedDetails(target: HTMLElement, options: MyCombinedBookingDetailsProps) {
+            ReactDOM.render(React.createElement(MyBookingCombined, options), target);
+        },
+        renderService(target: HTMLElement, options: BookingServiceProps) {
+            ReactDOM.render(React.createElement(MyBookingService, options), target);
+        }
     }
 }
 
@@ -98,7 +151,9 @@ const plugins = {
     admin,
     navbar,
     slides,
-    gallery
+    gallery,
+    booking,
+    my
 }
 var Splurge = (<any>window).Splurge || {};
 

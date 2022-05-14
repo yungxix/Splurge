@@ -31,3 +31,46 @@ alter table `services` add `image_options` json null;
 
  create table `user_roles` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `name` varchar(255) not null, `user_id` bigint unsigned not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
  alter table `user_roles` add index `user_roles_user_id_index`(`user_id`);
+
+create table `service_items` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `service_id` bigint not null, `price` double(8, 2) null, `name` varchar(255) not null, `pricing_type` varchar(255) not null default 'fixed', `options` json null, `description` mediumtext null, `required` tinyint(1) not null default '0', `category` varchar(15) not null default 'default') default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+
+alter table `service_items` add index `service_items_service_id_index`(`service_id`);
+
+ alter table `service_items` add `sort_number` smallint not null default '0';
+
+
+ create table `service_tiers` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `service_id` int unsigned not null, `name` varchar(200) not null, `code` varchar(15) not null, `description` varchar(255) not null, `price` double(8, 2) null, `options` json not null, `footer_message` varchar(255) null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+ alter table `service_tiers` add index `service_tiers_service_id_index`(`service_id`);
+ alter table `service_tiers` add unique `service_tiers_code_unique`(`code`);
+
+
+  create table `company_settings` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `contact_email` varchar(100) not null, `contact_phone` varchar(100) not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+ create table `addresses` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `name` varchar(255) null, `line1` varchar(255) not null, `line2` varchar(255) null, `addressable_type` varchar(255) not null, `addressable_id` bigint unsigned not null, `cateogory` varchar(60) null, `latitude` double(8, 2) null, `longitude` double(8, 2) null, `state` varchar(30) not null default 'Lagos', `zip` varchar(12) null, `country` varchar(4) not null default 'NG') default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+ alter table `addresses` add index `addresses_addressable_type_addressable_id_index`(`addressable_type`, `addressable_id`);
+ create table `customers` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `first_name` varchar(120) not null, `last_name` varchar(120) not null, `email` varchar(100) not null, `phone` varchar(42) not null, `user_id` mediumint null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+ alter table `customers` add index `customers_user_id_index`(`user_id`);
+ create table `bookings` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `service_tier_id` int unsigned not null, `code` varchar(12) not null, `customer_id` mediumint not null, `description` varchar(500) not null, `event_date` date not null, `current_charge` decimal(8, 2) null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+ alter table `bookings` add index `bookings_service_tier_id_index`(`service_tier_id`);
+ alter table `bookings` add unique `bookings_code_unique`(`code`);
+ alter table `bookings` add index `bookings_customer_id_index`(`customer_id`);
+ create table `payments` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `code` varchar(12) not null, `statement` varchar(255) not null, `amount` decimal(8, 2) not null, `booking_id` mediumint not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+ alter table `payments` add unique `payments_code_unique`(`code`);
+ alter table `payments` add index `payments_booking_id_index`(`booking_id`);
+ 
+  create table `communications` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `sender` varchar(20) not null, `content` text not null, `receiver` varchar(255) not null, `channel_type` varchar(255) not null, `channel_id` bigint unsigned not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+ alter table `communications` add index `communications_channel_type_channel_id_index`(`channel_type`, `channel_id`);
+ alter table `service_tiers` add `position` smallint not null default '1';
+
+
+
+create table `splurge_access_tokens` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `user_id` mediumint not null, `token` varchar(255) not null, `access_type` varchar(255) not null, `access_id` bigint unsigned not null, `expires_at` datetime not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+ alter table `splurge_access_tokens` add index `splurge_access_tokens_access_type_access_id_index`(`access_type`, `access_id`);
+ alter table `splurge_access_tokens` add index `splurge_access_tokens_user_id_index`(`user_id`);
+
+ alter table `communications` add `subject` varchar(255) null;
+
+create table `jobs` (`id` bigint unsigned not null auto_increment primary key, `queue` varchar(255) not null, `payload` longtext not null, `attempts` tinyint unsigned not null, `reserved_at` int unsigned null, `available_at` int unsigned not null, `created_at` int unsigned not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+ alter table `jobs` add index `jobs_queue_index`(`queue`);
+
+
+ alter table `communications` add `internal` tinyint(1) not null default '0';

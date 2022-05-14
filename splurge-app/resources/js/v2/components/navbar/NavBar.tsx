@@ -1,6 +1,6 @@
 import React, { FC, Fragment, useState, useRef, useEffect } from "react";
 import ReactDOM from 'react-dom';
-import { DropdownItems, SingleItem } from './Item';
+import { DropdownItems, MobileDropdownItems, SingleItem } from './Item';
 import { NavBarItem } from "./types";
 import { Transition } from '@headlessui/react';
 import get from 'lodash/get';
@@ -57,11 +57,16 @@ export interface NavBarProps {
     items: Array<NavBarItem>;
     userDropdownItems: Array<NavBarItem>;
     loginUrl: string;
+    
 }
 
-const ItemRenderer: FC<{ item: NavBarItem; className: string; onSelect: (item: NavBarItem) => void }> = (props) => {
+const ItemRenderer: FC<{ item: NavBarItem; mobile?: boolean; dropdownAlignment?: string; 
+    className: string; onSelect: (item: NavBarItem) => void }> = (props) => {
     if (props.item.items && props.item.items.length > 0) {
-        return <DropdownItems {...props} />
+        if (props.mobile) {
+            return <MobileDropdownItems {...props} />
+        }
+        return <DropdownItems {...props} alignment={props.dropdownAlignment} />
     }
 
     return <SingleItem {...props} />
@@ -73,8 +78,10 @@ const DesktopItems: FC<NavBarProps & {
     onShowMobileItems: (show: boolean) => void;
 }> = (props) => {
 
+    const splurgeAccess = /splurge\s+access/i;
+
     const createUserItem = (): NavBarItem => ({
-        text: `Hi, ${props.username}`,
+        text: splurgeAccess.test(props.username) ? 'Welcome' : `Hi, ${props.username}`,
         url: '#',
         items: props.userDropdownItems
     });
@@ -91,6 +98,7 @@ const DesktopItems: FC<NavBarProps & {
                     <div className="ml-10 flex items-baseline w-full justify-end content-end space-x-4 justify-items-end">
                         {
                             props.items.map((item, idx) => (<ItemRenderer
+                                dropdownAlignment="left"
                                 onSelect={props.onSelect}
                                 className={classNames('desktop', item.className, { active: item.active === true })} key={`desk_${idx}`} item={item} />))
                         }
@@ -159,6 +167,7 @@ const MobileItems: FC<NavBarProps & { show: boolean; onSelect: (item: NavBarItem
                     props.items.map((item, i) => (<ItemRenderer
                         key={`mobile_item_${i}`}
                         item={item}
+                        mobile={true}
                         onSelect={props.onSelect}
                         className={classNames('mobile', item.className, { active: item.active === true })}
                     />))

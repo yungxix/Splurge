@@ -5,7 +5,7 @@ import axios from '../../../../axios-proxy';
 
 import classNames from "classnames";
 
-import SplurgeModal from '../../modal';
+import { useConfirmation } from '../../hooks/confirmation';
 
 enum Status {
     idle = 0,
@@ -68,7 +68,34 @@ const TableView: FC<TableViewProps> = (props) => {
     const [editing, setEditing] = useState(defaultEditModel());
     const [status, setStatus] = useState(Status.idle);
     const [errorMessage, setErrorMessage] = useState('');
-    const [deleteRequest, setDeleteRequest] = useState<DeleteRequest>({tagId: null, show: false});
+
+    const deleteTag = async (tag: TagModel) => {
+        setStatus(Status.busy);
+        setErrorMessage('');
+        try {
+            await destroyTag({id: tag.id || 0}, {baseURL: props.baseURL});
+            setTags(tags.filter(t => t.id !== tag.id));
+            if (tag.id === editing.data.id) {
+                setEditing(defaultEditModel());
+            }
+            setStatus(Status.idle);
+        } catch (ex: any) {
+            setStatus(Status.failed);
+            setErrorMessage(ex.message);
+        }
+    };
+
+    const [promptDelete, deleteModal] = useConfirmation<TagModel>({
+        title: 'Confirm Delete',
+        onApproved: (tag) => deleteTag(tag),
+        message: (tag) => {
+            if (!tag) {
+                return 'Are you sure you want to delete this tag?'
+            }
+            return `Are you sure you want to delete"${tag.name}"?`;
+        },
+        yesText: 'Yes delete it'
+    });
 
     const editorRef = useRef(null);
 
@@ -111,21 +138,7 @@ const TableView: FC<TableViewProps> = (props) => {
         } 
     };
 
-    const deleteTag = async (tag: TagModel) => {
-        setStatus(Status.busy);
-        setErrorMessage('');
-        try {
-            await destroyTag({id: tag.id || 0}, {baseURL: props.baseURL});
-            setTags(tags.filter(t => t.id !== tag.id));
-            if (tag.id === editing.data.id) {
-                setEditing(defaultEditModel());
-            }
-            setStatus(Status.idle);
-        } catch (ex: any) {
-            setStatus(Status.failed);
-            setErrorMessage(ex.message);
-        }
-    };
+    
 
     return <div className="flex flex-col">
          {
@@ -217,7 +230,7 @@ const TableView: FC<TableViewProps> = (props) => {
                                 <a onClick={(e) => edit(tag, index)} className="link mr-8">Edit</a>
                             
                             <a  onClick={(e) => {
-                                setDeleteRequest({tagId: tag.id, show: true, name: tag.name});
+                                promptDelete(tag)
                             }} className="link">Delete</a>
                               </>)
                           }
@@ -229,32 +242,7 @@ const TableView: FC<TableViewProps> = (props) => {
         </div>
       </div>
     </div>
-    <SplurgeModal title="Confirm delete" show={deleteRequest.show} onClose={() => {
-        setDeleteRequest({tagId: null, show: false})
-    } }>
-
-        <p className="mb-8">
-            Are you sure you want to delete &quot;{deleteRequest.name}&quot;?
-        </p>
-
-        <div className="flex flex-row justify-end items-center px-6 gap-x-4">
-            <button className="btn" type="button" onClick={(e) => {
-                deleteTag({id: deleteRequest.tagId, name: deleteRequest.name || ''})
-                setDeleteRequest({tagId: null, show: false})
-            }}>
-                Yes, delete it
-            </button>
-
-
-            <button className="btn" type="button" onClick={(e) => {
-                    setDeleteRequest({tagId: null, show: false})
-                }}>
-                    No
-                </button>
-
-        </div>
-
-    </SplurgeModal>
+    {deleteModal}
   </div>
 
 

@@ -86,12 +86,12 @@ const TagSelector: FC<SelectorProps> = (props) => {
                             <Popover.Button
                                 className={`
                 ${open ? '' : 'text-opacity-90'}
-                text-white group bg-orange-700 px-3 py-2 rounded-md inline-flex items-center text-base font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                text-white group bg-splarge-600 px-3 py-2 rounded-md inline-flex items-center text-base font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                             >
-                                <span>Add tags</span>
+                                <span>Add</span>
                                 <ChevronDownIcon
                                     className={`${open ? '' : 'text-opacity-70'}
-                  ml-2 h-5 w-5 text-orange-300 group-hover:text-opacity-80 transition ease-in-out duration-150`}
+                  ml-2 h-5 w-5 text-splurge-300 group-hover:text-opacity-80 transition ease-in-out duration-150`}
                                     aria-hidden="true"
                                 />
                             </Popover.Button>

@@ -692,6 +692,10 @@ video:focus {
 
 a.link {
     @apply cursor-pointer text-splarge-700 hover:text-splarge-900;
+
+    &.danger {
+        @apply cursor-pointer text-red-700 hover:text-red-900;
+    }
 }
 
 .link .fa {
@@ -796,19 +800,6 @@ body.has-collage {
         @apply text-splarge-700 bg-splurge-200 bg-opacity-10 absolute left-0 top-0 z-20 w-full;
     }
 
-<<<<<<< HEAD
-    .dropdown-content {
-        @apply absolute top-4 bg-white text-gray-800  z-50 mt-2 rounded-md shadow-md;
-        a {
-            @apply block text-splarge-600 hover:text-splarge-900 px-4 py-2;
-        }
-
-        &.right {
-            @apply left-auto right-0;
-        }
-    }
-=======
->>>>>>> develop
 
     #mobile-menu {
         @apply bg-white m-1 shadow rounded;
@@ -847,10 +838,18 @@ body.has-collage {
 
 .control-label {
     @apply block font-medium text-sm text-gray-700;
+
+    &.error {
+        @apply text-red-700;
+    }
 }
 
 .control {
-    @apply rounded-md px-4 py-2 shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+    @apply rounded-md px-4 py-2 shadow-sm border-splarge-300 focus:border-splarge-500 focus:ring focus:ring-splurge-900 focus:ring-opacity-50 !important;
+
+    &.error {
+        @apply border-red-500;
+    }
 }
 
 .form-group {
@@ -880,7 +879,7 @@ body.has-collage {
      active:bg-splarge-900 focus:outline-none
       focus:border-splarge-900 focus:ring
        ring-splarge-300 disabled:opacity-25
-        transition ease-in-out duration-150;
+        transition ease-in-out duration-150 justify-center;
 }
 
 .stacked {

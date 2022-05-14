@@ -44,7 +44,7 @@
     </div>
     
     <p class="text-right mb-4">
-        <a href="{{ route('events.index') }}">More&hellip;</a>
+        <a class="link" href="{{ route('events.index') }}">More events&hellip;</a>
     </p>
 </div>
 @endunless

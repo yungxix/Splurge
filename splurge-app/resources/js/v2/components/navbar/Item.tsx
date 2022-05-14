@@ -1,4 +1,4 @@
-import React, {FC, Fragment} from "react";
+import React, {FC, useState, Fragment} from "react";
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { NavBarItem } from "./types";
@@ -7,7 +7,8 @@ import classNames from "classnames";
 export interface ItemProps {
     item: NavBarItem;
     onSelect: (item: NavBarItem) => void;
-    className?: string
+    className?: string;
+    alignment?: string;
 }
 
 
@@ -38,7 +39,10 @@ export const DropdownItems: FC<ItemProps> = (props) => {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-1"
       >
-        <Popover.Panel className="shadow rounded-md w-[222px] absolute z-10 top-4 left-auto right-4 bg-white px-4 mt-4">
+        <Popover.Panel className={classNames("shadow rounded-md w-[222px] absolute z-10 bg-white px-4 mt-4 top-4", {
+          "left-auto right-4": props.alignment !== "left",
+          "right-auto left-4": props.alignment === "left"
+        })}>
          {
            props.item.items?.map((child, index) => (<a
             key={`child_${index}`}
@@ -57,6 +61,32 @@ export const DropdownItems: FC<ItemProps> = (props) => {
     </>
   )}
 </Popover>);
+
+}
+
+
+
+export const MobileDropdownItems: FC<ItemProps> = (props) => {
+  const [shown, setShown] = useState(false);
+  
+  const usabeProps = {...props, onSelect: (e: any) => setShown(!shown)};
+
+  return <div>
+    <SingleItem {...usabeProps}></SingleItem>
+    <Transition show={shown} 
+      className="bg-gray-100 py-4"
+      enter="origin-top-left transition ease-out duration-200"
+      enterFrom="scale-y-0"
+      enterTo="scale-y-1"
+      leave="origin-top-left transition ease-in duration-150"
+      leaveFrom="scale-y-0"
+      leaveTo="scale-y-1"
+    >
+      {
+        props.item.items?.map((item, i) => (<SingleItem key={`mbd_${item.text}_${i}`} className="ml-4 mb-2 block" item={item} onSelect={props.onSelect} />))
+      }
+    </Transition>
+  </div>
 
 }
 

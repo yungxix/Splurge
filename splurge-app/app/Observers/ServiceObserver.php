@@ -37,6 +37,8 @@ class ServiceObserver
     public function deleted(Service $service)
     {
         $service->taggables()->delete();
+        $service->tiers()->delete();
+        $service->items()->delete();
     }
 
     /**

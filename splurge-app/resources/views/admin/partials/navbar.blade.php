@@ -6,8 +6,8 @@ use Illuminate\Support\Str;
 $items = [
     [
         'text' => 'Dashboard',
-        'url' => url('/dashboard'),
-        'active' => Request::is('/dashboard')
+        'url' => route("admin.admin_dashboard"),
+        'active' => Request::is('admin/dashboard')
     ],
     [
         'text' => 'Posts / Events',
@@ -23,6 +23,21 @@ $items = [
         'text' => 'Services',
         'url' => url('/admin/services'),
         'active' => Request::is('admin/services*')
+    ],
+    [
+        'text' => 'Business',
+        'url' => '#',
+        'active' => collect(['admin/bookings*', '/admin/customers*', '/admin/messages*'])->contains(fn ($v, $k) => Request::is($v)),
+        'items' => [
+            [
+                'text' => 'Bookings',
+                'url' => route('admin.bookings.index')
+            ],
+            [
+                'text' => 'Messages',
+                'url' => route('admin.messages.index')
+            ]
+        ]
     ],
     [
         'text' => 'Public Page',

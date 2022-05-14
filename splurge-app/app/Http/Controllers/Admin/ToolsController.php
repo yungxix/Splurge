@@ -19,6 +19,6 @@ class ToolsController extends Controller
             $request->session()->flash('error_message', "Task failed");
             Log::error($th);
         }
-        return redirect()->route('dashboard');
+        return redirect()->route('admin.admin_dashboard');
     }
 }

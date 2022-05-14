@@ -1,13 +1,6 @@
 {
-<<<<<<< HEAD
     "/js/app.js": "/js/app.js",
     "/js/manifest.js": "/js/manifest.js",
     "/css/app.css": "/css/app.css",
     "/js/vendor.js": "/js/vendor.js"
-=======
-    "/js/app.js": "/js/app.js?id=37b2b5c81a6dba4c0efd6865356104b8",
-    "/js/manifest.js": "/js/manifest.js?id=c712b484de855b07a60b5a31a7192f9a",
-    "/css/app.css": "/css/app.css?id=545d59f3be30f8e035c9a0a05900f47a",
-    "/js/vendor.js": "/js/vendor.js?id=6be844ef9a7cefefe2ee51bf7011d600"
->>>>>>> develop
 }

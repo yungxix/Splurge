@@ -1,9 +1,17 @@
+@php
+    $breadcrumbItems = [
+        ['text' => 'Dashboard', 'url' => route('admin.admin_dashboard')] ,
+        ['text' => 'Gallery', 'url' => route('admin.gallery.index')],
+        ['text' => 'Details', 'url' => route('admin.gallery.show', $gallery)],
+    ];
+@endphp
 @extends('layouts.admin')
 
 @section('title', 'Gallery')
 
 
 @section('content')
+    <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
     <x-admin.gallery-header :gallery="$gallery">
         
     </x-admin.gallery-header>

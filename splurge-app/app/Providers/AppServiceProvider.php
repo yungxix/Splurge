@@ -18,7 +18,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind("splurge.access", function ($app) {
+            return new \App\Support\OneTimeAccessService($app['request']);
+        });
+        $this->app->bind(\App\Support\OneTimeAccessService::class, function ($app) {
+            return $app["splurge.access"];
+        });
+
+        
     }
 
     /**

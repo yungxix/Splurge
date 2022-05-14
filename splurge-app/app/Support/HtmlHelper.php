@@ -18,6 +18,10 @@ class HtmlHelper {
         return new HtmlString($lines);
     }
 
+    public static function renderParagraphs(string $text, $class_name = NULL) {
+        return static::toParagraphs($text, $class_name);
+    }
+
     public static function translateFlashTypeToCss($type) {
         switch ($type) {
             case 'success':
@@ -30,5 +34,26 @@ class HtmlHelper {
             default:
                 return 'bg-gray-800 text-white';
         }
+    }
+
+    public static function toOrdinalString(int $value) {
+        $mod = $value % 10;
+        switch ($mod) {
+            case 1:
+                return "st";
+            case 2:
+                return "nd";
+            case 3:
+                return "rd";
+            default:
+                return "th";
+        }
+    }
+
+    public static function renderAmount($amount) {
+        if (is_null($amount)) {
+            return '';
+        }
+        return new HtmlString(sprintf('&#8358;%s',  number_format($amount, 2)));
     }
 }
