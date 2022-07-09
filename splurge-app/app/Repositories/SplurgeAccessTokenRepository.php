@@ -53,7 +53,7 @@ class SplurgeAccessTokenRepository {
 
             $access->token = $token;
             $access->user_id = $user_id;
-            $access->expires_at = $expires_at ?? Carbon::now()->addDays(config("app.default_splurge_access_duration"));
+            $access->expires_at = $expires_at ?: Carbon::now()->addDays(config("app.default_splurge_access_duration"));
             $access->access_type = get_class($model);
             $access->access_id = $model->id;
             $access->saveOrFail();

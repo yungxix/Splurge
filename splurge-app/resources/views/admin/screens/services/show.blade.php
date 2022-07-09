@@ -10,13 +10,13 @@
 @extends('layouts.admin')
 
 
-@section('title', 'Service Details')
+@section('title', 'Package Details')
 
 
 @section('content')
 
     <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
-    @include('partials.page-header', ['title' => sprintf('%s Service', $service->name)])
+    @include('partials.page-header', ['title' => sprintf('%s Package', $service->name)])
     {{-- @include('admin.screens.services.partials.header', ['service' => $service]) --}}
     {{-- <hr class="mb-4 w-3/4 mx-auto" /> --}}
     <div class="container mx-auto">

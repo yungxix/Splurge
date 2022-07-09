@@ -16,6 +16,44 @@
     @apply container mx-auto;
 }
 
+.service-tier-options {
+    li {
+        @apply mb-3 flex flex-row gap-4;
+    }
+
+    li::before {            
+        content: "\27A4";
+        @apply md:text-xl;
+    }
+}
+
+.service-tier-options.style1 {
+    li::before {         
+        @apply text-splarge-600;
+    }
+}
+
+.service-tier-options.style2 {
+    li::before {         
+        @apply text-splurge-200;
+    }
+}
+.service-tier-wrapper {
+    @apply mb-8 md:mt-8 border-2 border-splarge-900 p-4 text-base rounded-md; 
+    .bookmark {
+        @apply  float-right -mt-6 w-12 h-16 z-10 bg-splurge-200 shadow-splarge-900 shadow-lg ring-slate-200 hover:ring active:ring;
+    }
+    .service-tier-container {
+        @apply relative text-base mt-4;       
+        .service-tier-options-container::before {
+            @apply clear-both;
+        }
+        
+    }
+
+  
+}
+
 
 
 .home {
@@ -47,15 +85,22 @@
     @apply inline-block text-sm lg:px-8 lg:py-4 px-2 py-1 rounded-md text-splarge-700 bg-white hover:text-splarge-900 hover:bg-gray-100;
 }
 
+.g-container-1 {
+    /* background: conic-gradient(at right bottom, rgb(224, 231, 31), rgb(99, 30, 84), rgb(149, 80, 134)); */
+    /* color: #ffffff; */
+
+    @apply text-white bg-gradient-to-tr from-slate-100 to-slate-900;
+
+    /**
+    conic-gradient(at right center, rgb(49, 46, 129), rgb(24, 24, 27), rgb(254, 202, 202))
+    conic-gradient(at right bottom, rgb(49, 46, 129), rgb(24, 24, 27), rgb(254, 202, 202))
+    **/
+}
+
 
 
 /*---SERVICES---*/
 
-
-.title-text {
-    @apply text-center pb-24 text-xl md:text-3xl text-cyan-800;
-
-}
 
 #service {
     @apply min-w-fit;
@@ -789,10 +834,55 @@ body.has-collage {
     }
 }
 
+.collage-block {
+  display: flex;
+  flex-flow: column wrap;
+  max-height: 800px;
+  /* margin-left: -8px; */
+  width: fit-content;
+  gap: 0.4rem;
+
+  .collage-item {
+      @apply relative overflow-hidden;
+        img {
+            width: 100%;
+            object-fit: cover;
+            vertical-align: middle;
+            max-width: 100%;
+        }
+  }
+}
+
+.social-links .ionicon {
+    fill: white;
+    @apply w-4;
+}
+
+.experience-list {
+    li {
+        @apply mb-4 md:mb-8 flex flex-row;
+    }
+}
+
+.service-package {
+    @apply bg-[url('/images/e2.jpeg')] bg-cover rounded-md;
+    .service-package-content {
+        @apply bg-splarge-900 text-white bg-opacity-50 px-4 py-2;
+    }
+    
+}
+
+
 .with-navbar {
     @apply mt-16;
 }
+body.has-modal {
+    @apply overflow-hidden;
+}
 
+.modal-container {
+    @apply absolute left-0 top-0 bg-opacity-10 bg-splarge-900 z-50 w-full h-full block;
+}
 #navbar {
     @apply bg-splurge-900;
     
@@ -880,6 +970,10 @@ body.has-collage {
       focus:border-splarge-900 focus:ring
        ring-splarge-300 disabled:opacity-25
         transition ease-in-out duration-150 justify-center;
+
+    &.yellow {
+        @apply text-splurge-200;
+    }
 }
 
 .stacked {
@@ -903,4 +997,15 @@ body.has-collage {
 
 .form-info {
     @apply bg-gray-200 rounded-md m-4 leading-5 font-mono p-4;   
+}
+
+.booking-details-table {
+    td, th {
+        @apply pb-4 align-top;
+    }
+    &.with-icons {
+        th {
+            @apply pr-8;
+        }
+    }
 }

@@ -4,7 +4,7 @@
     $hostId = 'gallery_images_' . Str::random(6);
 @endphp
 @unless ($items->isEmpty())
-<div class="p-2 lg:p-4 recent-gallery-media-items">
+<div {{ $attributes->merge(['class' => 'p-2 lg:p-4 recent-gallery-media-items']) }}>
     <h4 class="text-gray-800 text-lg">Recent Pictures</h4>
     <div id="{{ $hostId }}">
         <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto animate-spin h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

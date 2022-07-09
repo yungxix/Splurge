@@ -5,10 +5,12 @@ use Illuminate\Support\Str;
 @endphp
 
 
+@unless ($posts->isEmpty())
+
 <section id="pages">
     <div class="container mx-auto pt-5">
         <div class="heado">
-            <h4 class="text-xl lg:text-2xl text-white">SPLURGE EVENTS LUXURY WEDDING PLANNERS, PARTY PLANNERS AND EVENT DESIGNER</h4>
+            <h4 class="text-xl lg:text-2xl text-white uppercase">{{ config('app.name') }} EVENTS LUXURY WEDDING PLANNERS, PARTY PLANNERS AND EVENT DESIGNER</h4>
         </div>
         
         @foreach ($posts->chunk(3) as  $group)
@@ -31,3 +33,5 @@ use Illuminate\Support\Str;
     </div>
     
 </section>
+    
+@endunless

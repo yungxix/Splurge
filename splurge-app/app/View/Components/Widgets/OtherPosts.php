@@ -9,15 +9,17 @@ class OtherPosts extends Component
 {
     private $postId;
     public $title;
+    public $orientation;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($postId, $title = 'Other Events')
+    public function __construct($postId, $title = 'Other Events', $orientation = 'vertical')
     {
         $this->postId = $postId;
         $this->title = $title;
+        $this->orientation = $orientation;
     }
 
     /**

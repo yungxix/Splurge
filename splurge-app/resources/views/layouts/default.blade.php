@@ -1,17 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-    <meta name="description" content="EVENTS HUB IN AFRICA" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/x-icon" href="{{ asset('images/splurge.ico') }}" />
+    @include('layouts.header_includes')
     <title>
-        @section('title')
-            {{ config('app.name') }}
-        @show
-         | EVENTS HUB IN AFRICA</title>
+        @yield('title')
+         | {{ config('app.name') }} Events</title>
 
         <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Italianno&family=Itim&family=Poppins:ital,wght@0,200;0,400;0,500;1,200;1,500&display=swap"

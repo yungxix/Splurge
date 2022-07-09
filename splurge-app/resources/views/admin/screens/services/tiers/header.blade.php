@@ -1,7 +1,7 @@
 @php
     use App\Support\HtmlHelper;
 @endphp
-@include('partials.page-header', ['title' => $service->name, 'sub_title' => 'Service Tiers'])
+@include('partials.page-header', ['title' => $service->name, 'sub_title' => 'Package Tiers'])
 <div class="container mx-auto mt-4">
     <div class="md:flex flex-row">
         <img class="max-h-72" src="{{ splurge_asset($service->image_url) }}" />

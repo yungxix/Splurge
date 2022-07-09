@@ -9,12 +9,12 @@
 @endphp
 @extends('layouts.admin')
 
-@section('title', 'Edit Service')
+@section('title', 'Edit Package')
 
 
 @section('content')
 <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
-@include('partials.page-header', ['title' => 'Edit Service'])
+@include('partials.page-header', ['title' => 'Edit Package'])
 <section class="container mx-auto">
     @include('admin.screens.services.form', ['service' => $service])
 </section>

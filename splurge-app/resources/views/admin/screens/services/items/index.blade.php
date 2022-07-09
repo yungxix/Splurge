@@ -5,11 +5,11 @@
 @endphp
 @extends('layouts.admin')
 
-@section('title', 'Service Items')
+@section('title', 'Package Items')
 
 
 @section('content')
-    @include('partials.page-header', ['title' => 'Service Pricing'])
+    @include('partials.page-header', ['title' => 'Package Pricing'])
     <section class="container mx-auto">
         <div class="md:flex flex-row">
             <div class="md:w-2/3 p-4">

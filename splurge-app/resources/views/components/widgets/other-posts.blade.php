@@ -1,13 +1,17 @@
 @php
     use Illuminate\Support\Str;
 
+    $wrapper_class = 'horizontal' == $orientation ? 'flex flex-row overflow-x-auto divide-splarge-50' : '';
+    $outside_class  = 'horizontal' == $orientation ? 'text-center' : '';
+
+
 @endphp
 @unless ($posts->isEmpty())
-<div class="text-gray-500 text-base">
-    <h4 class="ml-2 text-lg font-semibold mb-2">{{ $title }}</h4>
-    <div class="">
+<div {{ $attributes->merge(['class' => 'text-gray-500 text-base']) }}>
+    <h4 class="ml-2 text-lg font-semibold mb-2 {{ $outside_class }}">{{ $title }}</h4>
+    <div class="{{  $wrapper_class }}">
         @foreach ($posts as $post)
-            @if (!$loop->first)
+            @if (!$loop->first && 'horizontal' !== $orientation)
                 <hr />
             @endif
             @if (empty($post->image_url) && empty($post->thumbnail_image_url) )
@@ -47,4 +51,5 @@
         <a class="link" href="{{ route('events.index') }}">More events&hellip;</a>
     </p>
 </div>
+
 @endunless

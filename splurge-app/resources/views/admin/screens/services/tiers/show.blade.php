@@ -3,7 +3,7 @@
 
     $breadcrumbItems = [
         ['text' => 'Dashboard', 'url' => route('admin.admin_dashboard')] ,
-        ['text' => 'All Services', 'url' => route('admin.services.index')],
+        ['text' => 'All Packages', 'url' => route('admin.services.index')],
         ['text' => $service->name . ' Details', 'url' => route('admin.services.show', $service)],
         ['text' => 'Tiers', 'url' => route('admin.service_detail.tiers.index', ['service' => $service->id])],
         ['text' => 'Details', 'url' => '#']

@@ -3,7 +3,7 @@
 
     $breadcrumbItems = [
         ['text' => 'Dashboard', 'url' => route('admin.admin_dashboard')] ,
-        ['text' => 'All Services', 'url' => route('admin.services.index')],
+        ['text' => 'All Packages', 'url' => route('admin.services.index')],
         ['text' => $service->name . ' Details', 'url' => route('admin.services.show', $service)],
         ['text' => 'Tiers', 'url' => route('admin.service_detail.tiers.index', $service)],
         ['text' => 'New Tier']
@@ -11,12 +11,12 @@
 @endphp
 @extends('layouts.admin')
 
-@section('title', 'Edit Service Tier')
+@section('title', 'Edit Package Tier')
 
 
 @section('content')
     <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
-    @include('partials.page-header', ['title' => $service->name, 'sub_title' => 'New Service Tier'])
+    @include('partials.page-header', ['title' => $service->name, 'sub_title' => 'New Package Tier'])
     
     <hr class="mb-4 w-3/4 mx-auto" />
 

@@ -8,6 +8,7 @@ import ServiceTierSelector from '../booking-tier-selector';
 import * as RXControls from "../forms/reactive/controls";
 import PersonalInfoControls from "./person-info2";
 import AddressBlockInputs from "./address-block2";
+import InDevelopment from "../dev";
 
 
 const createDefaultBooking = (env: Partial<Booking>): Booking => {
@@ -27,7 +28,7 @@ const ServiceTiersControl = (control: AbstractControl) => (<div>
         control.setValue(e)
     }} />
     {control.touched && control.hasError("required") && (<p className="text-red-500">
-        You have not selected a plan
+        You have not selected a package
     </p>)}
 </div>);
 
@@ -76,6 +77,28 @@ export default function Step1() {
         stepCtx.onChange(stepCtx.step + 1);
     };
     
+    const generateData = async () => {
+      const api = await import('@faker-js/faker');
+
+      formGroup.current.patchValue({
+        customer: {
+            fullName: [api.faker.name.firstName(), api.faker.name.lastName()].join(' '),
+            email: api.faker.internet.email(),
+            phone: api.faker.phone.number('+234 #0# #######')
+        },
+        description: api.faker.lorem.paragraph().slice(0, 455),
+        eventDate: api.faker.date.future(),
+        address: {
+            name: api.faker.lorem.sentence(5),
+            line1: [api.faker.address.streetAddress()].join(' '),
+            line2: api.faker.address.secondaryAddress(),
+            zip: api.faker.address.zipCode(),
+            state: 'Lagos'
+        }
+      });
+
+
+    };
     return <FieldGroup control={formGroup.current} render={(ctrl) => (<form onSubmit={(e) => {
         e.preventDefault();
         commitForm(ctrl.value);
@@ -84,7 +107,7 @@ export default function Step1() {
 
 
         </FieldControl>
-        <div className="bg-white pt-16 px-4 md:px-16">
+        <div className="bg-white py-16 px-4 md:px-16">
                 <div className="md:flex">
                     <div className="md:w-2/3">
                         <FieldControl name="description" meta={DESCRIPTION_META} render={RXControls.TextAreaInput}>
@@ -94,6 +117,11 @@ export default function Step1() {
                         <PersonalInfoControls control={ctrl.get("customer")} className="mt-4" />
                         <AddressBlockInputs control={ctrl.get("address")} className="mt-4" />
                         <div className="mt-4 flex flex-row items-center justify-end gap-10">
+                            <InDevelopment>
+                                <button className="btn" onClick={generateData} type="button">
+                                    Generate
+                                </button>
+                            </InDevelopment>
                             <button type="submit"
                             className="btn"
                             disabled={ctrl.invalid}>

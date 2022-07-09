@@ -5,7 +5,7 @@ use Illuminate\Support\Str;
 
 $items = [
     [
-        'text' => 'Dashboard',
+        'text' => 'Administration',
         'url' => route("admin.admin_dashboard"),
         'active' => Request::is('admin/dashboard')
     ],
@@ -20,7 +20,7 @@ $items = [
         'active' => Request::is('admin/gallery*')
     ],
     [
-        'text' => 'Services',
+        'text' => 'Packages',
         'url' => url('/admin/services'),
         'active' => Request::is('admin/services*')
     ],

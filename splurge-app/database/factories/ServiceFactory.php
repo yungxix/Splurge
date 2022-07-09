@@ -38,7 +38,7 @@ class ServiceFactory extends Factory
                     'name' => $tier,
                      'position' => $index + 1,
                      'code' => Str::random(8),
-                     'price' => (100000 + $this->faker->randomNumber(6)) % 10000000,
+                     'price' => (10000 + floor($this->faker->randomNumber(5)) % 1000000) ,
                      'description' => $this->faker->text(254),
                      'footer_message' => $this->faker->text(200),
                      'options' => array_map(function () {

@@ -6,6 +6,9 @@
 <div class="container mx-auto mt-4">
     <img class="mx-auto" src="{{ splurge_asset($service->image_url) }}" />
     <div class="flex flex-row justify-end items-center gap-x-4 p-4 mt-4 border-t border-gray-200">
+        <span class="mr-8 bg-slate-700 text-white rounded py-2 px-4">
+            {{config('view.services.displays.' . $service->display)}}
+        </span>
         <a class="link" href="{{ route('admin.services.edit', $service) }}">
             Edit
         </a>

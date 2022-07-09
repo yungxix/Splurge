@@ -12,7 +12,7 @@ class ServiceTier extends Model
     protected $fillable = ['service_id', 'options',
      'description',
       'options', 'price',
-       'footer_message', 'name', "position"];
+       'footer_message', 'name', "position", "image_url"];
 
 
     protected $casts = ['options' => 'array'];   

@@ -1,5 +1,3 @@
-
-
 import React, {FC, useEffect, useState, useCallback} from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay} from 'swiper';

@@ -4,6 +4,8 @@ import get from 'lodash/get';
 import has from 'lodash/has';
 import random from 'lodash/random';
 
+import capitalize from 'lodash/capitalize';
+
 export const getErrorMessage = (bag: any): string | null => {
     if (isObject(bag)) {
         const attributes = ['response', 'data', 'message', 'errorMessage'];
@@ -36,3 +38,13 @@ export function getRandomString(length = 8) {
     }
     return buffer;
 }
+
+
+export const humanize = (str: string, capitalizeStr: boolean = true): string => {
+    let result = str.replace(/([a-b0-0])([A-B])/g, '$1 $2');
+    result = str.replace(/_+/g, ' ');
+    if (capitalizeStr) {
+        return capitalize(result);
+    }
+    return result;
+};

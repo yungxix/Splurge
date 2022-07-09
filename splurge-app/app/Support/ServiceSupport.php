@@ -6,10 +6,16 @@ use App\Models\Service;
 use App\Models\ServiceItem;
 use Closure;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class ServiceSupport {
     public static function getEstimateMinimumPrice(Service $service) {
         return self::getTotalAmount($service, 'min', fn ($c, $k) => true);
+    }
+
+    public static function hideServicesMenuItem() {
+        $records = Service::select("display", DB::raw("count(*) record_count"))->groupBy('display')->get();
+        return  $records->every(fn ($item, $k) => 'menu' === $item->display);
     }
 
 

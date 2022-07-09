@@ -6,6 +6,7 @@ import Amount from "../amount";
 import { Transition } from "@headlessui/react";
 import { useTier } from "./hooks";
 import { format, formatDistanceToNow } from "date-fns";
+import { ServiceTierImage } from "../booking-tier-selector";
 
 const CustomerRenderer2: FC = (props) => {
     const bookingCtx = useContext(BookingContext);
@@ -71,6 +72,7 @@ const TierRenderer: FC = (props) => {
     )}>
         {props.children}
 
+        <ServiceTierImage tier={tier} />
         <h4 className="font-bold text-2xl">{tier?.name}</h4>
 
 
@@ -141,7 +143,7 @@ const MobileRenderer:FC = (props) => {
             <div>
                 <div className="flex flex-row justify-between items-center">
                     <h4 className="text-lg">
-                        {tier?.name} Plan
+                        {tier?.name} Package
                     </h4>
                     <a className="link" onClick={(e) => setShowTier(true)}>
                         <span className="text-sm">(tap to see details)</span>

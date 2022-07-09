@@ -25,7 +25,7 @@
    
    
     <div class="rek my-4">
-        <p>"Serene Splurge Events is the ultimate wedding planner around"</p>
+        <p>Serene Splurge Events is the ultimate wedding planner around"</p>
     </div>
 </div>                 
 

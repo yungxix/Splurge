@@ -4,11 +4,14 @@
 @endphp
 
       <section id="service" class="container mx-auto pt-5 pb-40">
-        <div class="title-text">
-            <h3>INTERNATIONAL LUXURY WEDDING PLANNERS & PARTY PRODUCERS</h3>
-            <p>We Create Exceptional Memories</p>
+        <div class="mb-8 md:mb-20 text-center">
+            <h3 class="mb-2 text-xl">LUXURY WEDDING PLANNERS & PARTY ORGANISERS</h3>
+            <p class="text-lg">Make every event uniquely memorable 
+              and emotive through creative ideas 
+              delivered with precision while making the 
+              process pleasurable and hassle free</p>
         </div>
-
+        
 
         <div class="mx-auto md:w-2/3">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
@@ -35,8 +38,10 @@
                 <div class="service-desc">
                   <h4>BOOK US</h4>
                   <hr>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit obcaecati voluptatum facere architecto
-                      vero minima delectus nam saepe eligendi placeat?</p>
+                  <p>To make every event uniquely memorable 
+                    and emotive through creative ideas 
+                    delivered with precision while making the 
+                    process pleasurable and hassle free.</p>
                 </div>     
               </a>
             </div>
@@ -47,9 +52,12 @@
               <div class="overlay"></div>
               <div class="service-desc">
                 <h4>Want to know more?</h4>
-                <hr>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit obcaecati voluptatum facere architecto
-                     vero minima delectus nam saepe eligendi placeat?</p>
+                <hr />
+                <p>
+                  Our vision to ensure clients satisfaction 
+                  and loyalty, be the planner of choice 
+                  when it comes to emotive experiences...
+                </p>
                 </a>       
             </div>
 

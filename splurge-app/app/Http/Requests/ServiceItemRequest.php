@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Service;
 use App\Models\ServiceItem;
+use App\Support\UploadProcessor;
 use Illuminate\Foundation\Http\FormRequest;
 
 use Illuminate\Validation\Rule;
@@ -29,24 +30,41 @@ class ServiceItemRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'required' => 'nullable|boolean',
-            'options' => 'nullable|array',
-            'description' => 'nullable|max:1000',
-            'price' => 'nullable|numeric',
-            'pricing_type' => ['nullable', Rule::in(['fixed', 'increment', 'incremental', 'percentage', 'percent'])],
-            'category' => 'nullable|max:15',
-            'sort_number' => 'nullable|integer'
+            'required' => 'sometimes|nullable|boolean',
+            'options' => 'sometimes|nullable|array',
+            'description' => 'sometimes|nullable|max:1000',
+            'price' => 'sometimes|nullable|numeric',
+            'pricing_type' => ['sometimes', 'nullable', Rule::in(['fixed', 'increment', 'incremental', 'percentage', 'percent'])],
+            'category' => 'sometimes|nullable|max:15',
+            'sort_number' => 'sometimes|integer',
+            "image" => "sometimes|mimes:png,jpg,jpeg|max:"  . (4 * 1024)
         ];
     }
 
 
     public function addToService(Service $service) {
-        $item = $service->items()->create($this->safe()->all());
+        $data = $this->safe()->except('image');
+
+        if ($this->hasFile('image')) {
+            $processor = new UploadProcessor($this, 'images/services', 'image');
+            if ($result = $processor->handle()) {
+                $data = array_merge($data, $result);
+            }
+        }
+
+        $item = $service->items()->create($data);
         return $item;
     }
 
     public function updateItem(ServiceItem $item) {
-        $item->update($this->safe()->all());
+        $data = $this->safe()->except('image');
+        if ($this->hasFile('image')) {
+            $processor = new UploadProcessor($this, 'images/services', 'image');
+            if ($result = $processor->handle()) {
+                $data = array_merge($data, $result);
+            }
+        }
+        $item->update($data);
         return $item;
     }
 }

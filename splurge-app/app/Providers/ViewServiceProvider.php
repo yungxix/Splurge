@@ -35,6 +35,10 @@ class ViewServiceProvider extends ServiceProvider
         View::composer('partials.landing.services', function ($view) use ($repository) {
             $view->with('services', $repository->forWidget());
         });
+
+        View::composer(['partials.navbar', 'my.partials.navbar'], function ($view) use ($repository) {
+            $view->with('services', $repository->forMenu());
+        });
     }
 
     private function composeForPages() {

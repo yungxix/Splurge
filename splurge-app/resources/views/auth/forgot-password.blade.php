@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('title', 'Reset Password')
-@section('section')
+@section('content')
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">

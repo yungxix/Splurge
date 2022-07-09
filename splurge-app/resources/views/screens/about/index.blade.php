@@ -1,48 +1,150 @@
-@extends(config('view.defaults.layout'), ['navbar_class' => 'overbanner'])
+@extends('layouts.default', ['navbar_class' => 'overbanner'])
+@php
+$subTitleClass = 'text-xl font-bold text-splarge-700 mt-4';
+@endphp
 
 @section('title', 'About')
 
 @section('content')
-  @include('partials.landing.slides')
-  <section id="wedding" class="container mx-auto pt-8">
-            <h3 class="text-2xl font-bold text-center mb-4">About SerenSplurge Event</h3>
-            <p class="text-justify mb-4"> 
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam perferendis hic quasi, voluptas, neque molestias inventore dolore eveniet doloribus rerum nemo. Nemo incidunt nihil possimus officiis reiciendis, 
-                porro, vitae unde explicabo, alias quia debitis ab! Accusamus possimus iusto molestiae dicta.
-            </p>
-            <div class="md:flex flex-row">
-                <div class="md:w-2/3 md:pr-4">
-                    @include('partials.contact')
-                    <hr class="mt-4 md:mt-8 bg-splarge-500 h-px text-splarge-300" />
-                    @if (true)
-                    <div class="mt-4 md:mt-10">
-                        <div class="flex flex-row gap-x-4 justify-between items-center">
-                            <div>
-                                <img src="{{ asset('images/p4.jpeg') }}" alt="">
-                                <p class="text-splarge-800 md:text-lg font-semibold text-center">Eloquent Events</p>
-                            </div>
-                            <div>
-                                <img src="{{ asset('images/l1.jpg') }}" alt="">
-                                <p class="text-splarge-800 md:text-lg font-semibold text-center">Memorable Momments</p>
-                            </div>
-                            <div>
-                                <img src="{{ asset('images/q2.jpeg') }}" alt="">
-                                <p class="text-splarge-800 md:text-lg font-semibold text-center">Luxurious Weddings</p>
-                            </div>      
-                        </div>
-                        <p class="mb-8"></p>
-                    </div>
-                    @endif
-                    @include('partials.map')
-                </div>
-                <div class="md:w-1/3 bg-gray-50 p-4 md:rounded-md">
-                    <x-widgets.other-posts title="Recent Events" :post_id="-1"></x-widgets.other-posts>
-                    <x-widgets.recent-gallery></x-widgets.recent-gallery>
-                </div>
+    @include('partials.landing.slides')
+    <section id="wedding" class="container mx-auto pt-8">
+        <h3 class="text-2xl font-bold text-center mb-4">About {{ config('app.name') }} Events</h3>
+
+        <div class="md:flex flex-row">
+            <div class="md:w-1/2">
+                <img class="block" src="{{ asset('images/about.png') }}" alt="About Image" />
+                <p class="hidden md:block text-center">
+                    <a href="{{ route('services.index') }}" class="text-2xl bg-splarge-600 px-6 rounded-lg shadow-md py-2 hover:bg-slate-800 animate-bounce text-white">
+                        Checkout our packages!
+                    </a>
+                </p>
             </div>
-            <p class="mb-8"></p>
-           
-  </section>
+            <div class="md:w-1/2">
+                <h4 class="{{ $subTitleClass }}">Mission Statement</h4>
+                <p>
+                    To make every event uniquely memorable
+                    and emotive through creative ideas
+                    delivered with precision while making the
+                    process pleasurable and hassle free.
+                </p>
+                <h4 class="{{ $subTitleClass }}">
+                    Vision
+                </h4>
+
+                <p>
+                    Our vision to ensure clients satisfaction
+                    and loyalty, be the planner of choice
+                    when it comes to emotive experiences..
+                </p>
+                <h4 class="{{ $subTitleClass }}">
+                    Core Values
+                </h4>
+                <ul class="leading-8">
+                    <li>
+                        Customer service
+                    </li>
+                    <li>
+                        Integrity
+                    </li>
+                    <li>
+                        Teamwork
+                    </li>
+                    <li>
+                        Creativity
+                    </li>
+                    <li>
+                        Respect
+                        Relationship
+                    </li>
+                </ul>
+
+                <div class="mt-4 p-4 bg-slate-900 text-white rounded-md">
+                    <h4 class="text-xl font-bold my-4">OUR EXPERIENCE</h4>
+                    <ul class="experience-list">
+                        <li>
+                            <span class="text-splurge-500 mr-8">
+                                &#x27A4;
+                            </span>
+                            <span>
+                                We are an event company that has been in existence since
+                                2014,with a combined experience of over 10 years in event
+                                planning
+                            </span>
+                        </li>
+                        <li>
+                            <span class="text-splurge-500 mr-8">
+                                &#x27A4;
+                            </span>
+                            <span>
+                                We have very good experience in handling events especially
+                                in the Country since we have a good understanding of the
+                                various issues that might arise with vendors and other
+                                stakeholders
+                            </span>
+                        </li>
+                        <li>
+                            <span class="text-splurge-500 mr-8">
+                                &#x27A4;
+                            </span>
+                            <span>
+                                We pride ourselves with our attention to details and our ability
+                                to properly translate your ideas into reality.
+                            </span>
+                        </li>
+                        <li>
+                            <span class="text-splurge-500 mr-8">
+                                &#x27A4;
+                            </span>
+                            <span>
+                                We urge you to relax as we take your celebration from
+                                conception to reality
+                            </span>
+                        </li>
+                        <li>
+                            <span class="text-splurge-500 mr-8">
+                                &#x27A4;
+                            </span>
+                            <span>
+                                We do not hands off until the last vendor has delivered.
+                            </span>
+                        </li>
+                        <li>
+                            <span class="text-splurge-500 mr-8">
+                                &#x27A4;
+                            </span>
+                            Like our by-line says, we deliver Unforgettable, Emotive
+                            Experience
+                        </li>
+                        <li>
+                            <span class="text-splurge-500 mr-8">
+                                &#x27A4;
+                            </span>
+                            <span>
+                                Any of Our assigned event consultants: Kemi Okezie, Chinasa
+                                Njoku and Itunu Farotimi will be on ground between the hours
+                                of 9am to 5pm (Nigerian time) to attend to your needs and
+                                questions from now till the event ends.
+                            </span>
+
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="text-center my-4 block md:hidden">
+            <a href="{{ route('services.index') }}" class="text-2xl bg-splarge-600 px-6 rounded-lg shadow-md py-2 hover:bg-slate-800 animate-bounce text-white">
+                Checkout our packages!
+            </a>
+        </div>
+
+
+        <x-widgets.other-posts title="Recent Events" :post_id="-1"></x-widgets.other-posts>
+        <x-widgets.recent-gallery></x-widgets.recent-gallery>
+        <p class="mb-8"></p>
+
+    </section>
 
 
 

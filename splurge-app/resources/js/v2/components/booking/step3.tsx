@@ -10,6 +10,8 @@ import {formatISO} from "date-fns";
 import SpinningRefreshIcon from "../spinning-refresh-icon";
 import isDevelopment from "../../../is_dev";
 import InDevelopment from "../dev";
+import { AppNameContext } from "../app-name";
+
 
 enum Status {
     idle = 0,
@@ -32,6 +34,7 @@ const SubmitStep: FC = (props) => {
     const env = useContext(BookingEnvContext);
     const booking = useContext(BookingContext);
     const tier = useTier();
+    const appName = useContext(AppNameContext);
 
     
 
@@ -121,14 +124,14 @@ const SubmitStep: FC = (props) => {
                      You will be notified via email on how to proceed.  
                     </p>
                     {
-                        tier?.price && verificationCode && (<div>
-                            <p>
-                            Confirm your booking with full or a deposit payment
-                            </p>
-                            <button className="btn block w-full my-8" type="button" onClick={(e) => setPaying(true)}>
-                                Pay
-                            </button>
-                        </div>)
+                        // tier?.price && verificationCode && (<div>
+                        //     <p>
+                        //     Confirm your booking with full or a deposit payment
+                        //     </p>
+                        //     <button className="btn block w-full my-8" type="button" onClick={(e) => setPaying(true)}>
+                        //         Pay
+                        //     </button>
+                        // </div>)
                     }
                     {
                         env.catalogUrl && (<p>
@@ -138,7 +141,7 @@ const SubmitStep: FC = (props) => {
 
                     {
                         !env.catalogUrl && (<p>
-                            See more from <a href="/" className="link">Serene Events</a>
+                            See more from <a href="/" className="link">{appName.name} Events</a>
                         </p>)
                     }
                     
@@ -153,6 +156,7 @@ const SubmitStep: FC = (props) => {
 const PostPaymentStep: FC<{payment:  Payment; bookingCode: string; verificationCode: string}> = (props) => {
     const [status, setStatus] = useState(Status.idle);
     const env = useContext(BookingEnvContext);
+    const appName = useContext(AppNameContext);
 
     const post = async () => {
         setStatus(Status.processing);
@@ -226,7 +230,7 @@ const PostPaymentStep: FC<{payment:  Payment; bookingCode: string; verificationC
 
                 {
                     !env.catalogUrl && (<p>
-                        See more from <a href="/" className="link">Serene Events</a>
+                        See more from <a href="/" className="link">{appName.name} Events</a>
                     </p>)
                 }
                 
@@ -262,9 +266,10 @@ const AcceptPayemntStep: FC<{amount: number; bookingReference: string; verificat
 
 export default function Step3() {
     const tier  = useTier();
+    const appName = useContext(AppNameContext);
     if (!tier) {
         return <p>
-            See more from <a href="/" className="link">Serene Events</a>
+            See more from <a href="/" className="link">{appName.name} Events</a>
         </p>;
     }
     return <SubmitStep />

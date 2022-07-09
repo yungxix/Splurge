@@ -5,6 +5,7 @@ import { NavBarItem } from "./types";
 import { Transition } from '@headlessui/react';
 import get from 'lodash/get';
 import classNames from "classnames";
+import isNull from 'lodash/isNull';
 
 const createFormContainer = () => {
     const el = document.createElement('div');
@@ -54,7 +55,7 @@ export interface NavBarProps {
     logoUrl: string;
     authenticated: boolean,
     username: string;
-    items: Array<NavBarItem>;
+    items: Array<NavBarItem | null>;
     userDropdownItems: Array<NavBarItem>;
     loginUrl: string;
     
@@ -80,6 +81,8 @@ const DesktopItems: FC<NavBarProps & {
 
     const splurgeAccess = /splurge\s+access/i;
 
+    const availableItems: NavBarItem[] = props.items.filter(x => !isNull(x)).map(x => x!);
+
     const createUserItem = (): NavBarItem => ({
         text: splurgeAccess.test(props.username) ? 'Welcome' : `Hi, ${props.username}`,
         url: '#',
@@ -97,7 +100,7 @@ const DesktopItems: FC<NavBarProps & {
                 <div className="hidden md:block grow">
                     <div className="ml-10 flex items-baseline w-full justify-end content-end space-x-4 justify-items-end">
                         {
-                            props.items.map((item, idx) => (<ItemRenderer
+                            availableItems.map((item, idx) => (<ItemRenderer
                                 dropdownAlignment="left"
                                 onSelect={props.onSelect}
                                 className={classNames('desktop', item.className, { active: item.active === true })} key={`desk_${idx}`} item={item} />))
@@ -150,6 +153,7 @@ const DesktopItems: FC<NavBarProps & {
 
 
 const MobileItems: FC<NavBarProps & { show: boolean; onSelect: (item: NavBarItem) => void }> = (props) => {
+    const availableItems: NavBarItem[] = props.items.filter(x => !isNull(x)).map(x => x!);
     return <Transition
         as={Fragment}
         show={props.show}
@@ -164,7 +168,7 @@ const MobileItems: FC<NavBarProps & { show: boolean; onSelect: (item: NavBarItem
         <div id="mobile-menu">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 {
-                    props.items.map((item, i) => (<ItemRenderer
+                    availableItems.map((item, i) => (<ItemRenderer
                         key={`mobile_item_${i}`}
                         item={item}
                         mobile={true}

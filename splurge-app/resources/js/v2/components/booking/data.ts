@@ -54,7 +54,7 @@ const createBookingFormControlsImpl = (booking: Booking): Record<BookingAttribut
     return {
         address: FormBuilder.group(buildAddressControls(booking.address)),
         customer: FormBuilder.group(buildCustomerControls(booking.customer)),
-        description: FormBuilder.control(booking.description, [Validators.required, Validators.maxLength(255)]),
+        description: FormBuilder.control(booking.description, [Validators.required, Validators.maxLength(455)]),
         eventDate: FormBuilder.control(booking.eventDate || emv, [Validators.required, futureDate]),
         selected_tier: FormBuilder.control(booking.selected_tier, [Validators.required])
     

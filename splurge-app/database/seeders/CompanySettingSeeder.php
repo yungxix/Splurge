@@ -15,6 +15,15 @@ class CompanySettingSeeder extends Seeder
      */
     public function run()
     {
-        CompanySetting::factory()->create();
+        $setting = new CompanySetting(['contact_email' => 'kemaj2001@yahoo.com', 'contact_phone' => '+234 (708) 4151648']);
+        
+        $setting->saveOrFail();
+
+        $setting->locations()->create([
+            'line1' => '2 Samuel Olaolu Close Magodo Isheri',
+            'line2' => '',
+            'state' => 'Lagos',
+            'country' => 'NG'
+        ]);
     }
 }

@@ -11,7 +11,6 @@
       @include('partials.contact')
       <div class="mb-10">
       </div>
-      @include('partials.dummy_trailer')
 </section>
 
 

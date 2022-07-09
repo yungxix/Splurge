@@ -22,6 +22,10 @@
 @endphp
 @extends('layouts.admin')
 
+@section('title')
+__('Dashboard')
+@endsection
+
 @section('content')
     @include('partials.page-header', ['title' =>  __('Dashboard')])
     

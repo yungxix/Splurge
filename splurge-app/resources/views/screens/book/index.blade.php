@@ -4,14 +4,20 @@
     use Illuminate\Support\Str;
 @endphp
 
-@extends(config('view.defaults.layout', 'layouts.old'))
+@extends(config('view.defaults.layout', 'layouts.default'))
+
+@section('title')
+    Book
+@endsection
 
 @section('body_class', 'bg-gray-100')
 
 @section('content')
-    @include('partials.page-header', ['title' => 'Select a Service'])
+    @include('partials.page-header', ['title' => 'Select a Package'])
     <div class="">
-
+        @if ($services->isEmpty())
+            <x-empty-view :message="'Apologies, this page is not ready yet'"></x-empty-view>
+        @else
         <section class="container mx-auto py-8">
             <div class="mb-8">
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -39,6 +45,8 @@
             </div>
             
         </section>
+        @endif
+        
     </div>
     
     

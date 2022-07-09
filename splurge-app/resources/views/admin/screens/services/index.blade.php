@@ -8,12 +8,12 @@
 @endphp
 @extends('layouts.admin')
 
-@section('title', 'Services')
+@section('title', 'Packages')
 
 
 @section('content')
     <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
-    @include('partials.page-header', ['title' => 'Services'])
+    @include('partials.page-header', ['title' => 'Packages'])
     <section class="container mx-auto">
         <div class="flex flex-row justify-end p-4 items-center mb-4">
             <a class="btn" href="{{ route('admin.services.create') }}">

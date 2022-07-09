@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import MediaItemSliders, {SlidesProps} from './v2/components/media-item-slides';
 
-import GalleryView from './v2/components/gallery/collage';
+import GalleryView from './v2/components/gallery/collage2';
 
 import UploadForm, {UploaderProps} from './v2/components/admin/medium-uploader';
 
@@ -43,6 +43,9 @@ import AdminBookingDetails, {BookingDetailsProps} from "./v2/components/admin/bo
 import MyBooking, {BookingDetailsProps as  MyBookingDetailsProps} from './v2/components/my/bookings/main';
 import MyBookingCombined, {BookingDetailsProps as  MyCombinedBookingDetailsProps} from './v2/components/my/bookings/combined';
 import MyBookingService, {BookingServiceProps} from './v2/components/my/bookings/service';
+
+import ServicePackagesSlides, {ServicePackagesProps} from "./v2/components/service-packages-slide";
+import IntegratedBookingForm, { IntegratedBookingFormProps } from "./v2/components/booking/integrated";
 
 const flash = {
     render(target: HTMLElement, options: MessagesProps) {
@@ -128,8 +131,17 @@ const booking = {
     },
     renderForm(target: HTMLElement, options: BookingProps) {
         ReactDOM.render(React.createElement(BookingForm, options), target);
+    },
+    renderIntegratedForm(target: HTMLElement, options: IntegratedBookingFormProps) {
+        ReactDOM.render(React.createElement(IntegratedBookingForm, options), target);
     }
 };
+
+const services = {
+    renderPackages(target: HTMLElement, options: ServicePackagesProps) {
+        ReactDOM.render(React.createElement(ServicePackagesSlides, options), target);
+    }
+}
 
 const my = {
     bookings : {
@@ -153,7 +165,8 @@ const plugins = {
     slides,
     gallery,
     booking,
-    my
+    my,
+    services
 }
 var Splurge = (<any>window).Splurge || {};
 

@@ -5,41 +5,39 @@
 
 @extends(config('view.defaults.layout', 'layouts.old'))
 
-@section('title', 'Our Services')
+@section('title', 'Our Packages')
 
 @section('content')
 
 <section class="container mx-auto py-6">
+
+  @if ($services->isEmpty())
+  <div class="bg-white">
+    <h4 class="text-lg font-bold text-splarge-800 text-center my-8">
+        Sorry. This page is under construction
+    </h4>
+    <img class="mx-auto w-3/5" src="{{ asset('images/serene_empty_collage.png') }}" alt="Empty gallery image" />
+</div>
+  @else
   <div class="pt-8 mb-4">
-    <h1 class="text-3xl font-bold">Our Services</h1>
+    <h1 class="text-3xl font-bold">Our Packages</h1>
   </div>
-  <div class="md:flex flex-row">
-    <div class="md:w-2/3 md:p-4">
-      @foreach ($services->chunk(3) as $group)
-        <div class="grid md:grid-cols-3 gap-2 lg:gap-4">
-          @foreach ($group as $service)
-          <a class="rounded-lg  mb-4  overflow-hidden ring ring-splarge-600 block focus:ring-splarge-300 hover:ring-splarge-300" href="{{ route('services.show', ['service' => $service['id']]) }}">
-            <div class="overflow-clip">
-              <img class="block w-full" src="{{ asset($service['image_url']) }}" alt="{{ $service['name'] }} service picture"  />
-            </div>
-            <div class="px-4 py-2 bg-splarge-900 text-white">
-              {{ $service['name'] }}
-            </div>
-            <div class="px-4 pt-2 bg-white text-gray-900">
-              {{ HtmlHelper::toParagraphs(Str::limit($service['description'], 120, '...')) }}
-            </div>
-          </a>
-          @endforeach 
+  <div class="grid grid-cols-2 md:grid-cols-3">
+    @foreach ($services as $service)
+      <a href="{{ route('services.show', $service) }}" class="hover:ring ring-splarge-600 block m-2 md:m-4 rounded-md shadow">
+        <div class="max-h-72 overflow-clip rounded-t-md">
+            <img alt="{{ $service->name }} service image" class="w-full" src="{{ splurge_asset($service->image_url) }}"/>
         </div>
-      @endforeach
-      @include('partials.dummy_trailer')
-    </div>
-    <div class="md:w-1/3 p-4 bg-gray-200 md:rounded-t-md">
-      <x-widgets.other-posts title="Recent Events" :post_id="-1"></x-widgets.other-posts>
-      <x-widgets.recent-gallery></x-widgets.recent-gallery>
-    </div>
-  </div>
+        <div class="bg-white p-4">
+          <h4 class="text-gray-900 mb-4 font-bold">{{ $service->name }}</h4>
+          {{ HtmlHelper::renderParagraphs(Str::limit($service->description, 120, '...')) }}
+        </div>
+      </a>
+    @endforeach
+  </div>  
+  @endif
   
+  <div class="mb-8"></div>
 </section>
    
 

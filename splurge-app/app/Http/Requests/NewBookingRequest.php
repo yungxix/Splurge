@@ -39,18 +39,18 @@ class NewBookingRequest extends FormRequest
     {
         $minDate = Carbon::now()->addDay(1)->format('Y-m-d');
         return [
-            'description' => 'required|max:255',
-            'event_date' => "required|date|min:$minDate",
+            'description' => 'required|max:490',
+            'event_date' => "required|date|after:$minDate",
             "customer" => "required|array",
             "customer.first_name" => 'required|max:120',
             "customer.last_name" => 'required|max:120',
             "customer.email" => 'required|email',
-            "customer.phone" => 'required|max:15',
+            "customer.phone" => 'required|max:25',
             "service_tier_id" => "required",
             "address" => "required|array",
             "address.name" => "max:255",
             "address.line1" => "required|max:255",
-            "address.line2" => "max:255",
+            "address.line2" => "sometimes|max:255",
             "address.state" => "required|max:25"
         ];
     }

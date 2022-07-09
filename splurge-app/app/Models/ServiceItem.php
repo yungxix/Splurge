@@ -14,7 +14,7 @@ class ServiceItem extends Model
 
     protected $casts = ['options' => 'array', 'required', 'boolean'];
 
-    protected $fillable  = ['name', 'price',
+    protected $fillable  = ['name', 'price', 'image_url',
      'pricing_type', 'description',
       'required', 'category',
        'options', 'service_id', 'sort_number'];

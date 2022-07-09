@@ -14,7 +14,7 @@
     </div>
     <div class="md:w-1/2">
         <h4 class="text-xl">
-            <a title="Service details" class="link" href="{{ route("admin.services.show", ['service' => $serviceTier->service_id]) }}">
+            <a title="Package details" class="link" href="{{ route("admin.services.show", ['service' => $serviceTier->service_id]) }}">
             {{$serviceTier->service->name}}
             </a>
         </h4>

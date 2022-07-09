@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->string("code", 15)->unique();
 
-            $table->string("description");
+            $table->mediumText("description");
 
             $table->float("price")->nullable();
 

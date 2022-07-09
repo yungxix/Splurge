@@ -12,7 +12,7 @@
 
 
 
-@section('title', 'Service Tiers')
+@section('title', 'Package Tiers')
  
 @section('content')
     <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>

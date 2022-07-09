@@ -54,6 +54,20 @@
     </x-forms.form-group>
 
 
+    <x-forms.form-group :field="'display'" :errors="$errors">
+        <x-slot:label>
+            <x-label for="display">
+                Display
+            </x-label>
+        </x-slot:label>
+        <select name="display" class="control">
+            @foreach (config('view.services.displays') as $key => $label)
+            <option @selected($service->display == $key) value="{{ $key }}"> {{  $label }}</option>
+            @endforeach
+        </select>
+    </x-forms.form-group>
+
+
     <x-forms.form-group :field="'tags'" :errors="$errors">
         <x-slot:label>
             <x-label>

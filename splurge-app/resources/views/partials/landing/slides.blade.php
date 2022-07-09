@@ -12,7 +12,7 @@
     <div class="content">
       <div class="h-full w-full relative lg:pl-24 md:pl-12 pl-8 flex flex-col justify-center">
         <div class="mt-4 md:mt-2">
-          <h1>Serene 
+          <h1> {{config('app.name')}} 
             <br><span>World class Experience</span></h1>
              <a  href="{{ route('services.index') }}">Explore More</a>
         </div>

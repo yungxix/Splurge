@@ -1,4 +1,4 @@
-import React, {useState, FC} from "react";
+import React, {useState, useEffect, FC} from "react";
 import { ControlMeta } from "./types";
 import isFunction from "lodash/isFunction";
 import isString from "lodash/isString";
@@ -6,7 +6,7 @@ import isObject from "lodash/isObject";
 import get from "lodash/get";
 import { AbstractControl } from "react-reactive-form";
 import classNames from "classnames";
-import {parseISO, formatISO} from "date-fns";
+import {parseISO, formatISO, parse, format} from "date-fns";
 
 
 const getOptionValue = (value: any) => {
@@ -74,7 +74,16 @@ const renderHint = (control: AbstractControl) => {
     </p>
 
 };
-const getInputAttributes = (control: AbstractControl): Record<string, any> => get(control.meta, "inputAttributes", {});
+const getInputAttributes = (control: AbstractControl): Record<string, any> => {
+    const attrs: Record<string, any> = {};
+    if (control.meta.inputAttributes) {
+        Object.assign(attrs, control.meta.inputAttributes);
+    }
+    if (control.meta.name) {
+        attrs.name = control.meta.name;
+    }
+    return attrs;
+}
 
 const renderError = (control: AbstractControl) => {
     if (!control.meta.errors || !control.touched) {
@@ -116,10 +125,14 @@ export function TextAreaInput(control: AbstractControl) {
 }
 
 export function SelectInput(control: AbstractControl) {
+    const attrs: Record<string, string> = {};
+    if (control.meta.name) {
+        attrs.name = control.meta.name;
+    }
     return <div className={control.meta.className || ''}>
         {renderLabel(control)}
         {renderHint(control)}
-        <select  className={classNames(control.meta.controlClassName, {
+        <select {...attrs}  className={classNames(control.meta.controlClassName, {
             'error': control.touched && control.invalid
         })} {...control.handler()}>
             <option>(select {control.meta.placeholder || control.meta.label?.toLowerCase()})</option>
@@ -133,24 +146,45 @@ export function SelectInput(control: AbstractControl) {
     </div>
 }
 
+const formatDate = (value: Date) => format(value, 'yyyy-MM-dd');
+
 
 const DateInputImpl: FC<{control: AbstractControl;
     placeholder?: string;
-    className?: string}> = ({control, placeholder, className}) => {
-    const [textValue, setTextValue] = useState(control.value ? formatISO(control.value) : "");
+    className?: string; name?: string}> = ({control, placeholder, name, className}) => {
+    const [textValue, setTextValue] = useState(control.value ? formatDate(control.value) : "");
 
-    return <input type="date" value={textValue}
-    placeholder={placeholder}
-    className={className || ""}
-     onChange={(e) => setTextValue(e.target.value)} onBlur={(e) => {
-         if (textValue) {
-            control.setValue(parseISO(textValue));
-            
-            control.markAsTouched();
-         } else {
-             control.setValue(null);
-         }
-     }} />
+    useEffect(() => {
+        const subscriber = (value: any) => {
+            const txt = value ? formatDate(value) : "";
+            if (txt !== textValue) {
+                setTextValue(txt);
+            }            
+        };
+
+        control.valueChanges.subscribe(subscriber);
+
+        return () => {
+            control.valueChanges.unsubscribe(subscriber);
+        };
+    }, []);
+
+    const attrs: Record<string, string> = {
+        placeholder: placeholder || '',
+        className: className || ''
+    };
+    if (name) {
+        attrs.name = name;
+    }
+
+    return <input type="date" {...attrs} value={textValue} onChange={(e) => setTextValue(e.target.value)} onBlur={(e) => {
+        if (textValue) {
+            control.setValue(parseISO(textValue))
+        } else {
+            control.reset();
+        }
+        control.markAsTouched();
+    }} />
 
 };
 
@@ -158,7 +192,7 @@ export function DateInput(control: AbstractControl) {
     return <div className={control.meta.className || ''}>
         {renderLabel(control)}
         {renderHint(control)}
-        <DateInputImpl control={control} placeholder={control.meta.placeholder || control.meta.label} className={classNames(control.meta.controlClassName, {
+        <DateInputImpl control={control} name={control.meta.name} placeholder={control.meta.placeholder || control.meta.label} className={classNames(control.meta.controlClassName, {
             'error': control.touched && control.invalid
         })}/>
         {renderError(control)}

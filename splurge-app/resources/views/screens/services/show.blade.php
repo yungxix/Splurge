@@ -1,6 +1,7 @@
 @php
   use App\Support\HtmlHelper;
   use Illuminate\Support\Str;
+  use App\Http\Resources\ServiceTierResource;
 @endphp
 
 @extends(config('view.defaults.layout', 'layouts.old'))
@@ -8,47 +9,71 @@
 @section('title', $service->name)
 
 @section('content')
-
-<div class="max-h-96 overflow-clip">
-  <img class="w-full" src="{{ splurge_asset($service->image_url) }}" alt="{{ $service->name }} banner" />
-</div>
-<section class="container mx-auto py-6">
+<img class="w-full" src="{{ splurge_asset($service->image_url) }}" alt="{{ $service->name }} package banner" />
+<section class="container mx-auto">
   
-  <div class="pt-8 mb-4">
+  <div class="mb-4 mt-4">
     <h1 class="text-3xl font-bold">{{ $service->name }}</h1>
 
     
   </div>
-  <div class="md:flex flex-row">
-    <div class="md:w-2/3 md:p-4">
-
-      <div class="flex flex-row justify-end items-center">
-        <a href="{{ route('book_service', ['service' => $service->id]) }}" class="rounded-md px-6 py-2 bg-splarge-700 hover:bg-splarge-900 active:bg-splarge-900 text-white font-bold">
-          Book {{$service->name}}
-        </a>
-      </div>
-        
-      <div class="my-4">
-        {{ HtmlHelper::toParagraphs($service->description) }}
+  <div class="">
+    <div>
+      <div class="my-4 text-2xl">
+        {!! Purify::clean($service->description) !!}
       </div>
 
-      <x-tags :model="$service"></x-tags>
+{{-- 
+      @foreach ($service->items as $serviceItem)
+        <div class="mt-8">
+          @unless (empty($serviceItem->image_url))
+            <figure>
+              <img src="{{ splurge_asset($serviceItem->image_url) }}" />
+              <figcaption>
+                {{ $serviceItem->name }}
+              </figcaption>
+            </figure>
+          @else
+            <h4 class="text-lg text-gray-800">
+              {{ $serviceItem->name }}
+            </h4>
+          @endunless
+          <div class="mt-4">
+            {{ HtmlHelper::renderParagraphs($serviceItem->description) }}
+          </div>
+        </div>
+      @endforeach --}}
 
+
+     
+    </div>
     
-      @include('partials.dummy_trailer')
-
-      <div class="flex flex-row justify-end items-center">
-        <a href="{{ route('book_service', ['service' => $service->id]) }}" class="rounded-md px-6 py-2 bg-splarge-700 hover:bg-splarge-900 active:bg-splarge-900 text-white font-bold">
-          Book {{$service->name}}
-        </a>
-      </div>
-    </div>
-    <div class="md:w-1/3 p-4 bg-gray-200 md:rounded-t-md">
-      <x-widgets.other-posts title="Recent Events" :post_id="-1"></x-widgets.other-posts>
-      <x-widgets.recent-gallery></x-widgets.recent-gallery>
-    </div>
   </div>
   
+</section>
+
+
+@unless ($service->tiers->isEmpty())
+<section>
+  <div class="container mx-auto mb-4 mt-8">
+    <p class="text-2xl">
+      Our Packages &hellip;
+    </p>
+  </div>
+  @include('screens.services.partials.tiers', ['service' => $service])
+</section>
+@endunless
+
+
+<section class="container mx-auto">
+  <x-tags :model="$service"></x-tags>
+</section>
+
+<section>
+  <div class="p-4 bg-gray-200 flex flex-row overflow-x-auto">
+    <x-widgets.other-posts class="max-w-xs" title="Recent Events" :post_id="-1"></x-widgets.other-posts>
+    <x-widgets.recent-gallery class="max-w-xs"></x-widgets.recent-gallery>
+  </div>
 </section>
    
 

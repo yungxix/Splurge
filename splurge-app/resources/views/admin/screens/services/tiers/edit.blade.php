@@ -11,12 +11,12 @@
 @endphp
 @extends('layouts.admin')
 
-@section('title', 'Edit Service Tier')
+@section('title', 'Edit Package Tier')
 
 
 @section('content')
 <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
-    @include('partials.page-header', ['title' => $service->name, 'sub_title' => 'Edit Service Tier'])
+    @include('partials.page-header', ['title' => $service->name, 'sub_title' => 'Edit Package Tier'])
     
     <hr class="mb-4 w-3/4 mx-auto" />
 

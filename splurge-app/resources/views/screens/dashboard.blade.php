@@ -16,6 +16,10 @@
 @endphp
 @extends('layouts.default')
 
+@section('title')
+__('Welcome')
+@endsection
+
 @section('content')
     @include('partials.page-header', ['title' =>  __('Welcome')])
 @endsection

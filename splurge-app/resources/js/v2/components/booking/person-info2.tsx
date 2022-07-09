@@ -31,7 +31,7 @@ export default function PersonalInfoControls(props: {control: AbstractControl, c
                 <div className="md:w-1/2">
                     <FieldControl 
                         name="email"
-                        meta={{label: 'Email address', placeholder: "dddddd@cccc.com", type: "email", className: 'mb-4', options: env.states, errors: errorMap, controlClassName: "control block w-60"}} 
+                        meta={{label: 'Email address', placeholder: "Enter email address", type: "email", className: 'mb-4', options: env.states, errors: errorMap, controlClassName: "control block w-60"}} 
                         render={FormControls.TextInput}>
 
                     </FieldControl>
@@ -39,7 +39,7 @@ export default function PersonalInfoControls(props: {control: AbstractControl, c
                 <div className="md:w-1/2">
                     <FieldControl 
                         name="phone"
-                        meta={{label: 'Phone number', type: "tel", className: 'mb-4', errors: errorMap, controlClassName: "control block w-45"}} 
+                        meta={{label: 'Phone number', type: "tel", placeholder: 'Enter phone number', className: 'mb-4', errors: errorMap, controlClassName: "control block w-45"}} 
                         render={FormControls.TextInput}>
 
                     </FieldControl>

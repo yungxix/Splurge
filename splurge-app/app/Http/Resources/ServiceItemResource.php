@@ -23,7 +23,8 @@ class ServiceItemResource extends JsonResource
             'type' => $this->resource->pricing_type,
             'options' => $this->resource->options ?: ['x' => '0'],
             'category' => $this->resource->category,
-            'required' => $this->resource->required ? true : false
+            'required' => $this->resource->required ? true : false,
+            'image_url' => $this->when(!empty($this->resource->image_url), splurge_asset($this->resouce->image_url))
         ];
     }
 }

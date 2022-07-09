@@ -9,7 +9,7 @@ class Service extends Model
 {
     use HasFactory, HasTags, HasImageOptions;
 
-    protected $fillable = ['image_url', 'thumbnail_image_url', 'description', 'name', 'image_options'];
+    protected $fillable = ['image_url', 'thumbnail_image_url', 'description', 'name', 'image_options', 'display'];
 
     protected $casts = ['image_options' => 'array'];
 
@@ -22,6 +22,10 @@ class Service extends Model
             return $builder;
         }
         return $builder->where('name', 'like', "%$term%");
+    }
+
+    public function scopeAvailable($builder) {
+        return $builder->where('display', '<>', 'none');
     }
 
     public function tiers() {

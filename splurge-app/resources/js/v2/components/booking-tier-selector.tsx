@@ -7,18 +7,27 @@ import Lines from './lines';
 import Amount from './amount';
 
 import classNames from 'classnames';
+import ServiceTierOptionsRenderer from "./booking/service-tier-options-renderer";
 
-interface TierOptions extends Record<string, any> {
+export interface HasText {
     text: string;
+    html_text?: string;
+}
+
+export interface TierOption extends HasText {
+    items?: Array<HasText>;
+
+
 }
 
 export interface ServiceTier {
     id: number;
     name: string;
     description: string;
-    options: Array<TierOptions> | null;
+    options: Array<TierOption> | null;
     footer_message: string;
     price?: number;
+    image_url?: string;
 }
 
 export interface TierSelectionProps {
@@ -35,11 +44,27 @@ interface TierItemProps {
     inputName: string;
 }
 
+
+
+export const ServiceTierImage: FC<{tier?: ServiceTier}> = ({tier}) => {
+    
+    if (!tier || !tier.image_url) {
+        return null;
+    }
+    return (<div>
+        <img className="block" src={tier.image_url} alt={`${tier.name} package picture`} />
+    </div>)
+
+};
+
+
+
 const DesktopItem: FC<TierItemProps> = ({tier, selected, inputName, onSelect}) => (<a onClick={onSelect} className={classNames(
     'block rounded-md shadow-md bg-white shadow-gray-500 p-4 cursor-pointer',
     selected ? "-translate-y-2 duration-200 ring ring-splarge-600" : null
     )}>
 
+        <ServiceTierImage tier={tier} />
         <h4 className="block text-xl w-full mb-8">
             {tier.name}
         </h4>
@@ -53,21 +78,7 @@ const DesktopItem: FC<TierItemProps> = ({tier, selected, inputName, onSelect}) =
         }
 
         {
-            tier.options && (<ol className="mb-8">
-                {
-                    tier.options.map((opt, i) => (<li key={`opt_${i}`} className="mb-4">
-                        <div className="flex flex-row">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0 text-green-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                </svg>
-                                <p className="ml-4 text-sm">
-                                    {opt.text}
-                                </p>
-                        </div>
-                        
-                    </li>))
-                }
-            </ol>)
+            tier.options && (<ServiceTierOptionsRenderer options={tier.options} />)
         }
       
         {
@@ -106,6 +117,7 @@ const MobileItem: FC<TierItemProps> = ({tier, selected, inputName, onSelect}) =>
         "rounded-md shadow-md bg-white shadow-gray-500 p-4", {
             "ring ring-splarge-600": selected
         })}>
+            <ServiceTierImage tier={tier} />
         {
             !detailsShown && tier.price && (<Amount className="float-right text-lg" value={tier.price} />)
         }
@@ -125,6 +137,7 @@ const MobileItem: FC<TierItemProps> = ({tier, selected, inputName, onSelect}) =>
            enterTo="scale-100"
             leaveFrom="scale-100"
              leaveTo="scale-0">
+                 
                  {toggleOptionElement}
             <Lines text={tier.description} className="text-gray-500"/>
 
@@ -135,21 +148,7 @@ const MobileItem: FC<TierItemProps> = ({tier, selected, inputName, onSelect}) =>
             }
 
             {
-                tier.options && (<ol className="mb-8">
-                    {
-                        tier.options.map((opt, i) => (<li key={`opt_${i}`} className="mb-4">
-                            <div className="flex flex-row">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0 text-green-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    <p className="ml-4 text-sm">
-                                        {opt.text}
-                                    </p>
-                            </div>
-                            
-                        </li>))
-                    }
-                </ol>)
+                tier.options && (<ServiceTierOptionsRenderer options={tier.options} />)
             }
 
             {

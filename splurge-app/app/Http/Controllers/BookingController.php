@@ -24,15 +24,23 @@ class BookingController extends Controller
     }
     
     public function create(Request  $request, Service $service) {
-        if ($request->has('tier')) {
-
-            return view('screens.book.create', 
-            ['service' => $service,
-             'tier' => ServiceTier::findOrFail($request->input('tier'))]);
+        foreach (['tier', 't'] as $tier_key) {
+            if ($request->has($tier_key)) {
+                return view('screens.book.create', 
+                ['service' => $service,
+                 'tier' => ServiceTier::findOrFail($request->input($tier_key))]);
+            }
         }
         $service->load(["tiers" => function ($q) {
             $q->orderBy("position", "asc");
         }]);
+
+        if ($service->tiers->count() === 1) {
+            return view('screens.book.create', 
+                ['service' => $service,
+                 'tier' => $service->tiers->first()]);
+        }
+
         return view('screens.book.select_tier', ['service' => $service]);
     }
 
@@ -50,7 +58,11 @@ class BookingController extends Controller
     }
 
     public function index(Request  $request) {
-        return view('screens.book.index', ['services' => $this->repo->bookAbleServices()]);
+        $services = $this->repo->bookAbleServices();
+        if ($services->count() == 1) {
+            return redirect()->route('book_service', ['service' => $services->first()->id]);
+        }
+        return view('screens.book.index', ['services' => $services]);
     }
 
     public function show(Booking $booking) {

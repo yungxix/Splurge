@@ -24,7 +24,7 @@ class ServicesController extends Controller
      */
     public function index()
     {
-        return view('admin.screens.services.index', ['services' => $this->repository->all()]);
+        return view('admin.screens.services.index', ['services' => $this->repository->allForAdmin()]);
     }
 
     /**
@@ -36,7 +36,8 @@ class ServicesController extends Controller
     {
         $service = new Service([
             'name' => $request->old('name', ''),
-            'description' => $request->old('description', '')
+            'description' => $request->old('description', ''),
+            'display' => $request->old('display', 'default')
         ]);
         return view('admin.screens.services.create', ['service' => $service]);
     }

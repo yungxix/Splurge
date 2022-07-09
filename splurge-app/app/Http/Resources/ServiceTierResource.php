@@ -23,6 +23,7 @@ class ServiceTierResource extends JsonResource
             'code' => $this->resource->code,
             'service_id' => $this->resource->service_id,
             'service' => new ServiceResource($this->whenLoaded('service')),
+            'image_url' => empty($this->resource->image_url) ? null : splurge_asset($this->resource->image_url)
         ];
     }
 }

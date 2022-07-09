@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Service;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\ServiceTier;
+use App\Support\UploadProcessor;
 use Illuminate\Support\Facades\DB;
 
 class ServiceTierRequest extends FormRequest
@@ -32,13 +33,21 @@ class ServiceTierRequest extends FormRequest
             'description' => 'required|max:255',
             'options' => 'nullable|array',
             'footer_message' => 'nullable|max:255',
-            "position" => "nullable|integer"
+            "position" => "nullable|integer",
+            "image" => "nullable|mimes:png,jpg,jpeg|max:" . (4 * 1024)
         ];
     }
 
 
     public function createItem(Service $service): ServiceTier {
-        $data = $this->safe()->toArray();
+        $data = $this->safe()->except('image');
+
+        if ($this->hasFile('image')) {
+            $processor = new UploadProcessor($this, 'images/services', 'image', FALSE, 'image_url');
+            if ($result = $processor->handle()) {
+                $data = array_merge($data, $result);
+            }
+        }
 
         $tier = new ServiceTier($data);
         $tier->code = $tier->generateCode();
@@ -51,7 +60,17 @@ class ServiceTierRequest extends FormRequest
 
     public function updateItem(ServiceTier $tier): ServiceTier {
         return DB::transaction(function () use ($tier) {
-            $tier->update($this->safe()->toArray());
+            $data = $this->safe()->except('image');
+            
+            if ($this->hasFile('image')) {
+                $processor = new UploadProcessor($this, 'images/services', 'image', FALSE, 'image_url');
+                if ($result = $processor->handle()) {
+                    $data = array_merge($data, $result);
+                }
+            }
+            
+            $tier->update($data);
+
             if ($this->has("position") && self::hasPosition($tier->service_id, $this->input("position"), $tier->id)) {
                 $tier->synchronizePositions();
             }

@@ -35,21 +35,23 @@ class ServiceRequest extends FormRequest
                 'name' => 'required|max:255',
                 'description' => 'required|max:3000',
                 'image_url' => 'nullable|mimes:png,jpg,jpeg|max:' . (4 * 1024),
-                'tags' => 'nullable|array'
+                'tags' => 'nullable|array',
+                'display' => 'sometimes|max:12'
             ];    
         }
         return [
             'name' => 'required|max:255',
             'description' => 'required|max:3000',
             'image_url' => 'required|mimes:png,jpg,jpeg|max:' . (4 * 1024),
-            'tags' => 'nullable|array'
+            'tags' => 'nullable|array',
+            'display' => 'sometimes|max:12'
         ];
     }
 
 
     public function createItem() {
         return DB::transaction(function () {
-            $attributes = $this->safe()->only(['name', 'description']);
+            $attributes = $this->safe()->only(['name', 'description', 'display']);
 
             $uploader = new UploadProcessor($this, 'images/services', 'image_url', true);
 
@@ -69,7 +71,7 @@ class ServiceRequest extends FormRequest
 
     public function updateItem(Service $service) {
         return DB::transaction(function () use ($service) {
-            $attributes = $this->safe()->only(['name', 'description']);
+            $attributes = $this->safe()->only(['name', 'description', 'display']);
 
             $uploader = new UploadProcessor($this, 'services', 'image_url', true);
 
