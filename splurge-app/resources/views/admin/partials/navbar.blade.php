@@ -5,14 +5,14 @@ use Illuminate\Support\Str;
 
 $items = [
     [
-        'text' => 'Dashboard',
-        'url' => url('/dashboard'),
-        'active' => Request::is('/dashboard')
+        'text' => 'Administration',
+        'url' => route("admin.admin_dashboard"),
+        'active' => Request::is('admin/dashboard')
     ],
     [
         'text' => 'Posts / Events',
-        'url' => url('/admin/posts'),
-        'active' => Request::is('admin/posts*')
+        'url' => route('admin.posts.index'),
+        'active' => Request::is('admin/posts*') || Request::is('admin/events*')
     ],
     [
         'text' => 'Gallery',
@@ -20,9 +20,24 @@ $items = [
         'active' => Request::is('admin/gallery*')
     ],
     [
-        'text' => 'Services',
+        'text' => 'Packages',
         'url' => url('/admin/services'),
         'active' => Request::is('admin/services*')
+    ],
+    [
+        'text' => 'Business',
+        'url' => '#',
+        'active' => collect(['admin/bookings*', '/admin/customers*', '/admin/messages*'])->contains(fn ($v, $k) => Request::is($v)),
+        'items' => [
+            [
+                'text' => 'Bookings',
+                'url' => route('admin.bookings.index')
+            ],
+            [
+                'text' => 'Messages',
+                'url' => route('admin.messages.index')
+            ]
+        ]
     ],
     [
         'text' => 'Public Page',
@@ -32,12 +47,12 @@ $items = [
 ];
 @endphp
 
-<nav id="navbar" class="admin">
+<nav id="navbar">
     
 </nav>
 
 @push('scripts')
-    <script>
+    <script   nonce="{{ csp_nonce() }}">
     Splurge.navbar.render(document.querySelector('#navbar'), {
         items: {{ Js::from($items) }},
         logo: '{{ asset('/images/v2/splurge.png') }}',

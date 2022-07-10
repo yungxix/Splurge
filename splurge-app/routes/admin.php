@@ -8,8 +8,15 @@ use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\ServicesController;
 use App\Http\Controllers\Admin\TagsController;
 use App\Http\Controllers\Admin\PostItemsController;
-
+use App\Http\Controllers\Admin\ServiceItemsController;
 use App\Http\Controllers\Admin\ToolsController;
+use App\Http\Controllers\Admin\ServiceTiersController;
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\BookingsController;
+use App\Http\Controllers\Admin\CustomersController;
+use App\Http\Controllers\Admin\CommunicationsController;
+use App\Http\Controllers\Admin\PaymentsController;
+
 
 Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group(function () {
     
@@ -20,6 +27,11 @@ Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group
         });
     });
 
+    Route::controller(HomeController::class)->group(function () {
+        Route::get("/", "index")->name("admin_home");
+        Route::get("/dashboard", "index")->name("admin_dashboard");
+    });
+
     
     Route::controller(TagsController::class)->prefix('tags/{tag}')->name('tags.')->group(function () {
         Route::post('/attach', 'attach')->name('attach');
@@ -27,19 +39,45 @@ Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group
         Route::delete('/detach', 'detach')->name('detach');
         Route::post('/detach', 'detach')->name('post_detach');
     });
+
+
+    Route::prefix('/services/{service}')->name('service_detail.')->group(function () {
+        Route::patch('/service_items/sort', [ServiceItemsController::class, 'sort'])->name('sort_items');
+        Route::resource('service_items', ServiceItemsController::class);
+        Route::patch("/tiers/{tier}/position", [ServiceTiersController::class, "updatePosition"])->name("update_tier_position");
+        Route::resource("tiers", ServiceTiersController::class);
+    });
+
+    Route::get("/messages/{message}/content", [CommunicationsController::class, "showContent"])->name("message_content");
+    
     
     Route::resources([
         'tags' => TagsController::class,
         'gallery' => GalleryController::class,
-        'posts' => PostsController::class,
-        'events' => PostsController::class,
         'services' => ServicesController::class,
         'media' => MediaController::class,
+        "bookings" => BookingsController::class,
+        "messages" => CommunicationsController::class,
+        "customers" => CustomersController::class,
+        "payments" => PaymentsController::class
     ]);
+
+    
+
+    
 
     Route::prefix('/posts/{post}')->name('post_detail.')->group(function () {
         Route::resource('post_items', PostItemsController::class);
     });
+
+    
+
+    Route::prefix('/events/{post}')->name('event_detail.')->group(function () {
+        Route::resource('event_items', PostItemsController::class);
+    });
+
+    Route::resource('posts', PostsController::class);
+    
     
 });
 

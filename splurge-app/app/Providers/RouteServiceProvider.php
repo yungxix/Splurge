@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Communication;
 use App\Models\MediaOwner;
+use App\Models\ServiceTier;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -36,6 +38,17 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Route::model("tier", ServiceTier::class);
+        Route::model("tiers", ServiceTier::class);
+
+        Route::bind("message", function ($key) {
+            return Communication::findOrFail($key);
+        });
+
+        Route::bind('medium', function ($key) {
+            return MediaOwner::findOrFail($key);
+        });
+
         $this->configureRateLimiting();
 
         $this->routes(function () {
@@ -49,9 +62,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
         });
 
-        Route::bind('medium', function ($key) {
-            return MediaOwner::findOrFail($key);
-        });
+        
     }
 
     /**

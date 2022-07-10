@@ -13,43 +13,55 @@ use Illuminate\Support\Facades\Cache;
 
 use Illuminate\Support\Arr;
 
-use Illuminate\Support\Str;
+use App\Models\Booking;
 
 class StatsRepository
 {
-    public function loadDashboardStats()
+    public function loadAdminDashboardStats()
     {
-        return Cache::remember('dashboard_stats_v4', 60 * 2, function () {
+        return Cache::remember('dashboard_stats_v6', 60 * 2, function () {
             $cut_off = Carbon::now()->subMonths(2)->endOfMonth();
 
-            $message = sprintf('Uploaded within %s',  Str::of($cut_off->diffForHumans())->replace(' ago', ''));
+            $message = sprintf('Uploaded before %s',  $cut_off->diffForHumans());
 
             $gallery1 = GalleryItem::where('created_at', '>', $cut_off)
                 ->selectRaw("count(*) as record_count, 'Gallery' as section,  '$message' as title");
 
-            $message2 = sprintf('Uploaded later after %s', Str::of($cut_off->diffForHumans())->replace(' ago', ''));
+            $message2 = sprintf('Uploaded after %s', $cut_off->diffForHumans());
 
             $gallery2 = GalleryItem::where('created_at', '<=', $cut_off)
                 ->selectRaw("count(*) as record_count, 'Gallery' as section,  '$message2' as title");
 
-            $message = sprintf('Posted within %s', Str::of($cut_off->diffForHumans())->replace(' ago', ''));
+            $message = sprintf('Posted before %s', $cut_off->diffForHumans());
 
             $posts1 = Post::where('created_at', '>', $cut_off)
                 ->selectRaw("count(*) as record_count, 'Events/Posts' as section,  '$message' as title");
 
-            $message = sprintf('Posted later after %s', Str::of($cut_off->diffForHumans())->replace(' ago', ''));
+            $message = sprintf('Posted after %s', $cut_off->diffForHumans());
 
             $posts2 = Post::where('created_at', '<=', $cut_off)
                 ->selectRaw("count(*) as record_count, 'Events/Posts' as section,  '$message' as title");
 
 
-            $services = Service::selectRaw('count(*) as record_count, "Services" as section, "Number of services advertised"');
+            $services = Service::selectRaw('count(*) as record_count, "Services" as section, "Number of services advertised" as title');
+
+            $message = sprintf('Posted before %s', $cut_off->diffForHumans());
+
+            $bookings1 = Booking::where('created_at', '>', $cut_off)
+                ->selectRaw("count(*) as record_count, 'Bookings' as section,  '$message' as title");
+
+            $message = sprintf('Posted after %s', $cut_off->diffForHumans());
+
+            $bookings2 = Booking::where('created_at', '<=', $cut_off)
+                ->selectRaw("count(*) as record_count, 'Bookings' as section,  '$message' as title");
 
             $counts = $gallery1
                 ->union($gallery2)
                 ->union($posts1)
                 ->union($posts2)
                 ->union($services)
+                ->union($bookings1)
+                ->union($bookings2)
                 ->get();
 
 

@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.default', ['navbar_class' => 'overbanner'])
 
 @section('title', $title)
 
@@ -12,7 +12,7 @@
 
     </div>
     @push('scripts')
-        <script>
+        <script  nonce="{{ csp_nonce() }}">
             Splurge.search.renderGroupedTagged(document.querySelector('#search_app'), {
                 tag: '{{ $tag }}',
                 types: ['post', 'gallery'],

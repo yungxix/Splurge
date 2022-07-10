@@ -3,7 +3,7 @@
 </div>
 
 @push('scripts')
-    <script>
+    <script   nonce="{{ csp_nonce() }}">
         Splurge.admin.tags.renderSelector(document.querySelector('#tags_selector_app'), {
             tags: {!! Js::from($tags) !!},
             inputName: '{{$name}}'

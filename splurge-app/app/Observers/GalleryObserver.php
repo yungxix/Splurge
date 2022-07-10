@@ -38,10 +38,15 @@ class GalleryObserver
      */
     public function deleted(Gallery $gallery)
     {
-        MediaOwner::where([
-            'owner_type' => GalleryItem::class,
-            'owner_id' => GalleryItem::select('id')->where('gallery_id', $gallery->id)])
-        ->delete();
+        MediaOwner::ownedBy(GalleryItem::class)
+        ->whereExists(function ($query) use ($gallery) {
+            $media_table = (new MediaOwner())->getTable();
+            $gallery_item_table = (new GalleryItem())->getTable();
+            return $query->selectRaw("1")
+            ->from($gallery_item_table)
+            ->whereColumn("{$gallery_item_table}.id", "=", "{$media_table}.owner_id")
+            ->where("{$gallery_item_table}.gallery_id", "=", $gallery->id);
+        })->delete();
 
         $gallery->items()->delete();
         $gallery->taggables()->delete();

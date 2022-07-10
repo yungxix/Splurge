@@ -16,6 +16,16 @@ class MediaOwner extends Model
         return $this->morphTo();
     }
 
+    public function  scopeOwnedBy($builder, $owner_type, $owner_id = null) {
+        if (is_null($owner_id)) {
+            return $builder->where('owner_type', $owner_type);
+        }
+        return $builder->where([
+            'owner_id' => $owner_id,
+            'owner_type' => $owner_type
+        ]);
+    }
+
     public function scopeForGalleryItems($builder, $ids = NULL) {
         $builder = $builder->where('owner_type', GalleryItem::class);
         if (is_null($ids)) {

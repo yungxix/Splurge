@@ -17,7 +17,9 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        Tag::create(['name' => 'Service', 'category' => 'service']);
-        Tag::create(['name' => 'Weddding', 'category' => 'event']);
+        foreach (['Weddings', 'Wedding', 'Bridal Shower', 'Baby Shower', 'Introduction', 'Corporate event', 'Traditional', 'Vendor', 'Advisory'] as $name) {
+            Tag::create(['name' => $name, 'category' => 'event']);
+            Tag::create(['name' => $name, 'category' => 'service']);
+        }
     }
 }

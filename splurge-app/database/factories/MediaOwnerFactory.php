@@ -12,7 +12,6 @@ class MediaOwnerFactory extends Factory
     static $IMAGES = [
         'images/2.jpg',
         'images/3.jpg',
-        'images/close.png',
         'images/e1.jpeg',
         'images/e2.jpeg',
         'images/e3.jpeg',

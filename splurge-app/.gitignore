@@ -2,6 +2,15 @@
 /public/hot
 /public/storage
 /storage/*.key
+/public/images
+/public/videos
+/public/js
+/public/css
+/public/posts
+/public/gallery
+/public/events
+/public/services
+
 /vendor
 .env
 .env.backup
@@ -15,6 +24,7 @@ yarn-error.log
 /.vscode
 docker/
 public/
+/docker
 
 
 # Logs
@@ -48,4 +58,3 @@ coverage
 assets/*
 /public/images/
 /storage/
-/resources/js/components/admin

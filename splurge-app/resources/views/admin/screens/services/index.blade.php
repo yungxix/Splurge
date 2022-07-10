@@ -1,13 +1,19 @@
 @php
     use App\Support\HtmlHelper;
+
+    $breadcrumbItems = [
+        ['text' => 'Dashboard', 'url' => route('admin.admin_dashboard')] ,
+        ['text' => 'All Services', 'url' => route('admin.services.index')]
+    ];
 @endphp
 @extends('layouts.admin')
 
-@section('title', 'Services')
+@section('title', 'Packages')
 
 
 @section('content')
-    @include('partials.page-header', ['title' => 'Services'])
+    <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
+    @include('partials.page-header', ['title' => 'Packages'])
     <section class="container mx-auto">
         <div class="flex flex-row justify-end p-4 items-center mb-4">
             <a class="btn" href="{{ route('admin.services.create') }}">
@@ -16,8 +22,8 @@
         </div>
         <div>
             @foreach ($services as $item)
-            <div class="md:flex flex-row mb-4 divide-y divide-slate-500 hover:bg-slate-400">
-                <a href="{{ route('admin.services.show', ['service' => $item->id]) }}" class="m-4 block rounded-md shadow-md w-36 md:w-1/3 overflow-clip">
+            <div class="stacked">
+                <a href="{{ route('admin.services.show', ['service' => $item->id]) }}" class="image-link">
                     <figure>
                         <img src="{{ splurge_asset($item->thumbnail_image_url ?: $item->image_url) }}" />
                     </figure>

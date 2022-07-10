@@ -42,4 +42,10 @@ class PostRepository {
         return $posts->orderBy('created_at', 'desc')->simplePaginate();
     }
 
-}
+    public function findForTags(Request $request, $tags, $pageName = 'page') {
+        return Post::whereHas('taggables', fn ($q) => $q->whereIn('tag_id', $tags))
+        ->orderBy('created_at', 'desc')
+        ->simplePaginate(3, ['*'], $pageName)->withQueryString();
+    }
+
+} 

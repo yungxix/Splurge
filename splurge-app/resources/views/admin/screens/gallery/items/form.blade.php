@@ -42,7 +42,7 @@ $cancel_url = is_null($gallery_item->id) ? route('admin.gallery.show', ['gallery
             <p class="p-4 bg-stone-300 rounded-md m-4">
                 <em>You can add up to {{ $picture_limit }} pictures</em>
             </p>
-            <div class="grid grid-cols-2 divide-y divide-pink-700 gap-4">
+            <div class="grid grid-cols-2 divide-y divide-splarge-700 gap-4">
                 @foreach (range(1, $picture_limit) as $i)
                     <div>
                         #{{ $loop->index + 1 }}

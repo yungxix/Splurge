@@ -42,7 +42,7 @@
                     
                 </article>
             </div>
-            <div class="md:w-1/3 px-2 bg-gray-200">
+            <div class="md:w-1/3 px-2 bg-gray-200 py-2 md:rounded-md">
                 <x-widgets.other-posts :post-id="$post->id"></x-widgets.other-posts>
             </div>
         </div>

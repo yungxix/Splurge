@@ -18,8 +18,8 @@
         </div>
         <div>
             @foreach ($posts as $item)
-            <div class="md:flex flex-row mb-4 divide-y divide-slate-500 hover:bg-slate-400">
-                <a href="{{ route('admin.posts.show', $item) }}" class="m-4 block rounded-md shadow-md w-36 md:w-1/3 overflow-clip">
+            <div class="stacked">
+                <a href="{{ route('admin.posts.show', $item) }}" class="image-link">
                     <figure>
                         <img src="{{ splurge_asset($item->image_url) }}" />
                     </figure>
@@ -30,12 +30,13 @@
                     </a>
                     {{HtmlHelper::toParagraphs(Str::limit($item->description, 250, '...'))}}
                     <p class="mt-8 text-gray-700 text-right text-sm">
-                        Created {{ $item->created_at->diffForHumans() }}.
+                        Created 
                         @if (Auth::id() === $item->author_id)
-                            <em>Posted by me</em>
+                            <em>by me</em>
                         @elseif (!is_null($item->author))
-                            <em>Posted by {{ $item->author->name }}</em>
+                            <em>by {{ $item->author->name }}</em>
                         @endif
+                        {{ $item->created_at->diffForHumans() }}.
                     </p>
                 </div>
                 <div class="pt-4 pr-4">

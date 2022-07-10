@@ -2,12 +2,21 @@
 
 namespace App\Providers;
 
+use App\Events\BookingPriceChangedEvent;
+use App\Events\NewBookingCreatedEvent;
+use App\Events\PaymentCreatedEvent;
+use App\Http\Requests\NewBookingRequest;
+use App\Listeners\BookingPriceChangedListener;
+use App\Listeners\NewBookingCreatedHandler;
+use App\Listeners\PaymentCreatedHandler;
+use App\Models\Booking;
 use App\Models\Gallery;
 use App\Models\GalleryItem;
 use App\Models\PostItem;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Service;
+use App\Observers\BookingObserver;
 use App\Observers\GalleryItemObserver;
 use App\Observers\GalleryObserver;
 use App\Observers\PostItemObserver;
@@ -77,6 +86,22 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\PasswordReset' => [
             'App\Listeners\LogPasswordReset',
         ],
+
+        NewBookingCreatedEvent::class => [
+            NewBookingCreatedHandler::class
+        ],
+        PaymentCreatedEvent::class => [
+            PaymentCreatedHandler::class
+        ],
+        'Illuminate\Mail\Events\MessageSending' => [
+            'App\Listeners\LogSendingMessage',
+        ],
+        'Illuminate\Mail\Events\MessageSent' => [
+            'App\Listeners\LogSentMessage',
+        ],
+        BookingPriceChangedEvent::class => [
+            BookingPriceChangedListener::class
+        ],
     ];
 
     protected $observers = [
@@ -86,6 +111,7 @@ class EventServiceProvider extends ServiceProvider
         PostItem::class => [PostItemObserver::class],
         Tag::class => [TagObserver::class],
         Service::class => [ServiceObserver::class],
+        Booking::class => [BookingObserver::class],
     ];
 
     /**

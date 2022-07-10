@@ -1,6 +1,12 @@
 @php
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use App\Models\Post;
+use App\Support\HtmlHelper;
+use App\Support\ServiceSupport;
+
+$has_posts =  !is_null(Post::where("id", ">", 0)->selectRaw("1")->first());
+
 
 
 $items = [
@@ -9,23 +15,19 @@ $items = [
         'url' => url('/'),
         'active' => Request::is('/')
     ],
-    [
-        'text' => 'Celebrations',
-        'url' => url('/events/celebrations'),
-        'active' => Request::is('events/celebrations')
-    ],
-    [
-        'text' => 'Weddings',
-        'url' => url('/events/weddings'),
-        'active' => Request::is('events/weddings')
-    ],
+    $has_posts ? [
+        'text' => 'Events',
+        'url' => route('events.index'),
+        'active' => Request::is('events/*')
+    ] : null,
     [
         'text' => 'Gallery',
         'url' => route('gallery.index'),
         'active' => Request::is('*gallery*')
     ],
+    ServiceSupport::hideServicesMenuItem() ? (isset($services) ? 'services_menu' : null) :
     [
-        'text' => 'Services',
+        'text' => 'Our Services',
         'url' => route('services.index'),
         'active' => Request::is('*services*')
     ],
@@ -41,21 +43,36 @@ $items = [
     ]
 ];
 
+if (isset($services)) {
+    $items = HtmlHelper::insertServiceLinks($items, $services);
+}
+
+
+
 if (Auth::check()) {
-    $items[] = [
-        'url' => url('/dashboard'),
-        'text' => 'Dashboard',
-        'active' => Request::is('dashboard*')
-    ];
+    if (Auth::user()->can("admin")) {
+        $items[] = [
+            'url' => route("admin.admin_dashboard"),
+            'text' => 'Administration',
+            'active' => Request::is('admin/dashboard*')
+        ];
+    } else {
+        $items[] = [
+            'url' => url('/dashboard'),
+            'text' => 'My Dashboard',
+            'active' => Request::is('dashboard*')
+        ];
+    }
+    
 }
 @endphp
 
-<nav id="navbar" class="default">
+<nav id="navbar" class="{{ isset($class) ? $class : "" }}">
     
 </nav>
 
 @push('scripts')
-    <script>
+    <script  nonce="{{ csp_nonce() }}">
     Splurge.navbar.render(document.querySelector('#navbar'), {
         items: {{ Js::from($items) }},
         logo: '{{ asset('/images/v2/splurge.png') }}',

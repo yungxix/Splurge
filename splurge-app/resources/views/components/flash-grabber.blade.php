@@ -11,7 +11,7 @@
 
 
     @push('scripts')
-        <script>
+        <script  nonce="{{ csp_nonce() }}">
             Splurge.flash.render(document.querySelector('#flash_container'), {
                 messages: {!! Js::from($messages->all()) !!},
                 delay: 5000

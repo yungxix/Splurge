@@ -7,6 +7,7 @@ use App\Http\Requests\PostRequest;
 use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\DB;
 
 class PostsController extends Controller
 {
@@ -99,7 +100,7 @@ class PostsController extends Controller
      */
     public function destroy(Request $request, Post $post)
     {
-        $post->delete();
+        DB::transaction(fn () => $post->delete());
         $request->session()->flash('success_message', 'Deleted post');
         return redirect()->route('admin.posts.index');
     }

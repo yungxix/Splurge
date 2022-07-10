@@ -80,3 +80,5 @@ assets/Videos/res.mp4
 *.dev
 *.prod
 *.txt
+splurge-app/.reset_migrations.txt
+splurge-app/.migrations.txt

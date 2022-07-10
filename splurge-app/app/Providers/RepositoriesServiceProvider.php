@@ -32,6 +32,16 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->singleton(\App\Repositories\StatsRepository::class, function ($app) {
             return new \App\Repositories\StatsRepository();
         });
+
+        $this->app->singleton(\App\Repositories\SplurgeAccessTokenRepository::class, function () {
+            return new \App\Repositories\SplurgeAccessTokenRepository();
+        });
+
+        $this->app->singleton(\App\Repositories\BookingsRepository::class, \App\Repositories\BookingsRepository::class);
+
+        $this->app->singleton(\App\Repositories\CustomerRepository::class, \App\Repositories\CustomerRepository::class);
+
+        $this->app->singleton(\App\Repositories\CommunicationsRepository::class, \App\Repositories\CommunicationsRepository::class);
     }
 
     /**

@@ -1,6 +1,12 @@
 @php
     use App\Support\HtmlHelper;
     use Illuminate\Support\Str;
+
+    
+    $breadcrumbItems = [
+        ['text' => 'Dashboard', 'url' => route('admin.admin_dashboard')] ,
+        ['text' => 'Gallery', 'url' => route('admin.gallery.index')]
+    ];
 @endphp
 @extends('layouts.admin')
 
@@ -8,6 +14,7 @@
 
 
 @section('content')
+    <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
     @include('partials.page-header', ['title' => 'Gallery'])
     <section class="container mx-auto">
         <div class="flex flex-row justify-end p-4 items-center mb-4">
@@ -17,8 +24,8 @@
         </div>
         <div>
             @foreach ($gallery as $item)
-            <div class="md:flex flex-row mb-4 divide-y divide-slate-500 hover:bg-slate-400">
-                <a href="{{ route('admin.gallery.show', ['gallery' => $item->id]) }}" class="m-4 block rounded-md shadow-md w-36 md:w-1/3 overflow-clip">
+            <div class="stacked">
+                <a href="{{ route('admin.gallery.show', ['gallery' => $item->id]) }}" class="image-link">
                     <figure>
                         <img src="{{ splurge_asset($item->image_url) }}" />
                     </figure>

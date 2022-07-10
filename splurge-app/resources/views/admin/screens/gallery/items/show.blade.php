@@ -48,7 +48,7 @@
             <input type="hidden" name="_method" value="DELETE" />
             @csrf
         </form>
-        <script>
+        <script   nonce="{{ csp_nonce() }}">
             document.querySelectorAll('.delete-medium').forEach(function (el) {
                 el.onclick = function (e) {
                     e.preventDefault();

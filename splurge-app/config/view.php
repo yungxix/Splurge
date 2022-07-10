@@ -35,6 +35,13 @@ return [
 
     'defaults' => [
         'layout' => 'layouts.default'
+    ],
+    'services' => [
+        'displays' => [
+            'default' => 'Display normally',
+            'menu' => 'Display on page top menu bar',
+            'none' => 'Hide from clients',
+        ]
     ]
 
 ];

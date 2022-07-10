@@ -7,6 +7,7 @@ use App\Http\Requests\ServiceRequest;
 use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use Illuminate\Support\Facades\DB;
 
 class ServicesController extends Controller
 {
@@ -23,7 +24,7 @@ class ServicesController extends Controller
      */
     public function index()
     {
-        return view('admin.screens.services.index', ['services' => $this->repository->all()]);
+        return view('admin.screens.services.index', ['services' => $this->repository->allForAdmin()]);
     }
 
     /**
@@ -35,7 +36,8 @@ class ServicesController extends Controller
     {
         $service = new Service([
             'name' => $request->old('name', ''),
-            'description' => $request->old('description', '')
+            'description' => $request->old('description', ''),
+            'display' => $request->old('display', 'default')
         ]);
         return view('admin.screens.services.create', ['service' => $service]);
     }
@@ -97,8 +99,7 @@ class ServicesController extends Controller
      */
     public function destroy(Request $request, Service $service)
     {
-
-        $service->delete();
+        DB::transaction(fn () => $service->delete());
         $request->session()->flash('success_message', 'Service has been deleted');
         return redirect()->route('admin.services.index');
     }

@@ -54,12 +54,29 @@
     </x-forms.form-group>
 
 
+    <x-forms.form-group :field="'display'" :errors="$errors">
+        <x-slot:label>
+            <x-label for="display">
+                Display
+            </x-label>
+        </x-slot:label>
+        <select name="display" class="control">
+            @foreach (config('view.services.displays') as $key => $label)
+            <option @selected($service->display == $key) value="{{ $key }}"> {{  $label }}</option>
+            @endforeach
+        </select>
+    </x-forms.form-group>
+
+
     <x-forms.form-group :field="'tags'" :errors="$errors">
         <x-slot:label>
             <x-label>
                 Tags
             </x-label>
         </x-slot:label>
+        <p class="bg-gray-200 rounded-md m-4 p-4">
+            <em>Adding tags to services will create links between the service and events or a selection of gallery items</em>
+        </p>
         <x-admin.tags-selector :name="'tags[]'" :taggable="$taggable"></x-admin.tags-selector>
     </x-forms.form-group>
 

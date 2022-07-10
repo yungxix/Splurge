@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use Illuminate\Http\Request;
 use App\Models\Gallery;
-use App\Models\GalleryItem;
 use App\Models\MediaOwner;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
@@ -76,5 +75,11 @@ class GalleryRepository {
         ->where('created_at', '>=', $lastDate)
         ->where('media_type', 'image')
         ->orderBy('created_at', 'desc')->limit($limit)->get();
+    }
+
+    public function findForTags(Request $request, $tags, $pageName = 'page') {
+        return Gallery::whereHas('taggables', fn ($q) => $q->whereIn('tag_id', $tags))
+        ->orderBy('created_at', 'desc')
+        ->simplePaginate(3, ['*'], $pageName)->withQueryString();
     }
 }
