@@ -1,5 +1,8 @@
 @extends(config('view.defaults.layout'))
 
+@section('title')
+      Contact Us
+@endsection
 
 @section('content')
 

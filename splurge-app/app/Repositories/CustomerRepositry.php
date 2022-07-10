@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 
-class CustomersRepository {
+class CustomerRepository {
     public function findAll(Request $request) {
         $query = (new Customer())->newQuery();
 

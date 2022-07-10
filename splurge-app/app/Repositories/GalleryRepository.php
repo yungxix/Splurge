@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use Illuminate\Http\Request;
 use App\Models\Gallery;
-use App\Models\GalleryItem;
 use App\Models\MediaOwner;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;

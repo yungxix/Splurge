@@ -35,11 +35,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (config('app.env', 'local') != 'local') {
-            $this->app->bind('path.public', function () {
-                return base_path() . '/../dev';
-            });
-        }
+        
         if (config('logging.log_queries')) {
             DB::listen(function (QueryExecuted $query) {
                 Log::debug("[Query] {$query->sql}", [

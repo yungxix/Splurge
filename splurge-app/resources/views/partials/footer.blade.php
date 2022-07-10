@@ -63,7 +63,7 @@
           @endforeach
       </p>
       <p class="text-center pt-4 md:pt-0 md:text-right">
-        <em>Copyrights {{ Carbon::now()->format('Y') }} {{config('app.name')}} Events. All right reserved</em>
+        <em>Copyright {{ Carbon::now()->format('Y') }} {{config('app.name')}} Events. All rights reserved</em>
       </p>
       
     </div>

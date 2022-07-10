@@ -39,7 +39,7 @@ class RepositoriesServiceProvider extends ServiceProvider
 
         $this->app->singleton(\App\Repositories\BookingsRepository::class, \App\Repositories\BookingsRepository::class);
 
-        $this->app->singleton(\App\Repositories\CustomersRepository::class, \App\Repositories\CustomersRepository::class);
+        $this->app->singleton(\App\Repositories\CustomerRepository::class, \App\Repositories\CustomerRepository::class);
 
         $this->app->singleton(\App\Repositories\CommunicationsRepository::class, \App\Repositories\CommunicationsRepository::class);
     }

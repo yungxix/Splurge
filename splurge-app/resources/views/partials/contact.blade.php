@@ -10,10 +10,10 @@
       <h3 class="font-bold text-splarge-800">{{ config('app.name') }} Office</h3>
       <p>2 Samuel Olaolu Close Magodo Isheri</p>
       {{-- <p>Kosofe Ikosi Isheri,</p> --}}
-      <p>Lagos , Nigeria</p>
+      <p>Lagos, Nigeria</p>
       <p>
           <strong>Please note that we're open 24/7 for enquiries and bookings.</strong><br />
-         <strong class="strong">SerenSplurge Ltd is registered in Nigeria</strong>
+         <strong class="strong">{{config('app.name')}} Ltd is registered in Nigeria</strong>
      </p>          
     </div>
     <p class="mt-8">

@@ -3,7 +3,9 @@
 $subTitleClass = 'text-xl font-bold text-splarge-700 mt-4';
 @endphp
 
-@section('title', 'About')
+@section('title')
+    About Us
+@endsection
 
 @section('content')
     @include('partials.landing.slides')

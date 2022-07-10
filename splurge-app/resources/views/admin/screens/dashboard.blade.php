@@ -23,7 +23,7 @@
 @extends('layouts.admin')
 
 @section('title')
-__('Dashboard')
+{{__('Dashboard')}}
 @endsection
 
 @section('content')
