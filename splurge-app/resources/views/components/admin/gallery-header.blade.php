@@ -1,17 +1,21 @@
 @php
     use Illuminate\Support\Str;
 @endphp
-@props(['gallery', 'preview_url' => null, 'show_stats' => false])
-@include('partials.page-header', ['title' => $gallery->caption])
+@props(['gallery', 'preview_url' => null, 'show_stats' => false, 'hide_image' => false, 'caption' => null])
+@include('partials.page-header', ['title' => $caption ?: $gallery->caption])
+
 <section class="container mx-auto mb-4">
+    @unless ($hide_image)
     <figure class="mx-auto">
         <img src="{{ splurge_asset($gallery->image_url) }}" />
         <figcaption>
-            {{ $gallery->caption }} banner
+            {{ $gallery->caption }}
         </figcaption>
-    </figure>
+    </figure>    
+    @endunless
+    
     <div class="flex flex-row justify-end p-4 gap-4 flex-wrap">
-        <a class="link" href="{{ $preview_url ?: route('gallery.show', ['gallery' => $gallery->id]) }}">
+        <a class="link" href="{{ $preview_url ?: route('admin.gallery_detail.preview', ['gallery' => $gallery->id]) }}">
             Preview
         </a>
         <a class="link" href="{{ route('admin.gallery.edit', ['gallery' => $gallery->id]) }}">

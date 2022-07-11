@@ -8,7 +8,7 @@
         </div>
         @include('admin.screens.services.partials.links')
         <div>
-            {{ HtmlHelper::renderParagraphs($service->description) }}
+            {!! Purify::clean($service->description) !!}
         </div>
     </div>
     <div class="w-1/2 pl-8">

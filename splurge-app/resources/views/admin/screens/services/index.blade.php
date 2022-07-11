@@ -32,7 +32,7 @@
                     <a href="{{ route('admin.services.show', $item) }}" class="link">
                         <h4 class="text-lg font-bold">{{ $item->name }}</h4>
                     </a>
-                    {{HtmlHelper::toParagraphs(Str::limit($item->description, 250, '...'))}}
+                    {{Str::limit(strip_tags($item->description), 250, '...')}}
                 </div>
                 <div class="pt-4 pr-4">
                     @include('admin.screens.services.partials.item-actions', ['model' => $item])

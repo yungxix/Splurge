@@ -14,7 +14,7 @@
 
 @section('content')
 <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
-@include('partials.page-header', ['title' => 'Edit Package'])
+@include('partials.page-header', ['title' => 'Edit Service'])
 <section class="container mx-auto">
     @include('admin.screens.services.form', ['service' => $service])
 </section>

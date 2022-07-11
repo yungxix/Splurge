@@ -7,7 +7,7 @@
     </div>
     @include('admin.screens.services.partials.links')
     <div>
-        {{ HtmlHelper::renderParagraphs($service->description) }}
+        {!! Purify::clean($service->description) !!}
     </div>
     @include('admin.screens.services.partials.tiers_view', ['service' => $service, 'limit' => 2])
 </div>

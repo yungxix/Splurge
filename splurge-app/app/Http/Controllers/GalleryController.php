@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Gallery;
 use App\Repositories\GalleryRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class GalleryController extends Controller
 {

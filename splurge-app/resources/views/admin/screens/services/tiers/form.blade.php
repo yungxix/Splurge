@@ -46,8 +46,7 @@
                     Options
                 </x-label>
                 <div id="tier_options_container">
-                    <span class="animate-pulse text-center">...</span>
-
+                    <span class="animate-pulse text-center">Preparing ...</span>
                 </div>
                 @error('options')
                     <p class="text-red-700">{{ $message }}</p>
