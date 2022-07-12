@@ -15,7 +15,7 @@
                 @foreach ($plainItems as $item)
                     <li>
                         <div>
-                        {{$item['text']}}
+                        {{$item['text'] ?? ''}}
                         @isset($item['html_text'])
                         {!! Purify::clean($item['html_text']) !!}
                         @endisset
@@ -42,7 +42,7 @@
                 @foreach ($item['items'] as $child_item)
                     <li>
                         <div>
-                        {{$child_item['text']}}
+                        {{$child_item['text'] ?? ''}}
                         @isset($child_item['html_text'])
                         {!! Purify::clean($child_item['html_text']) !!}
                         @endisset

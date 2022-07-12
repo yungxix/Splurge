@@ -8,12 +8,12 @@
 @endphp
 @extends('layouts.admin')
 
-@section('title', 'Packages')
+@section('title', 'Services')
 
 
 @section('content')
     <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
-    @include('partials.page-header', ['title' => 'Packages'])
+    @include('partials.page-header', ['title' => 'Services'])
     <section class="container mx-auto">
         <div class="flex flex-row justify-end p-4 items-center mb-4">
             <a class="btn" href="{{ route('admin.services.create') }}">
@@ -32,7 +32,7 @@
                     <a href="{{ route('admin.services.show', $item) }}" class="link">
                         <h4 class="text-lg font-bold">{{ $item->name }}</h4>
                     </a>
-                    {{HtmlHelper::toParagraphs(Str::limit($item->description, 250, '...'))}}
+                    {{Str::limit(strip_tags($item->description), 250, '...')}}
                 </div>
                 <div class="pt-4 pr-4">
                     @include('admin.screens.services.partials.item-actions', ['model' => $item])

@@ -5,14 +5,14 @@
         ['text' => 'Dashboard', 'url' => route('admin.admin_dashboard')] ,
         ['text' => 'All Services', 'url' => route('admin.services.index')],
         ['text' => $service->name . ' Details', 'url' => route('admin.services.show', $service)],
-        ['text' => 'Tiers', 'url' => '#']
+        ['text' => 'Packages', 'url' => '#']
     ];
 @endphp
 @extends('layouts.admin')
 
 
 
-@section('title', 'Package Tiers')
+@section('title', 'Service Packages')
  
 @section('content')
     <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
@@ -32,13 +32,13 @@
                 </p>
             </div>
         @else
-            <div class="grid mx-auto grid-cols-2 md:grid-cols-3">
+            <div class="">
                 @foreach ($tiers as $tier)
-                    <div class="bg-stone-200 rounded-md m-8 shadow-md p-4">
+                    <div class="bg-stone-200 rounded-md m-4 md:m-8 shadow-md p-4">
                          <h4 class="text-center text-bold text-4xl">{{ $tier->name }}</h4>   
                         
-                         <div class="my-4">
-                            {{ HtmlHelper::toParagraphs($tier->description ?: '', 'text-gray-600') }}
+                         <div class="my-4 text-gray-600">
+                            {!! Purify::clean($tier->description ?: '') !!}
                          </div>
 
                          @if ($tier->price)
@@ -48,13 +48,7 @@
                         @endif
 
                          @unless (empty($tier->options))
-                             <ol class="mt-4 ml-4 list-disc text-base">
-                                 @foreach ($tier->options as $option)
-                                     <li>
-                                         {{ $option['text'] }}
-                                     </li>
-                                 @endforeach
-                             </ol>
+                             <x-service-tier-options :options="$tier->options"></x-service-tier-options>
                          @endunless
                          @unless (empty($tier->footer_message))
                              <div class="my-4">
@@ -96,10 +90,10 @@
 
                 <div class="p-12">
                     <a href="{{ route('admin.service_detail.tiers.create', $service) }}" class="btn text-4xl">
-                          +
+                        +
                     </a>
                 </div>
-            </div>
+            </div
         @endif
         <div class="my-8">
             @include('admin.partials.tags-assignment', ['taggable' => ['id' => $service->id, 'type' => 'service']])

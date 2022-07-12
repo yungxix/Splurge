@@ -2,7 +2,7 @@
     $breadcrumbItems = [
         ['text' => 'Dashboard', 'url' => route('admin.admin_dashboard')] ,
         ['text' => 'Gallery', 'url' => route('admin.gallery.index')],
-        ['text' => 'Details', 'url' => route('admin.gallery.show', $gallery)],
+        ['text' => 'Details', 'url' => '#'],
     ];
 @endphp
 @extends('layouts.admin')

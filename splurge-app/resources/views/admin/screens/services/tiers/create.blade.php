@@ -5,18 +5,18 @@
         ['text' => 'Dashboard', 'url' => route('admin.admin_dashboard')] ,
         ['text' => 'All Packages', 'url' => route('admin.services.index')],
         ['text' => $service->name . ' Details', 'url' => route('admin.services.show', $service)],
-        ['text' => 'Tiers', 'url' => route('admin.service_detail.tiers.index', $service)],
-        ['text' => 'New Tier']
+        ['text' => 'Packages', 'url' => route('admin.service_detail.tiers.index', $service)],
+        ['text' => 'New Package']
     ];
 @endphp
 @extends('layouts.admin')
 
-@section('title', 'Edit Package Tier')
+@section('title', 'Edit Package')
 
 
 @section('content')
     <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
-    @include('partials.page-header', ['title' => $service->name, 'sub_title' => 'New Package Tier'])
+    @include('partials.page-header', ['title' => $service->name, 'sub_title' => 'New Package'])
     
     <hr class="mb-4 w-3/4 mx-auto" />
 

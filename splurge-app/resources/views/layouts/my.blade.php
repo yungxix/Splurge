@@ -27,7 +27,7 @@
         </main>
       </div>
       @foreach (['manifest', 'vendor', 'app'] as $name)
-      <script src="{{ asset(mix(sprintf('js/%s.js', $name))) }}"></script>
+      <script nonce="{{ csp_nonce() }}" src="{{ asset(mix(sprintf('js/%s.js', $name))) }}"></script>
       @endforeach
 
       @stack('scripts')

@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\PaymentsController;
 Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group(function () {
     
     Route::prefix('gallery/{gallery}')->name('gallery_detail.')->group(function () {
+        Route::get('/preview', [GalleryController::class, 'preview'])->name('preview');
         Route::resource('gallery_items', GalleryItemsController::class);
         Route::prefix('gallery_items/{gallery_item}')->name('gallery_item.')->group(function () {
             Route::resource('media', MediaController::class);

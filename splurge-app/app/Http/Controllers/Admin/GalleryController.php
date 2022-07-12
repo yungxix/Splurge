@@ -77,6 +77,11 @@ class GalleryController extends Controller
         return view('admin.screens.gallery.show', ['gallery' => $gallery, 'items' => $items]);
     }
 
+    public function preview(Gallery $gallery) {
+        $gallery->load(['items', 'items.mediaItems']);
+        return view('admin.screens.gallery.preview', ['gallery' => $gallery]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -20,7 +20,7 @@ $items = [
         'active' => Request::is('admin/gallery*')
     ],
     [
-        'text' => 'Packages',
+        'text' => 'Services',
         'url' => url('/admin/services'),
         'active' => Request::is('admin/services*')
     ],

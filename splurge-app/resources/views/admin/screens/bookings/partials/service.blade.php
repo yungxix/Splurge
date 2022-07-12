@@ -23,7 +23,7 @@
 
         <h4 class="font-bold">
             <a class="link" title="Tier details" href="{{ route("admin.service_detail.tiers.show", ['service' => $serviceTier->service_id, 'tier' => $serviceTier->id]) }}">
-                {{$serviceTier->name}} tier
+                {{$serviceTier->name}}
             </a>
         </h4>
 

@@ -5,7 +5,7 @@
         ['text' => 'Dashboard', 'url' => route('admin.admin_dashboard')] ,
         ['text' => 'All Packages', 'url' => route('admin.services.index')],
         ['text' => $service->name . ' Details', 'url' => route('admin.services.show', $service)],
-        ['text' => 'Tiers', 'url' => route('admin.service_detail.tiers.index', ['service' => $service->id])],
+        ['text' => 'Packages', 'url' => route('admin.service_detail.tiers.index', ['service' => $service->id])],
         ['text' => 'Details', 'url' => '#']
     ];
 @endphp
@@ -26,7 +26,7 @@
             <h4 class="text-center text-bold text-4xl">{{ $tier->name }}</h4>   
            
             <div class="my-4">
-               {{ HtmlHelper::toParagraphs($tier->description ?: '', 'text-gray-600') }}
+               {{ Purify::clean($tier->description ?: '') }}
             </div>
 
             @if ($tier->price)
@@ -36,13 +36,7 @@
            @endif
 
             @unless (empty($tier->options))
-                <ol class="mt-4 ml-4 list-disc text-base">
-                    @foreach ($tier->options as $option)
-                        <li>
-                            {{ $option['text'] }}
-                        </li>
-                    @endforeach
-                </ol>
+               <x-service-tier-options :options="$tier->options"></x-service-tier-options>
             @endunless
             @unless (empty($tier->footer_message))
                 <div class="my-4">
