@@ -9,7 +9,7 @@
 @endphp
 @extends('layouts.admin')
 
-@section('title', 'Edit Package')
+@section('title', 'Edit Services')
 
 
 @section('content')

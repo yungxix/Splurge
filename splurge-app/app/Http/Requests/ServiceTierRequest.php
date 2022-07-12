@@ -30,7 +30,7 @@ class ServiceTierRequest extends FormRequest
         return [
             'name' => 'required|max:200',
             'price' => 'nullable|numeric',
-            'description' => 'required|max:255',
+            'description' => 'required|max:3000',
             'options' => 'nullable|array',
             'footer_message' => 'nullable|max:255',
             "position" => "nullable|integer",
@@ -59,6 +59,8 @@ class ServiceTierRequest extends FormRequest
     }
 
     public function updateItem(ServiceTier $tier): ServiceTier {
+       
+        
         return DB::transaction(function () use ($tier) {
             $data = $this->safe()->except('image');
             

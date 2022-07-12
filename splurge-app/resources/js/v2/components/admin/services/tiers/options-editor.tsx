@@ -46,7 +46,7 @@ const PlainItemEditor2: FC<{
     prefix: string;
     tag?: string;
 }> = ({value, prefix, tag, children}) => {
-    const [text, setText] = useState(value.html_text ? value.html_text : value.text);
+    const [text, setText] = useState((value.html_text ? value.html_text : value.text) || '');
     const [html, setHtml] = useState(value.html_text ? true : false);
     const localName = useMemo(() => {
         return `${prefix}[${html ? 'html_text' : 'text'}]`;
@@ -88,12 +88,12 @@ const PlainItemEditor2: FC<{
 const ItemEditor2: FC<{value: ConcreteItemWithId;  onChange: (value: ConcreteItemWithId) => void; prefix: string; onDelete: (id: string) => void}> = (props) => {
     const itemTag = props.value.items ? 'textarea' : 'input';
 
-    return <><tr>
-            <td className="py-4">
+    return <div className="border rounded-md mt-2 mx-2 mb-4 p-4"><div className="flex flex-row mb-4">
+            <div className="flex-grow">
                 <PlainItemEditor2 prefix={props.prefix} value={props.value} tag={itemTag} />
-            </td>
-            <td className="pb-4">
-                <div className="flex flex-row justify-end items-center gap-4">
+            </div>
+            <div className="w-1/5">
+                <div className="flex flex-row justify-end items-center gap-2">
                     <a className="link" title="Remove item" onClick={(e) => props.onDelete(props.value.id)}>
                         <TrashIcon  className="w-4 h-4" />
                     </a>
@@ -108,18 +108,18 @@ const ItemEditor2: FC<{value: ConcreteItemWithId;  onChange: (value: ConcreteIte
                     </a>
                     {props.children}
                 </div>
-            </td>
-        </tr>
+            </div>
+        </div>
         {
-            props.value.items && props.value.items.length > 0 && (<tr>
-                <td className="bg-gray-400 px-6 py-4" colSpan={2}>
+            props.value.items && props.value.items.length > 0 && (<div>
+                <div className="bg-gray-400 px-6 py-4">
                     <p>
                         This item has the following sub-items...
                     </p>
                     <ul>
                         {
-                            props.value.items.map((item) => (<li className="pb-4" key={item.id}>
-                                <PlainItemEditor2 value={item} prefix={`${props.prefix}[items]`}>
+                            props.value.items.map((item, j) => (<li className="pb-4" key={item.id}>
+                                <PlainItemEditor2 value={item} prefix={`${props.prefix}[items][${j}]`}>
                                     <a title="Remove sub-item" className="link" onClick={(e) => {
                                             props.onChange({
                                                 ...props.value, items: props.value.items?.filter(i => i.id !== item.id)
@@ -132,10 +132,10 @@ const ItemEditor2: FC<{value: ConcreteItemWithId;  onChange: (value: ConcreteIte
                             </li>))
                         }
                     </ul>
-                </td>
-            </tr>)
+                </div>
+            </div>)
         }
-    </>
+    </div>
 };
 
 
@@ -153,7 +153,7 @@ const OptionsEditor: FC<ServiceTierOptionsProps> = props => {
             ...options.slice(0, at), newItem(), ...options.slice(at)
         ]);
     };
-    return <div className="border rounded-md p-2">
+    return <div>
         <div className="mb-4 flex flex-row justify-end items-center">
             <a className="link" onClick={(e) => {
                 setOptions([...options, newItem()])
@@ -161,22 +161,18 @@ const OptionsEditor: FC<ServiceTierOptionsProps> = props => {
                 <PlusIcon className="w-4 h-4" />
             </a>
         </div>
-        <table className="w-full border-collapse">
-            <tbody>
-                {
-                    options.map((option, index) => (<ItemEditor2 key={option.id}
-                        value={option}
-                        onChange={handleChange}
-                        onDelete={handleDelete}
-                        prefix={`${props.name}[]`}
-                        >
-                            <a className="link" title="Insert an item here" onClick={(e) => handleInsert(index)}>
-                                Insert
-                            </a>
-                        </ItemEditor2>))
-                }
-            </tbody>
-        </table>
+        {
+            options.map((option, index) => (<ItemEditor2 key={option.id}
+                value={option}
+                onChange={handleChange}
+                onDelete={handleDelete}
+                prefix={`${props.name}[${index}]`}
+                >
+                    <a className="link" title="Insert an item here" onClick={(e) => handleInsert(index)}>
+                        Insert
+                    </a>
+                </ItemEditor2>))
+        }
     </div>
 };
 

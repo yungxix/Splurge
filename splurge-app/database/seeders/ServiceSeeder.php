@@ -94,7 +94,7 @@ class ServiceSeeder extends Seeder
 
         foreach ($optionElements as $el) {
             $options[] = [
-                'text' => trim($el->textContent)
+                'text' => static::cleanStr($el->textContent)
             ];
         }
 
@@ -110,7 +110,7 @@ class ServiceSeeder extends Seeder
             $items = [];
 
             foreach ($groupItems as $el) {
-                $items[] = ['text' => trim($el->textContent)];
+                $items[] = ['text' => static::cleanStr($el->textContent)];
             }
 
             $item['items'] = $items;
@@ -124,16 +124,28 @@ class ServiceSeeder extends Seeder
 
     }
 
+
+    private static function cleanStr($str) {
+        if (!is_string($str) || is_null($str)) {
+            return '';
+        }
+
+        $str = trim($str);
+
+
+        return preg_replace('/\s{2,}/', ' ', $str);
+    }
+
     private static function getDescriptionArray(DOMElement $element, $attribute = NULL): array {
         if (is_null($attribute) && $element->hasAttribute('html')) {
-            return ['text' => '', 'html_text' => trim($element->textContent)];
+            return ['text' => '', 'html_text' => static::cleanStr($element->textContent)];
         }
         if (!is_null($attribute)) {
             return [
-                $attribute => trim($element->textContent)
+                $attribute => static::cleanStr($element->textContent)
             ];
         }
-        return ['text' => trim($element->textContent)];
+        return ['text' => static::cleanStr($element->textContent)];
     }
 
 }

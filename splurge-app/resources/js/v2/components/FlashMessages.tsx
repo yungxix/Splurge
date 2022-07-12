@@ -86,7 +86,7 @@ const renderer: FC<MessagesProps> = (props) => {
 
     return <div ref={containerRef} className="relative md:w-52">
         {
-            messages.map((msg) => (<div className={classnames('ease-out flex flex-row justify-between items-center rounded px-4 py-2 w-full',
+            messages.map((msg) => (<div key={msg.id} className={classnames('ease-out flex flex-row justify-between items-center rounded px-4 py-2 w-full',
             'rounded mb-2 duration-700 transition-opacity bg-opacity-70', translateTypeToClass(msg.type), {
                 'opacity-100': !msg.closing,
                 'opacity-0': msg.closing,

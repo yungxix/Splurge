@@ -90,10 +90,10 @@
 
                 <div class="p-12">
                     <a href="{{ route('admin.service_detail.tiers.create', $service) }}" class="btn text-4xl">
-                          +
+                        +
                     </a>
                 </div>
-            </div>
+            </div
         @endif
         <div class="my-8">
             @include('admin.partials.tags-assignment', ['taggable' => ['id' => $service->id, 'type' => 'service']])
