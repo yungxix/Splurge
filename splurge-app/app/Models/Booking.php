@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 
 class Booking extends Model
 {
-    use HasFactory, HasCode;
+    use HasFactory, HasCode, HasCustomerEvent;
 
     protected $casts = ['event_date' => 'datetime'];
 
@@ -16,6 +16,10 @@ class Booking extends Model
 
     public function customer() {
             return $this->belongsTo(Customer::class);   
+    }
+
+    public function customerEvent() {
+        return $this->hasOne(CustomerEvent::class);
     }
 
     public function serviceTier() {

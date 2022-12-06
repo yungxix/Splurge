@@ -34,6 +34,10 @@ $items = [
                 'url' => route('admin.bookings.index')
             ],
             [
+                'text' => 'Customer Events',
+                'url' => route('admin.customer_events.index')
+            ],
+            [
                 'text' => 'Messages',
                 'url' => route('admin.messages.index')
             ]

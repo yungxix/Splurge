@@ -15,8 +15,10 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\BookingsController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\CommunicationsController;
+use App\Http\Controllers\Admin\CustomerEventGuestsController;
+use App\Http\Controllers\Admin\CustomerEventsController;
 use App\Http\Controllers\Admin\PaymentsController;
-
+use Illuminate\Routing\RouteUri;
 
 Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group(function () {
     
@@ -52,6 +54,7 @@ Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group
     Route::get("/messages/{message}/content", [CommunicationsController::class, "showContent"])->name("message_content");
     
     
+    
     Route::resources([
         'tags' => TagsController::class,
         'gallery' => GalleryController::class,
@@ -60,11 +63,17 @@ Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group
         "bookings" => BookingsController::class,
         "messages" => CommunicationsController::class,
         "customers" => CustomersController::class,
-        "payments" => PaymentsController::class
+        "payments" => PaymentsController::class,
+        "customer_events" => CustomerEventsController::class
     ]);
+
+    Route::prefix("/customer_events/{customer_event}")->name('customer_event_detail.')->group(function () {
+        Route::resource('guests', CustomerEventGuestsController::class);
+    });
 
     
 
+   
     
 
     Route::prefix('/posts/{post}')->name('post_detail.')->group(function () {

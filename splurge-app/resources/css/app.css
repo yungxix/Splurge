@@ -950,7 +950,7 @@ body.has-modal {
     }
 
     .control-wrapper {
-        @apply md:w-3/4;
+        @apply md:w-3/4 md:pl-4;
     }
 
     &.error {

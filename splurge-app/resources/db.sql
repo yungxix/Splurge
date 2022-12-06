@@ -61,3 +61,14 @@ alter table `communications` add `internal` tinyint(1) not null default '0';
 alter table `service_items` add `image_url` varchar(255) null;
 alter table `service_tiers` add `image_url` varchar(255) null;
 alter table `services` add `display` varchar(12) not null default 'default';
+
+
+-- 2022-11-19 10:41
+
+create table `customer_events` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `name` varchar(255) not null, `event_date` date not null, `booking_id` bigint null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+alter table `customer_events` add index `customer_events_name_index`(`name`);
+alter table `customer_events` add index `customer_events_booking_id_index`(`booking_id`);
+
+create table `customer_event_guests` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `customer_event_id` bigint not null, `name` varchar(255) not null, `gender` varchar(20) null, `accepted` json null, `presented` json null, `attendance_at` datetime null, `table_name` varchar(120) null, `barcode_image_url` varchar(255) null, `tag` varchar(255) not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+alter table `customer_event_guests` add index `customer_event_guests_customer_event_id_index`(`customer_event_id`);  
+alter table `customer_event_guests` add unique `customer_event_guests_tag_unique`(`tag`) ;

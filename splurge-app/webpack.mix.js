@@ -23,6 +23,17 @@ mix.ts('resources/js/app.ts', 'public/js')
             })
         ]
     }
+}).ts('resources/js/v2/components/admin/customer_events/index.tsx', 'public/js/customer_events.js')
+.react()
+.extract(['react', 'react-dom', 'lodash', 'axios'])
+.webpackConfig(webpack => {
+    return {
+        plugins: [
+            new webpack.DefinePlugin({
+                "PRODUCTION": JSON.stringify(mix.inProduction())
+            })
+        ]
+    }
 })
 .postCss('resources/css/app.css', 'public/css', [
     require('tailwindcss/nesting'),

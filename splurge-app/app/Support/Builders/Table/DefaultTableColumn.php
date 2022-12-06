@@ -6,6 +6,8 @@ use Illuminate\Support\Arr;
 
 use Illuminate\Support\Str;
 
+use Illuminate\Support\HtmlString;
+
 class DefaultTableColumn extends TableColumn {
     private $text;
     private $modelAttribute;
@@ -13,12 +15,14 @@ class DefaultTableColumn extends TableColumn {
     private $cellTemplate;
     private $formatter;
     private $tag;
+    private $viewArguments;
 
     public function __construct($options = [])
     {
         $this->text = Arr::get($options, 'text', Arr::get($options, 'title', Arr::get($options, 'name', '')));
         $this->modelAttribute = Arr::get($options, 'attribute');
         $this->headerTemplate = Arr::get($options, 'header_template', null);
+        $this->viewArguments = Arr::get($options, 'view_arguments', []);
         $this->cellTemplate = Arr::get($options, 'view', Arr::get($options, 'template'));
         $this->formatter = Arr::get($options, 'formatter');
         $this->tag = Arr::get($options, 'tag', 'td');
@@ -28,7 +32,11 @@ class DefaultTableColumn extends TableColumn {
     public function render($model, $row_loop = NULL, $column_loop = NULL)
     {
         if (!is_null($this->cellTemplate)) {
-            return view($this->cellTemplate, ['model' => $model, 'row' => $row_loop, 'column' => $column_loop]);
+
+            return view($this->cellTemplate, array_merge($this->viewArguments, ['model' => $model, 'row' => $row_loop, 'column' => $column_loop]));
+        }
+        if (is_callable($this->modelAttribute)) {
+            return call_user_func($this->modelAttribute, $model);
         }
         if (is_null($this->formatter)) {
             return Arr::get($model, $this->modelAttribute);    

@@ -40,7 +40,7 @@ class StatsRepository
             $message = sprintf('Posted after %s', $cut_off->diffForHumans());
 
             $posts2 = Post::where('created_at', '<=', $cut_off)
-                ->selectRaw("count(*) as record_count, 'Events/Posts' as section,  '$message' as title");
+                ->selectRaw("count(*) as record_count, 'Posts' as section,  '$message' as title");
 
 
             $services = Service::selectRaw('count(*) as record_count, "Services" as section, "Number of services advertised" as title');
@@ -66,7 +66,7 @@ class StatsRepository
 
 
             $dates1 = GalleryItem::selectRaw('max(created_at) as date_value, "Gallery" as section, "Last gallery content upload" as title');
-            $dates2 = PostItem::selectRaw('max(created_at) as date_value, "Event/Post" as section, "Last published event item" as title');
+            $dates2 = PostItem::selectRaw('max(created_at) as date_value, "Posts" as section, "Last published event item" as title');
 
 
             return [

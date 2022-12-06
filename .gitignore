@@ -82,3 +82,4 @@ assets/Videos/res.mp4
 *.txt
 splurge-app/.reset_migrations.txt
 splurge-app/.migrations.txt
+*.txt

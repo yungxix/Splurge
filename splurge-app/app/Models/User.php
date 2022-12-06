@@ -47,7 +47,15 @@ class User extends Authenticatable
         return $this->hasMany(UserRole::class);
     }
 
-    public function hasRole($name) {
-        return !is_null(UserRole::where(['user_id' => $this->id, 'name' => $name])->selectRaw('1')->first());
+    public function scopeOfRole($builder, $name) {
+        return $builder->whereHas('roles', function ($q) use ($name) {
+            return $q->where('name', 'like', $name);
+        });
+    }
+
+    public function hasRole($name) { 
+        return $this->roles->contains(function ($role, $k) use ($name){
+            return strnatcasecmp($role->name, $name) === 0;
+        });
     }
 }
