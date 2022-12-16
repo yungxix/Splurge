@@ -9,6 +9,7 @@ use App\Models\CustomerEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Models\CustomerEventGuest;
+use Milon\Barcode\DNS2D;
 
 class CustomerEventGuestsController extends Controller
 {
@@ -28,6 +29,10 @@ class CustomerEventGuestsController extends Controller
         $guests = $query_query->orderBy(
             Arr::get($column_aliases, $sort[0], $sort[0]),
              $sort[1])->paginate(15)->appends(['sort']);
+
+        if ($request->wantsJson()) {
+            return CustomerEventGuestResource::collection($guests);
+        }
 
         return view('admin.screens.customer_events.show', [
             'customer_event' => $event,
@@ -134,4 +139,13 @@ class CustomerEventGuestsController extends Controller
         }
         return redirect()->route('admin.customer_events.show', $event)->with(['success_message' => 'Deleted guest']);
     }
+
+    public function updateBarcode(Request $request, CustomerEvent $event, CustomerEventGuest $guest) {
+        $guest->generateBarcode(TRUE);
+        if ($request->wantsJson()) {
+            return response()->json(['url' => $guest->barcode_image_url]);
+        }
+        return redirect()->route('admin.customer_events.show', $event)->with(['success_message' => 'Barcode generated']);
+    }
+
 }

@@ -71,4 +71,15 @@ alter table `customer_events` add index `customer_events_booking_id_index`(`book
 
 create table `customer_event_guests` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `customer_event_id` bigint not null, `name` varchar(255) not null, `gender` varchar(20) null, `accepted` json null, `presented` json null, `attendance_at` datetime null, `table_name` varchar(120) null, `barcode_image_url` varchar(255) null, `tag` varchar(255) not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
 alter table `customer_event_guests` add index `customer_event_guests_customer_event_id_index`(`customer_event_id`);  
-alter table `customer_event_guests` add unique `customer_event_guests_tag_unique`(`tag`) ;
+
+
+alter table `personal_access_tokens` add `expires_at` date null;
+
+
+/-- 2022-12-15
+
+create table `menu_preferences` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `guest_id` bigint not null, `comment` varchar(255) null, `name` varchar(255) not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+alter table `menu_preferences` add index `menu_preferences_guest_id_index`(`guest_id`); 
+create table `menu_items` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `name` varchar(255) not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+
+

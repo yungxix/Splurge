@@ -22,10 +22,15 @@ class CustomerEventGuestResource extends JsonResource
             'presented' => $this->resource->presented,
             'attended_at' => $this->resource->getAttendanceTime(),
             'created_at' => $this->resource->created_at,
+            'event' => $this->when($this->resource->relationLoaded('customerEvent'),
+             fn () => new CustomerEventResource($this->resource->customerEvent) ),
             'updated_at' => $this->resource->updated_at,
             'table' => $this->resource->table_name,
             'barcode_image_url' => $this->resource->barcode_image_url,
-            'tag' => $this->resource->tag
+            'tag' => $this->resource->tag,
+            'event_id' => $this->resource->customer_event_id,
+            'menu_preferences' => $this->when($this->resource->relationLoaded('menuPreferences'), 
+                fn () => MenuItemResource::collection($this->resource->menuPreferences) )
         ];
     }
 }

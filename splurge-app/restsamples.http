@@ -1,0 +1,5 @@
+
+
+GET http://localhost/api/admin/customer_events/2/guests?page=1
+Accept: application/json
+Authorization: Bearer 1|CkoOXxQViNPEgcTeCLnAie9qlvyH4dpWu2zHYN4S

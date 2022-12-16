@@ -1,212 +1,237 @@
 
-  GET|HEAD        / ............................................................................................................ home2 ΓÇ║ HomeController@index
-  POST            _ignition/execute-solution .................................. ignition.executeSolution ΓÇ║ Spatie\LaravelIgnition ΓÇ║ ExecuteSolutionController
-  GET|HEAD        _ignition/health-check .............................................. ignition.healthCheck ΓÇ║ Spatie\LaravelIgnition ΓÇ║ HealthCheckController
-  POST            _ignition/update-config ........................................... ignition.updateConfig ΓÇ║ Spatie\LaravelIgnition ΓÇ║ UpdateConfigController
-  GET|HEAD        about ............................................................................................................... AboutController@index
-  GET|HEAD        about/contact ................................................................................................. AboutController@showContact
-  GET|HEAD        access ................................................................................................... access. ΓÇ║ AccessController@index
-  POST            access/logout ................................................................................... access.destroy ΓÇ║ AccessController@destroy
-  GET|HEAD        access/{entity}/{uuid} ............................................................................ access.create ΓÇ║ AccessController@create
-  GET|HEAD        admin ....................................................................................... admin.admin_home ΓÇ║ Admin\HomeController@index
-  GET|HEAD        admin/bookings ...................................................................... admin.bookings.index ΓÇ║ Admin\BookingsController@index
-  POST            admin/bookings ...................................................................... admin.bookings.store ΓÇ║ Admin\BookingsController@store
-  GET|HEAD        admin/bookings/create ............................................................. admin.bookings.create ΓÇ║ Admin\BookingsController@create
-  GET|HEAD        admin/bookings/{booking} .............................................................. admin.bookings.show ΓÇ║ Admin\BookingsController@show
-  PUT|PATCH       admin/bookings/{booking} .......................................................... admin.bookings.update ΓÇ║ Admin\BookingsController@update
-  DELETE          admin/bookings/{booking} ........................................................ admin.bookings.destroy ΓÇ║ Admin\BookingsController@destroy
-  GET|HEAD        admin/bookings/{booking}/edit ......................................................... admin.bookings.edit ΓÇ║ Admin\BookingsController@edit
-  GET|HEAD        admin/customer_events .................................................. admin.customer_events.index ΓÇ║ Admin\CustomerEventsController@index
-  POST            admin/customer_events .................................................. admin.customer_events.store ΓÇ║ Admin\CustomerEventsController@store
-  GET|HEAD        admin/customer_events/create ......................................... admin.customer_events.create ΓÇ║ Admin\CustomerEventsController@create
-  GET|HEAD        admin/customer_events/{customer_event} ................................... admin.customer_events.show ΓÇ║ Admin\CustomerEventsController@show
-  PUT|PATCH       admin/customer_events/{customer_event} ............................... admin.customer_events.update ΓÇ║ Admin\CustomerEventsController@update
-  DELETE          admin/customer_events/{customer_event} ............................. admin.customer_events.destroy ΓÇ║ Admin\CustomerEventsController@destroy
-  GET|HEAD        admin/customer_events/{customer_event}/edit .............................. admin.customer_events.edit ΓÇ║ Admin\CustomerEventsController@edit
-  GET|HEAD        admin/customer_events/{customer_event}/guests ........ admin.customer_event_detail.guests.index ΓÇ║ Admin\CustomerEventGuestsController@index
-  POST            admin/customer_events/{customer_event}/guests ........ admin.customer_event_detail.guests.store ΓÇ║ Admin\CustomerEventGuestsController@store
-  GET|HEAD        admin/customer_events/{customer_event}/guests/create admin.customer_event_detail.guests.create ΓÇ║ Admin\CustomerEventGuestsController@create
-  GET|HEAD        admin/customer_events/{customer_event}/guests/{guest} .. admin.customer_event_detail.guests.show ΓÇ║ Admin\CustomerEventGuestsController@show
-  PUT|PATCH       admin/customer_events/{customer_event}/guests/{guest} admin.customer_event_detail.guests.update ΓÇ║ Admin\CustomerEventGuestsController@updaΓÇª
-  DELETE          admin/customer_events/{customer_event}/guests/{guest} admin.customer_event_detail.guests.destroy ΓÇ║ Admin\CustomerEventGuestsController@desΓÇª
-  GET|HEAD        admin/customer_events/{customer_event}/guests/{guest}/edit admin.customer_event_detail.guests.edit ΓÇ║ Admin\CustomerEventGuestsController@eΓÇª
-  GET|HEAD        admin/customers ................................................................... admin.customers.index ΓÇ║ Admin\CustomersController@index
-  POST            admin/customers ................................................................... admin.customers.store ΓÇ║ Admin\CustomersController@store
-  GET|HEAD        admin/customers/create .......................................................... admin.customers.create ΓÇ║ Admin\CustomersController@create
-  GET|HEAD        admin/customers/{customer} .......................................................... admin.customers.show ΓÇ║ Admin\CustomersController@show
-  PUT|PATCH       admin/customers/{customer} ...................................................... admin.customers.update ΓÇ║ Admin\CustomersController@update
-  DELETE          admin/customers/{customer} .................................................... admin.customers.destroy ΓÇ║ Admin\CustomersController@destroy
-  GET|HEAD        admin/customers/{customer}/edit ..................................................... admin.customers.edit ΓÇ║ Admin\CustomersController@edit
-  GET|HEAD        admin/dashboard ........................................................................ admin.admin_dashboard ΓÇ║ Admin\HomeController@index
-  GET|HEAD        admin/events/{post}/event_items .................................... admin.event_detail.event_items.index ΓÇ║ Admin\PostItemsController@index
-  POST            admin/events/{post}/event_items .................................... admin.event_detail.event_items.store ΓÇ║ Admin\PostItemsController@store
-  GET|HEAD        admin/events/{post}/event_items/create ........................... admin.event_detail.event_items.create ΓÇ║ Admin\PostItemsController@create
-  GET|HEAD        admin/events/{post}/event_items/{event_item} ......................... admin.event_detail.event_items.show ΓÇ║ Admin\PostItemsController@show
-  PUT|PATCH       admin/events/{post}/event_items/{event_item} ..................... admin.event_detail.event_items.update ΓÇ║ Admin\PostItemsController@update
-  DELETE          admin/events/{post}/event_items/{event_item} ................... admin.event_detail.event_items.destroy ΓÇ║ Admin\PostItemsController@destroy
-  GET|HEAD        admin/events/{post}/event_items/{event_item}/edit .................... admin.event_detail.event_items.edit ΓÇ║ Admin\PostItemsController@edit
-  GET|HEAD        admin/gallery ......................................................................... admin.gallery.index ΓÇ║ Admin\GalleryController@index
-  POST            admin/gallery ......................................................................... admin.gallery.store ΓÇ║ Admin\GalleryController@store
-  GET|HEAD        admin/gallery/create ................................................................ admin.gallery.create ΓÇ║ Admin\GalleryController@create
-  GET|HEAD        admin/gallery/{gallery} ................................................................. admin.gallery.show ΓÇ║ Admin\GalleryController@show
-  PUT|PATCH       admin/gallery/{gallery} ............................................................. admin.gallery.update ΓÇ║ Admin\GalleryController@update
-  DELETE          admin/gallery/{gallery} ........................................................... admin.gallery.destroy ΓÇ║ Admin\GalleryController@destroy
-  GET|HEAD        admin/gallery/{gallery}/edit ............................................................ admin.gallery.edit ΓÇ║ Admin\GalleryController@edit
-  GET|HEAD        admin/gallery/{gallery}/gallery_items ....................... admin.gallery_detail.gallery_items.index ΓÇ║ Admin\GalleryItemsController@index
-  POST            admin/gallery/{gallery}/gallery_items ....................... admin.gallery_detail.gallery_items.store ΓÇ║ Admin\GalleryItemsController@store
-  GET|HEAD        admin/gallery/{gallery}/gallery_items/create .............. admin.gallery_detail.gallery_items.create ΓÇ║ Admin\GalleryItemsController@create
-  GET|HEAD        admin/gallery/{gallery}/gallery_items/{gallery_item} .......... admin.gallery_detail.gallery_items.show ΓÇ║ Admin\GalleryItemsController@show
-  PUT|PATCH       admin/gallery/{gallery}/gallery_items/{gallery_item} ...... admin.gallery_detail.gallery_items.update ΓÇ║ Admin\GalleryItemsController@update
-  DELETE          admin/gallery/{gallery}/gallery_items/{gallery_item} .... admin.gallery_detail.gallery_items.destroy ΓÇ║ Admin\GalleryItemsController@destroy
-  GET|HEAD        admin/gallery/{gallery}/gallery_items/{gallery_item}/edit ..... admin.gallery_detail.gallery_items.edit ΓÇ║ Admin\GalleryItemsController@edit
-  GET|HEAD        admin/gallery/{gallery}/gallery_items/{gallery_item}/media .... admin.gallery_detail.gallery_item.media.index ΓÇ║ Admin\MediaController@index
-  POST            admin/gallery/{gallery}/gallery_items/{gallery_item}/media .... admin.gallery_detail.gallery_item.media.store ΓÇ║ Admin\MediaController@store
-  GET|HEAD        admin/gallery/{gallery}/gallery_items/{gallery_item}/media/create admin.gallery_detail.gallery_item.media.create ΓÇ║ Admin\MediaController@cΓÇª
-  GET|HEAD        admin/gallery/{gallery}/gallery_items/{gallery_item}/media/{medium} admin.gallery_detail.gallery_item.media.show ΓÇ║ Admin\MediaController@sΓÇª
-  PUT|PATCH       admin/gallery/{gallery}/gallery_items/{gallery_item}/media/{medium} admin.gallery_detail.gallery_item.media.update ΓÇ║ Admin\MediaControllerΓÇª
-  DELETE          admin/gallery/{gallery}/gallery_items/{gallery_item}/media/{medium} admin.gallery_detail.gallery_item.media.destroy ΓÇ║ Admin\MediaControlleΓÇª
-  GET|HEAD        admin/gallery/{gallery}/gallery_items/{gallery_item}/media/{medium}/edit admin.gallery_detail.gallery_item.media.edit ΓÇ║ Admin\MediaControlΓÇª
-  GET|HEAD        admin/gallery/{gallery}/preview ............................................ admin.gallery_detail.preview ΓÇ║ Admin\GalleryController@preview
-  GET|HEAD        admin/media ............................................................................... admin.media.index ΓÇ║ Admin\MediaController@index
-  POST            admin/media ............................................................................... admin.media.store ΓÇ║ Admin\MediaController@store
-  GET|HEAD        admin/media/create ...................................................................... admin.media.create ΓÇ║ Admin\MediaController@create
-  GET|HEAD        admin/media/{medium} ........................................................................ admin.media.show ΓÇ║ Admin\MediaController@show
-  PUT|PATCH       admin/media/{medium} .................................................................... admin.media.update ΓÇ║ Admin\MediaController@update
-  DELETE          admin/media/{medium} .................................................................. admin.media.destroy ΓÇ║ Admin\MediaController@destroy
-  GET|HEAD        admin/media/{medium}/edit ................................................................... admin.media.edit ΓÇ║ Admin\MediaController@edit
-  GET|HEAD        admin/messages ................................................................ admin.messages.index ΓÇ║ Admin\CommunicationsController@index
-  POST            admin/messages ................................................................ admin.messages.store ΓÇ║ Admin\CommunicationsController@store
-  GET|HEAD        admin/messages/create ....................................................... admin.messages.create ΓÇ║ Admin\CommunicationsController@create
-  GET|HEAD        admin/messages/{message} ........................................................ admin.messages.show ΓÇ║ Admin\CommunicationsController@show
-  PUT|PATCH       admin/messages/{message} .................................................... admin.messages.update ΓÇ║ Admin\CommunicationsController@update
-  DELETE          admin/messages/{message} .................................................. admin.messages.destroy ΓÇ║ Admin\CommunicationsController@destroy
-  GET|HEAD        admin/messages/{message}/content ....................................... admin.message_content ΓÇ║ Admin\CommunicationsController@showContent
-  GET|HEAD        admin/messages/{message}/edit ................................................... admin.messages.edit ΓÇ║ Admin\CommunicationsController@edit
-  GET|HEAD        admin/payments ...................................................................... admin.payments.index ΓÇ║ Admin\PaymentsController@index
-  POST            admin/payments ...................................................................... admin.payments.store ΓÇ║ Admin\PaymentsController@store
-  GET|HEAD        admin/payments/create ............................................................. admin.payments.create ΓÇ║ Admin\PaymentsController@create
-  GET|HEAD        admin/payments/{payment} .............................................................. admin.payments.show ΓÇ║ Admin\PaymentsController@show
-  PUT|PATCH       admin/payments/{payment} .......................................................... admin.payments.update ΓÇ║ Admin\PaymentsController@update
-  DELETE          admin/payments/{payment} ........................................................ admin.payments.destroy ΓÇ║ Admin\PaymentsController@destroy
-  GET|HEAD        admin/payments/{payment}/edit ......................................................... admin.payments.edit ΓÇ║ Admin\PaymentsController@edit
-  GET|HEAD        admin/posts ............................................................................... admin.posts.index ΓÇ║ Admin\PostsController@index
-  POST            admin/posts ............................................................................... admin.posts.store ΓÇ║ Admin\PostsController@store
-  GET|HEAD        admin/posts/create ...................................................................... admin.posts.create ΓÇ║ Admin\PostsController@create
-  GET|HEAD        admin/posts/{post} .......................................................................... admin.posts.show ΓÇ║ Admin\PostsController@show
-  PUT|PATCH       admin/posts/{post} ...................................................................... admin.posts.update ΓÇ║ Admin\PostsController@update
-  DELETE          admin/posts/{post} .................................................................... admin.posts.destroy ΓÇ║ Admin\PostsController@destroy
-  GET|HEAD        admin/posts/{post}/edit ..................................................................... admin.posts.edit ΓÇ║ Admin\PostsController@edit
-  GET|HEAD        admin/posts/{post}/post_items ........................................ admin.post_detail.post_items.index ΓÇ║ Admin\PostItemsController@index
-  POST            admin/posts/{post}/post_items ........................................ admin.post_detail.post_items.store ΓÇ║ Admin\PostItemsController@store
-  GET|HEAD        admin/posts/{post}/post_items/create ............................... admin.post_detail.post_items.create ΓÇ║ Admin\PostItemsController@create
-  GET|HEAD        admin/posts/{post}/post_items/{post_item} .............................. admin.post_detail.post_items.show ΓÇ║ Admin\PostItemsController@show
-  PUT|PATCH       admin/posts/{post}/post_items/{post_item} .......................... admin.post_detail.post_items.update ΓÇ║ Admin\PostItemsController@update
-  DELETE          admin/posts/{post}/post_items/{post_item} ........................ admin.post_detail.post_items.destroy ΓÇ║ Admin\PostItemsController@destroy
-  GET|HEAD        admin/posts/{post}/post_items/{post_item}/edit ......................... admin.post_detail.post_items.edit ΓÇ║ Admin\PostItemsController@edit
-  GET|HEAD        admin/services ...................................................................... admin.services.index ΓÇ║ Admin\ServicesController@index
-  POST            admin/services ...................................................................... admin.services.store ΓÇ║ Admin\ServicesController@store
-  GET|HEAD        admin/services/create ............................................................. admin.services.create ΓÇ║ Admin\ServicesController@create
-  GET|HEAD        admin/services/{service} .............................................................. admin.services.show ΓÇ║ Admin\ServicesController@show
-  PUT|PATCH       admin/services/{service} .......................................................... admin.services.update ΓÇ║ Admin\ServicesController@update
-  DELETE          admin/services/{service} ........................................................ admin.services.destroy ΓÇ║ Admin\ServicesController@destroy
-  GET|HEAD        admin/services/{service}/edit ......................................................... admin.services.edit ΓÇ║ Admin\ServicesController@edit
-  GET|HEAD        admin/services/{service}/service_items ...................... admin.service_detail.service_items.index ΓÇ║ Admin\ServiceItemsController@index
-  POST            admin/services/{service}/service_items ...................... admin.service_detail.service_items.store ΓÇ║ Admin\ServiceItemsController@store
-  GET|HEAD        admin/services/{service}/service_items/create ............. admin.service_detail.service_items.create ΓÇ║ Admin\ServiceItemsController@create
-  PATCH           admin/services/{service}/service_items/sort ........................... admin.service_detail.sort_items ΓÇ║ Admin\ServiceItemsController@sort
-  GET|HEAD        admin/services/{service}/service_items/{service_item} ......... admin.service_detail.service_items.show ΓÇ║ Admin\ServiceItemsController@show
-  PUT|PATCH       admin/services/{service}/service_items/{service_item} ..... admin.service_detail.service_items.update ΓÇ║ Admin\ServiceItemsController@update
-  DELETE          admin/services/{service}/service_items/{service_item} ... admin.service_detail.service_items.destroy ΓÇ║ Admin\ServiceItemsController@destroy
-  GET|HEAD        admin/services/{service}/service_items/{service_item}/edit .... admin.service_detail.service_items.edit ΓÇ║ Admin\ServiceItemsController@edit
-  GET|HEAD        admin/services/{service}/tiers ...................................... admin.service_detail.tiers.index ΓÇ║ Admin\ServiceTiersController@index
-  POST            admin/services/{service}/tiers ...................................... admin.service_detail.tiers.store ΓÇ║ Admin\ServiceTiersController@store
-  GET|HEAD        admin/services/{service}/tiers/create ............................. admin.service_detail.tiers.create ΓÇ║ Admin\ServiceTiersController@create
-  GET|HEAD        admin/services/{service}/tiers/{tier} ................................. admin.service_detail.tiers.show ΓÇ║ Admin\ServiceTiersController@show
-  PUT|PATCH       admin/services/{service}/tiers/{tier} ............................. admin.service_detail.tiers.update ΓÇ║ Admin\ServiceTiersController@update
-  DELETE          admin/services/{service}/tiers/{tier} ........................... admin.service_detail.tiers.destroy ΓÇ║ Admin\ServiceTiersController@destroy
-  GET|HEAD        admin/services/{service}/tiers/{tier}/edit ............................ admin.service_detail.tiers.edit ΓÇ║ Admin\ServiceTiersController@edit
-  PATCH           admin/services/{service}/tiers/{tier}/position .... admin.service_detail.update_tier_position ΓÇ║ Admin\ServiceTiersController@updatePosition
-  GET|HEAD        admin/tags .................................................................................. admin.tags.index ΓÇ║ Admin\TagsController@index
-  POST            admin/tags .................................................................................. admin.tags.store ΓÇ║ Admin\TagsController@store
-  GET|HEAD        admin/tags/create ......................................................................... admin.tags.create ΓÇ║ Admin\TagsController@create
-  GET|HEAD        admin/tags/{tag} .............................................................................. admin.tags.show ΓÇ║ Admin\TagsController@show
-  PUT|PATCH       admin/tags/{tag} .......................................................................... admin.tags.update ΓÇ║ Admin\TagsController@update
-  DELETE          admin/tags/{tag} ........................................................................ admin.tags.destroy ΓÇ║ Admin\TagsController@destroy
-  POST            admin/tags/{tag}/attach ................................................................... admin.tags.attach ΓÇ║ Admin\TagsController@attach
-  DELETE          admin/tags/{tag}/attach ............................................................ admin.tags.delete_attach ΓÇ║ Admin\TagsController@detach
-  DELETE          admin/tags/{tag}/detach ................................................................... admin.tags.detach ΓÇ║ Admin\TagsController@detach
-  POST            admin/tags/{tag}/detach .............................................................. admin.tags.post_detach ΓÇ║ Admin\TagsController@detach
-  GET|HEAD        admin/tags/{tag}/edit ......................................................................... admin.tags.edit ΓÇ║ Admin\TagsController@edit
-  GET|HEAD        api/user .................................................................................................................................. 
-  GET|HEAD        book ....................................................................................................... book ΓÇ║ BookingController@index
-  GET|HEAD        book/{booking} ...................................................................................... show_booking ΓÇ║ BookingController@show
-  POST            book/{service} ..................................................................................... post_booking ΓÇ║ BookingController@store
-  GET|HEAD        book/{service} .................................................................................... book_service ΓÇ║ BookingController@create
-  GET|HEAD        bookings/{booking}/payments ..................................................... booking_details.payments.index ΓÇ║ PaymentsController@index
-  POST            bookings/{booking}/payments ..................................................... booking_details.payments.store ΓÇ║ PaymentsController@store
-  GET|HEAD        bookings/{booking}/payments/create ............................................ booking_details.payments.create ΓÇ║ PaymentsController@create
-  GET|HEAD        bookings/{booking}/payments/{payment} ............................................. booking_details.payments.show ΓÇ║ PaymentsController@show
-  PUT|PATCH       bookings/{booking}/payments/{payment} ......................................... booking_details.payments.update ΓÇ║ PaymentsController@update
-  DELETE          bookings/{booking}/payments/{payment} ....................................... booking_details.payments.destroy ΓÇ║ PaymentsController@destroy
-  GET|HEAD        bookings/{booking}/payments/{payment}/edit ........................................ booking_details.payments.edit ΓÇ║ PaymentsController@edit
-  GET|POST|HEAD   broadcasting/auth .............................................................. Illuminate\Broadcasting ΓÇ║ BroadcastController@authenticate
-  GET|HEAD        confirm-password ............................................................... password.confirm ΓÇ║ Auth\ConfirmablePasswordController@show
-  POST            confirm-password ................................................................................. Auth\ConfirmablePasswordController@store
-  GET|HEAD        dashboard ........................................................................................ dashboard ΓÇ║ HomeController@showDashboard
-  POST            email/verification-notification .................................... verification.send ΓÇ║ Auth\EmailVerificationNotificationController@store
-  GET|HEAD        events .............................................................................................. events.index ΓÇ║ EventsController@index
-  GET|HEAD        events/{event_type} ....................................................................... events.events_of_type ΓÇ║ EventsController@ofType
-  GET|HEAD        events/{post} ......................................................................................... events.show ΓÇ║ EventsController@show
-  GET|HEAD        forgot-password ................................................................ password.request ΓÇ║ Auth\PasswordResetLinkController@create
-  POST            forgot-password ................................................................... password.email ΓÇ║ Auth\PasswordResetLinkController@store
-  GET|HEAD        login .................................................................................. login ΓÇ║ Auth\AuthenticatedSessionController@create
-  POST            login ........................................................................................... Auth\AuthenticatedSessionController@store
-  POST            logout ............................................................................... logout ΓÇ║ Auth\AuthenticatedSessionController@destroy
-  GET|HEAD        my/bookings ............................................................................... my.bookings.index ΓÇ║ My\BookingsController@index
-  GET|HEAD        my/bookings/{booking} ....................................................................... my.bookings.show ΓÇ║ My\BookingsController@show
-  PUT|PATCH       my/bookings/{booking} ................................................................... my.bookings.update ΓÇ║ My\BookingsController@update
-  GET|HEAD        my/bookings/{booking}/messages ............................................ my.booking_details.messages.index ΓÇ║ My\MessagesController@index
-  POST            my/bookings/{booking}/messages ............................................ my.booking_details.messages.store ΓÇ║ My\MessagesController@store
-  GET|HEAD        my/bookings/{booking}/messages/create ................................... my.booking_details.messages.create ΓÇ║ My\MessagesController@create
-  GET|HEAD        my/bookings/{booking}/messages/{message} .................................... my.booking_details.messages.show ΓÇ║ My\MessagesController@show
-  PUT|PATCH       my/bookings/{booking}/messages/{message} ................................ my.booking_details.messages.update ΓÇ║ My\MessagesController@update
-  DELETE          my/bookings/{booking}/messages/{message} .............................. my.booking_details.messages.destroy ΓÇ║ My\MessagesController@destroy
-  GET|HEAD        my/bookings/{booking}/messages/{message}/content .................. my.booking_details.messages.content ΓÇ║ My\MessagesController@showContent
-  GET|HEAD        my/bookings/{booking}/messages/{message}/edit ............................... my.booking_details.messages.edit ΓÇ║ My\MessagesController@edit
-  GET|HEAD        my/bookings/{booking}/payments ............................................ my.booking_details.payments.index ΓÇ║ My\PaymentsController@index
-  POST            my/bookings/{booking}/payments ............................................ my.booking_details.payments.store ΓÇ║ My\PaymentsController@store
-  GET|HEAD        my/bookings/{booking}/payments/accept ............................ my.booking_details.payments.accept ΓÇ║ My\PaymentsController@acceptPayment
-  GET|HEAD        my/bookings/{booking}/payments/create ................................... my.booking_details.payments.create ΓÇ║ My\PaymentsController@create
-  GET|HEAD        my/bookings/{booking}/payments/{payment} .................................... my.booking_details.payments.show ΓÇ║ My\PaymentsController@show
-  PUT|PATCH       my/bookings/{booking}/payments/{payment} ................................ my.booking_details.payments.update ΓÇ║ My\PaymentsController@update
-  DELETE          my/bookings/{booking}/payments/{payment} .............................. my.booking_details.payments.destroy ΓÇ║ My\PaymentsController@destroy
-  GET|HEAD        my/bookings/{booking}/payments/{payment}/edit ............................... my.booking_details.payments.edit ΓÇ║ My\PaymentsController@edit
-  GET|HEAD        payments ........................................................................................ payments.index ΓÇ║ PaymentsController@index
-  POST            payments ........................................................................................ payments.store ΓÇ║ PaymentsController@store
-  GET|HEAD        payments/create ............................................................................... payments.create ΓÇ║ PaymentsController@create
-  GET|HEAD        payments/{payment} ................................................................................ payments.show ΓÇ║ PaymentsController@show
-  PUT|PATCH       payments/{payment} ............................................................................ payments.update ΓÇ║ PaymentsController@update
-  DELETE          payments/{payment} .......................................................................... payments.destroy ΓÇ║ PaymentsController@destroy
-  GET|HEAD        payments/{payment}/edit ........................................................................... payments.edit ΓÇ║ PaymentsController@edit
-  GET|HEAD        posts ................................................................................................ posts.index ΓÇ║ EventsController@index
-  GET|HEAD        posts/{event_type} ......................................................................... posts.events_of_type ΓÇ║ EventsController@ofType
-  GET|HEAD        posts/{post} ........................................................................................... posts.show ΓÇ║ EventsController@show
-  GET|HEAD        rdir ....................................................................................................... HomeController@redirectForRole
-  GET|HEAD        redir ...................................................................................................... HomeController@redirectForRole
-  GET|HEAD        register .................................................................................. register ΓÇ║ Auth\RegisteredUserController@create
-  POST            register .............................................................................................. Auth\RegisteredUserController@store
-  POST            reset-password ......................................................................... password.update ΓÇ║ Auth\NewPasswordController@store
-  GET|HEAD        reset-password/{token} ................................................................. password.reset ΓÇ║ Auth\NewPasswordController@create
-  GET|HEAD        sanctum/csrf-cookie ........................................................................... Laravel\Sanctum ΓÇ║ CsrfCookieController@show
-  GET|HEAD        search .................................................................................................. search ΓÇ║ HomeController@getSearch
-  GET|HEAD        search/tagged ..................................................................................... tagged ΓÇ║ HomeController@getTaggedSearch
-  GET|HEAD        splurge_gallery ................................................................................... gallery.index ΓÇ║ GalleryController@index
-  GET|HEAD        splurge_gallery/{gallery} ........................................................................... gallery.show ΓÇ║ GalleryController@show
-  GET|HEAD        splurge_services ................................................................................ services.index ΓÇ║ ServicesController@index
-  GET|HEAD        splurge_services/{service} ........................................................................ services.show ΓÇ║ ServicesController@show
-  POST            system/c ................................................................................ system.cache ΓÇ║ Admin\ToolsController@executeCache
-  GET|HEAD        verify-email ........................................................ verification.notice ΓÇ║ Auth\EmailVerificationPromptController@__invoke
-  GET|HEAD        verify-email/{id}/{hash} ........................................................ verification.verify ΓÇ║ Auth\VerifyEmailController@__invoke
+  GET|HEAD        / ............................................................................................................................ home2 ΓÇ║ HomeController@index
+  POST            _ignition/execute-solution .................................................. ignition.executeSolution ΓÇ║ Spatie\LaravelIgnition ΓÇ║ ExecuteSolutionController
+  GET|HEAD        _ignition/health-check .............................................................. ignition.healthCheck ΓÇ║ Spatie\LaravelIgnition ΓÇ║ HealthCheckController
+  POST            _ignition/update-config ........................................................... ignition.updateConfig ΓÇ║ Spatie\LaravelIgnition ΓÇ║ UpdateConfigController
+  GET|HEAD        about ............................................................................................................................... AboutController@index
+  GET|HEAD        about/contact ................................................................................................................. AboutController@showContact
+  GET|HEAD        access ................................................................................................................... access. ΓÇ║ AccessController@index
+  POST            access/logout ................................................................................................... access.destroy ΓÇ║ AccessController@destroy
+  GET|HEAD        access/{entity}/{uuid} ............................................................................................ access.create ΓÇ║ AccessController@create
+  GET|HEAD        admin ....................................................................................................... admin.admin_home ΓÇ║ Admin\HomeController@index
+  GET|HEAD        admin/bookings ...................................................................................... admin.bookings.index ΓÇ║ Admin\BookingsController@index
+  POST            admin/bookings ...................................................................................... admin.bookings.store ΓÇ║ Admin\BookingsController@store
+  GET|HEAD        admin/bookings/create ............................................................................. admin.bookings.create ΓÇ║ Admin\BookingsController@create
+  GET|HEAD        admin/bookings/{booking} .............................................................................. admin.bookings.show ΓÇ║ Admin\BookingsController@show
+  PUT|PATCH       admin/bookings/{booking} .......................................................................... admin.bookings.update ΓÇ║ Admin\BookingsController@update
+  DELETE          admin/bookings/{booking} ........................................................................ admin.bookings.destroy ΓÇ║ Admin\BookingsController@destroy
+  GET|HEAD        admin/bookings/{booking}/edit ......................................................................... admin.bookings.edit ΓÇ║ Admin\BookingsController@edit
+  GET|HEAD        admin/customer_events .................................................................. admin.customer_events.index ΓÇ║ Admin\CustomerEventsController@index
+  POST            admin/customer_events .................................................................. admin.customer_events.store ΓÇ║ Admin\CustomerEventsController@store
+  GET|HEAD        admin/customer_events/create ......................................................... admin.customer_events.create ΓÇ║ Admin\CustomerEventsController@create
+  GET|HEAD        admin/customer_events/{customer_event} ................................................... admin.customer_events.show ΓÇ║ Admin\CustomerEventsController@show
+  PUT|PATCH       admin/customer_events/{customer_event} ............................................... admin.customer_events.update ΓÇ║ Admin\CustomerEventsController@update
+  DELETE          admin/customer_events/{customer_event} ............................................. admin.customer_events.destroy ΓÇ║ Admin\CustomerEventsController@destroy
+  GET|HEAD        admin/customer_events/{customer_event}/edit .............................................. admin.customer_events.edit ΓÇ║ Admin\CustomerEventsController@edit
+  GET|HEAD        admin/customer_events/{customer_event}/guests ........................ admin.customer_event_detail.guests.index ΓÇ║ Admin\CustomerEventGuestsController@index
+  POST            admin/customer_events/{customer_event}/guests ........................ admin.customer_event_detail.guests.store ΓÇ║ Admin\CustomerEventGuestsController@store
+  GET|HEAD        admin/customer_events/{customer_event}/guests/create ............... admin.customer_event_detail.guests.create ΓÇ║ Admin\CustomerEventGuestsController@create
+  GET|HEAD        admin/customer_events/{customer_event}/guests/{guest} .................. admin.customer_event_detail.guests.show ΓÇ║ Admin\CustomerEventGuestsController@show
+  PUT|PATCH       admin/customer_events/{customer_event}/guests/{guest} .............. admin.customer_event_detail.guests.update ΓÇ║ Admin\CustomerEventGuestsController@update
+  DELETE          admin/customer_events/{customer_event}/guests/{guest} ............ admin.customer_event_detail.guests.destroy ΓÇ║ Admin\CustomerEventGuestsController@destroy
+  POST            admin/customer_events/{customer_event}/guests/{guest}/barcode ............ admin.customer_event_detail. ΓÇ║ Admin\CustomerEventGuestsController@updateBarcode
+  PATCH           admin/customer_events/{customer_event}/guests/{guest}/barcode ............ admin.customer_event_detail. ΓÇ║ Admin\CustomerEventGuestsController@updateBarcode
+  GET|HEAD        admin/customer_events/{customer_event}/guests/{guest}/edit ............. admin.customer_event_detail.guests.edit ΓÇ║ Admin\CustomerEventGuestsController@edit
+  GET|HEAD        admin/customers ................................................................................... admin.customers.index ΓÇ║ Admin\CustomersController@index
+  POST            admin/customers ................................................................................... admin.customers.store ΓÇ║ Admin\CustomersController@store
+  GET|HEAD        admin/customers/create .......................................................................... admin.customers.create ΓÇ║ Admin\CustomersController@create
+  GET|HEAD        admin/customers/{customer} .......................................................................... admin.customers.show ΓÇ║ Admin\CustomersController@show
+  PUT|PATCH       admin/customers/{customer} ...................................................................... admin.customers.update ΓÇ║ Admin\CustomersController@update
+  DELETE          admin/customers/{customer} .................................................................... admin.customers.destroy ΓÇ║ Admin\CustomersController@destroy
+  GET|HEAD        admin/customers/{customer}/edit ..................................................................... admin.customers.edit ΓÇ║ Admin\CustomersController@edit
+  GET|HEAD        admin/dashboard ........................................................................................ admin.admin_dashboard ΓÇ║ Admin\HomeController@index
+  GET|HEAD        admin/events/{post}/event_items .................................................... admin.event_detail.event_items.index ΓÇ║ Admin\PostItemsController@index
+  POST            admin/events/{post}/event_items .................................................... admin.event_detail.event_items.store ΓÇ║ Admin\PostItemsController@store
+  GET|HEAD        admin/events/{post}/event_items/create ........................................... admin.event_detail.event_items.create ΓÇ║ Admin\PostItemsController@create
+  GET|HEAD        admin/events/{post}/event_items/{event_item} ......................................... admin.event_detail.event_items.show ΓÇ║ Admin\PostItemsController@show
+  PUT|PATCH       admin/events/{post}/event_items/{event_item} ..................................... admin.event_detail.event_items.update ΓÇ║ Admin\PostItemsController@update
+  DELETE          admin/events/{post}/event_items/{event_item} ................................... admin.event_detail.event_items.destroy ΓÇ║ Admin\PostItemsController@destroy
+  GET|HEAD        admin/events/{post}/event_items/{event_item}/edit .................................... admin.event_detail.event_items.edit ΓÇ║ Admin\PostItemsController@edit
+  GET|HEAD        admin/gallery ......................................................................................... admin.gallery.index ΓÇ║ Admin\GalleryController@index
+  POST            admin/gallery ......................................................................................... admin.gallery.store ΓÇ║ Admin\GalleryController@store
+  GET|HEAD        admin/gallery/create ................................................................................ admin.gallery.create ΓÇ║ Admin\GalleryController@create
+  GET|HEAD        admin/gallery/{gallery} ................................................................................. admin.gallery.show ΓÇ║ Admin\GalleryController@show
+  PUT|PATCH       admin/gallery/{gallery} ............................................................................. admin.gallery.update ΓÇ║ Admin\GalleryController@update
+  DELETE          admin/gallery/{gallery} ........................................................................... admin.gallery.destroy ΓÇ║ Admin\GalleryController@destroy
+  GET|HEAD        admin/gallery/{gallery}/edit ............................................................................ admin.gallery.edit ΓÇ║ Admin\GalleryController@edit
+  GET|HEAD        admin/gallery/{gallery}/gallery_items ....................................... admin.gallery_detail.gallery_items.index ΓÇ║ Admin\GalleryItemsController@index
+  POST            admin/gallery/{gallery}/gallery_items ....................................... admin.gallery_detail.gallery_items.store ΓÇ║ Admin\GalleryItemsController@store
+  GET|HEAD        admin/gallery/{gallery}/gallery_items/create .............................. admin.gallery_detail.gallery_items.create ΓÇ║ Admin\GalleryItemsController@create
+  GET|HEAD        admin/gallery/{gallery}/gallery_items/{gallery_item} .......................... admin.gallery_detail.gallery_items.show ΓÇ║ Admin\GalleryItemsController@show
+  PUT|PATCH       admin/gallery/{gallery}/gallery_items/{gallery_item} ...................... admin.gallery_detail.gallery_items.update ΓÇ║ Admin\GalleryItemsController@update
+  DELETE          admin/gallery/{gallery}/gallery_items/{gallery_item} .................... admin.gallery_detail.gallery_items.destroy ΓÇ║ Admin\GalleryItemsController@destroy
+  GET|HEAD        admin/gallery/{gallery}/gallery_items/{gallery_item}/edit ..................... admin.gallery_detail.gallery_items.edit ΓÇ║ Admin\GalleryItemsController@edit
+  GET|HEAD        admin/gallery/{gallery}/gallery_items/{gallery_item}/media .................... admin.gallery_detail.gallery_item.media.index ΓÇ║ Admin\MediaController@index
+  POST            admin/gallery/{gallery}/gallery_items/{gallery_item}/media .................... admin.gallery_detail.gallery_item.media.store ΓÇ║ Admin\MediaController@store
+  GET|HEAD        admin/gallery/{gallery}/gallery_items/{gallery_item}/media/create ........... admin.gallery_detail.gallery_item.media.create ΓÇ║ Admin\MediaController@create
+  GET|HEAD        admin/gallery/{gallery}/gallery_items/{gallery_item}/media/{medium} ............. admin.gallery_detail.gallery_item.media.show ΓÇ║ Admin\MediaController@show
+  PUT|PATCH       admin/gallery/{gallery}/gallery_items/{gallery_item}/media/{medium} ......... admin.gallery_detail.gallery_item.media.update ΓÇ║ Admin\MediaController@update
+  DELETE          admin/gallery/{gallery}/gallery_items/{gallery_item}/media/{medium} ....... admin.gallery_detail.gallery_item.media.destroy ΓÇ║ Admin\MediaController@destroy
+  GET|HEAD        admin/gallery/{gallery}/gallery_items/{gallery_item}/media/{medium}/edit ........ admin.gallery_detail.gallery_item.media.edit ΓÇ║ Admin\MediaController@edit
+  GET|HEAD        admin/gallery/{gallery}/preview ............................................................ admin.gallery_detail.preview ΓÇ║ Admin\GalleryController@preview
+  GET|HEAD        admin/media ............................................................................................... admin.media.index ΓÇ║ Admin\MediaController@index
+  POST            admin/media ............................................................................................... admin.media.store ΓÇ║ Admin\MediaController@store
+  GET|HEAD        admin/media/create ...................................................................................... admin.media.create ΓÇ║ Admin\MediaController@create
+  GET|HEAD        admin/media/{medium} ........................................................................................ admin.media.show ΓÇ║ Admin\MediaController@show
+  PUT|PATCH       admin/media/{medium} .................................................................................... admin.media.update ΓÇ║ Admin\MediaController@update
+  DELETE          admin/media/{medium} .................................................................................. admin.media.destroy ΓÇ║ Admin\MediaController@destroy
+  GET|HEAD        admin/media/{medium}/edit ................................................................................... admin.media.edit ΓÇ║ Admin\MediaController@edit
+  GET|HEAD        admin/menu_items ................................................................................. admin.menu_items.index ΓÇ║ Admin\MenuItemsController@index
+  POST            admin/menu_items ................................................................................. admin.menu_items.store ΓÇ║ Admin\MenuItemsController@store
+  GET|HEAD        admin/menu_items/create ........................................................................ admin.menu_items.create ΓÇ║ Admin\MenuItemsController@create
+  GET|HEAD        admin/menu_items/{menu_item} ....................................................................... admin.menu_items.show ΓÇ║ Admin\MenuItemsController@show
+  PUT|PATCH       admin/menu_items/{menu_item} ................................................................... admin.menu_items.update ΓÇ║ Admin\MenuItemsController@update
+  DELETE          admin/menu_items/{menu_item} ................................................................. admin.menu_items.destroy ΓÇ║ Admin\MenuItemsController@destroy
+  GET|HEAD        admin/menu_items/{menu_item}/edit .................................................................. admin.menu_items.edit ΓÇ║ Admin\MenuItemsController@edit
+  GET|HEAD        admin/messages ................................................................................ admin.messages.index ΓÇ║ Admin\CommunicationsController@index
+  POST            admin/messages ................................................................................ admin.messages.store ΓÇ║ Admin\CommunicationsController@store
+  GET|HEAD        admin/messages/create ....................................................................... admin.messages.create ΓÇ║ Admin\CommunicationsController@create
+  GET|HEAD        admin/messages/{message} ........................................................................ admin.messages.show ΓÇ║ Admin\CommunicationsController@show
+  PUT|PATCH       admin/messages/{message} .................................................................... admin.messages.update ΓÇ║ Admin\CommunicationsController@update
+  DELETE          admin/messages/{message} .................................................................. admin.messages.destroy ΓÇ║ Admin\CommunicationsController@destroy
+  GET|HEAD        admin/messages/{message}/content ....................................................... admin.message_content ΓÇ║ Admin\CommunicationsController@showContent
+  GET|HEAD        admin/messages/{message}/edit ................................................................... admin.messages.edit ΓÇ║ Admin\CommunicationsController@edit
+  GET|HEAD        admin/payments ...................................................................................... admin.payments.index ΓÇ║ Admin\PaymentsController@index
+  POST            admin/payments ...................................................................................... admin.payments.store ΓÇ║ Admin\PaymentsController@store
+  GET|HEAD        admin/payments/create ............................................................................. admin.payments.create ΓÇ║ Admin\PaymentsController@create
+  GET|HEAD        admin/payments/{payment} .............................................................................. admin.payments.show ΓÇ║ Admin\PaymentsController@show
+  PUT|PATCH       admin/payments/{payment} .......................................................................... admin.payments.update ΓÇ║ Admin\PaymentsController@update
+  DELETE          admin/payments/{payment} ........................................................................ admin.payments.destroy ΓÇ║ Admin\PaymentsController@destroy
+  GET|HEAD        admin/payments/{payment}/edit ......................................................................... admin.payments.edit ΓÇ║ Admin\PaymentsController@edit
+  GET|HEAD        admin/posts ............................................................................................... admin.posts.index ΓÇ║ Admin\PostsController@index
+  POST            admin/posts ............................................................................................... admin.posts.store ΓÇ║ Admin\PostsController@store
+  GET|HEAD        admin/posts/create ...................................................................................... admin.posts.create ΓÇ║ Admin\PostsController@create
+  GET|HEAD        admin/posts/{post} .......................................................................................... admin.posts.show ΓÇ║ Admin\PostsController@show
+  PUT|PATCH       admin/posts/{post} ...................................................................................... admin.posts.update ΓÇ║ Admin\PostsController@update
+  DELETE          admin/posts/{post} .................................................................................... admin.posts.destroy ΓÇ║ Admin\PostsController@destroy
+  GET|HEAD        admin/posts/{post}/edit ..................................................................................... admin.posts.edit ΓÇ║ Admin\PostsController@edit
+  GET|HEAD        admin/posts/{post}/post_items ........................................................ admin.post_detail.post_items.index ΓÇ║ Admin\PostItemsController@index
+  POST            admin/posts/{post}/post_items ........................................................ admin.post_detail.post_items.store ΓÇ║ Admin\PostItemsController@store
+  GET|HEAD        admin/posts/{post}/post_items/create ............................................... admin.post_detail.post_items.create ΓÇ║ Admin\PostItemsController@create
+  GET|HEAD        admin/posts/{post}/post_items/{post_item} .............................................. admin.post_detail.post_items.show ΓÇ║ Admin\PostItemsController@show
+  PUT|PATCH       admin/posts/{post}/post_items/{post_item} .......................................... admin.post_detail.post_items.update ΓÇ║ Admin\PostItemsController@update
+  DELETE          admin/posts/{post}/post_items/{post_item} ........................................ admin.post_detail.post_items.destroy ΓÇ║ Admin\PostItemsController@destroy
+  GET|HEAD        admin/posts/{post}/post_items/{post_item}/edit ......................................... admin.post_detail.post_items.edit ΓÇ║ Admin\PostItemsController@edit
+  GET|HEAD        admin/services ...................................................................................... admin.services.index ΓÇ║ Admin\ServicesController@index
+  POST            admin/services ...................................................................................... admin.services.store ΓÇ║ Admin\ServicesController@store
+  GET|HEAD        admin/services/create ............................................................................. admin.services.create ΓÇ║ Admin\ServicesController@create
+  GET|HEAD        admin/services/{service} .............................................................................. admin.services.show ΓÇ║ Admin\ServicesController@show
+  PUT|PATCH       admin/services/{service} .......................................................................... admin.services.update ΓÇ║ Admin\ServicesController@update
+  DELETE          admin/services/{service} ........................................................................ admin.services.destroy ΓÇ║ Admin\ServicesController@destroy
+  GET|HEAD        admin/services/{service}/edit ......................................................................... admin.services.edit ΓÇ║ Admin\ServicesController@edit
+  GET|HEAD        admin/services/{service}/service_items ...................................... admin.service_detail.service_items.index ΓÇ║ Admin\ServiceItemsController@index
+  POST            admin/services/{service}/service_items ...................................... admin.service_detail.service_items.store ΓÇ║ Admin\ServiceItemsController@store
+  GET|HEAD        admin/services/{service}/service_items/create ............................. admin.service_detail.service_items.create ΓÇ║ Admin\ServiceItemsController@create
+  PATCH           admin/services/{service}/service_items/sort ........................................... admin.service_detail.sort_items ΓÇ║ Admin\ServiceItemsController@sort
+  GET|HEAD        admin/services/{service}/service_items/{service_item} ......................... admin.service_detail.service_items.show ΓÇ║ Admin\ServiceItemsController@show
+  PUT|PATCH       admin/services/{service}/service_items/{service_item} ..................... admin.service_detail.service_items.update ΓÇ║ Admin\ServiceItemsController@update
+  DELETE          admin/services/{service}/service_items/{service_item} ................... admin.service_detail.service_items.destroy ΓÇ║ Admin\ServiceItemsController@destroy
+  GET|HEAD        admin/services/{service}/service_items/{service_item}/edit .................... admin.service_detail.service_items.edit ΓÇ║ Admin\ServiceItemsController@edit
+  GET|HEAD        admin/services/{service}/tiers ...................................................... admin.service_detail.tiers.index ΓÇ║ Admin\ServiceTiersController@index
+  POST            admin/services/{service}/tiers ...................................................... admin.service_detail.tiers.store ΓÇ║ Admin\ServiceTiersController@store
+  GET|HEAD        admin/services/{service}/tiers/create ............................................. admin.service_detail.tiers.create ΓÇ║ Admin\ServiceTiersController@create
+  GET|HEAD        admin/services/{service}/tiers/{tier} ................................................. admin.service_detail.tiers.show ΓÇ║ Admin\ServiceTiersController@show
+  PUT|PATCH       admin/services/{service}/tiers/{tier} ............................................. admin.service_detail.tiers.update ΓÇ║ Admin\ServiceTiersController@update
+  DELETE          admin/services/{service}/tiers/{tier} ........................................... admin.service_detail.tiers.destroy ΓÇ║ Admin\ServiceTiersController@destroy
+  GET|HEAD        admin/services/{service}/tiers/{tier}/edit ............................................ admin.service_detail.tiers.edit ΓÇ║ Admin\ServiceTiersController@edit
+  PATCH           admin/services/{service}/tiers/{tier}/position .................... admin.service_detail.update_tier_position ΓÇ║ Admin\ServiceTiersController@updatePosition
+  GET|HEAD        admin/tags .................................................................................................. admin.tags.index ΓÇ║ Admin\TagsController@index
+  POST            admin/tags .................................................................................................. admin.tags.store ΓÇ║ Admin\TagsController@store
+  GET|HEAD        admin/tags/create ......................................................................................... admin.tags.create ΓÇ║ Admin\TagsController@create
+  GET|HEAD        admin/tags/{tag} .............................................................................................. admin.tags.show ΓÇ║ Admin\TagsController@show
+  PUT|PATCH       admin/tags/{tag} .......................................................................................... admin.tags.update ΓÇ║ Admin\TagsController@update
+  DELETE          admin/tags/{tag} ........................................................................................ admin.tags.destroy ΓÇ║ Admin\TagsController@destroy
+  POST            admin/tags/{tag}/attach ................................................................................... admin.tags.attach ΓÇ║ Admin\TagsController@attach
+  DELETE          admin/tags/{tag}/attach ............................................................................ admin.tags.delete_attach ΓÇ║ Admin\TagsController@detach
+  DELETE          admin/tags/{tag}/detach ................................................................................... admin.tags.detach ΓÇ║ Admin\TagsController@detach
+  POST            admin/tags/{tag}/detach .............................................................................. admin.tags.post_detach ΓÇ║ Admin\TagsController@detach
+  GET|HEAD        admin/tags/{tag}/edit ......................................................................................... admin.tags.edit ΓÇ║ Admin\TagsController@edit
+  GET|HEAD        api/admin/customer_events .......................................................... admin.customer_events.index ΓÇ║ Api\Admin\CustomerEventsController@index
+  POST            api/admin/customer_events .......................................................... admin.customer_events.store ΓÇ║ Api\Admin\CustomerEventsController@store
+  GET|HEAD        api/admin/customer_events/{customer_event} ........................................... admin.customer_events.show ΓÇ║ Api\Admin\CustomerEventsController@show
+  PUT|PATCH       api/admin/customer_events/{customer_event} ....................................... admin.customer_events.update ΓÇ║ Api\Admin\CustomerEventsController@update
+  DELETE          api/admin/customer_events/{customer_event} ..................................... admin.customer_events.destroy ΓÇ║ Api\Admin\CustomerEventsController@destroy
+  GET|HEAD        api/admin/customer_events/{customer_event}/guests ............... admin.customer_event_details.guests.index ΓÇ║ Api\Admin\CustomerEventGuestsController@index
+  POST            api/admin/customer_events/{customer_event}/guests ............... admin.customer_event_details.guests.store ΓÇ║ Api\Admin\CustomerEventGuestsController@store
+  GET|HEAD        api/admin/customer_events/{customer_event}/guests/{guest} ......... admin.customer_event_details.guests.show ΓÇ║ Api\Admin\CustomerEventGuestsController@show
+  PUT|PATCH       api/admin/customer_events/{customer_event}/guests/{guest} ..... admin.customer_event_details.guests.update ΓÇ║ Api\Admin\CustomerEventGuestsController@update
+  DELETE          api/admin/customer_events/{customer_event}/guests/{guest} ... admin.customer_event_details.guests.destroy ΓÇ║ Api\Admin\CustomerEventGuestsController@destroy
+  POST            api/admin/customer_events/{customer_event}/guests/{guest}/barcode admin.customer_event_details.set_barcode ΓÇ║ Api\Admin\CustomerEventGuestsController@updatΓÇª
+  PATCH           api/admin/customer_events/{customer_event}/guests/{guest}/barcode admin.customer_event_details.update_barcode ΓÇ║ Api\Admin\CustomerEventGuestsController@upΓÇª
+  POST            api/admin/customer_events/{customer_event}/guests/{guest}/menu_preference admin.customer_event_details.guest_details.add_menu_preference ΓÇ║ Api\Admin\CustoΓÇª
+  DELETE          api/admin/customer_events/{customer_event}/guests/{guest}/menu_preference admin.customer_event_details.guest_details.remove_menu_preference ΓÇ║ Api\Admin\CuΓÇª
+  POST            api/admin/customer_events/{customer_event}/guests/{guest}/menu_preferences admin.customer_event_details.guest_details.replace_menu_preferences ΓÇ║ Api\AdminΓÇª
+  POST            api/tokens .................................................................................................................... Api\TokensController@create
+  GET|HEAD        api/user .................................................................................................................................................. 
+  GET|HEAD        book ....................................................................................................................... book ΓÇ║ BookingController@index
+  GET|HEAD        book/{booking} ...................................................................................................... show_booking ΓÇ║ BookingController@show
+  POST            book/{service} ..................................................................................................... post_booking ΓÇ║ BookingController@store
+  GET|HEAD        book/{service} .................................................................................................... book_service ΓÇ║ BookingController@create
+  GET|HEAD        bookings/{booking}/payments ..................................................................... booking_details.payments.index ΓÇ║ PaymentsController@index
+  POST            bookings/{booking}/payments ..................................................................... booking_details.payments.store ΓÇ║ PaymentsController@store
+  GET|HEAD        bookings/{booking}/payments/create ............................................................ booking_details.payments.create ΓÇ║ PaymentsController@create
+  GET|HEAD        bookings/{booking}/payments/{payment} ............................................................. booking_details.payments.show ΓÇ║ PaymentsController@show
+  PUT|PATCH       bookings/{booking}/payments/{payment} ......................................................... booking_details.payments.update ΓÇ║ PaymentsController@update
+  DELETE          bookings/{booking}/payments/{payment} ....................................................... booking_details.payments.destroy ΓÇ║ PaymentsController@destroy
+  GET|HEAD        bookings/{booking}/payments/{payment}/edit ........................................................ booking_details.payments.edit ΓÇ║ PaymentsController@edit
+  GET|POST|HEAD   broadcasting/auth .............................................................................. Illuminate\Broadcasting ΓÇ║ BroadcastController@authenticate
+  GET|HEAD        confirm-password ............................................................................... password.confirm ΓÇ║ Auth\ConfirmablePasswordController@show
+  POST            confirm-password ................................................................................................. Auth\ConfirmablePasswordController@store
+  GET|HEAD        dashboard ........................................................................................................ dashboard ΓÇ║ HomeController@showDashboard
+  POST            email/verification-notification .................................................... verification.send ΓÇ║ Auth\EmailVerificationNotificationController@store
+  GET|HEAD        events .............................................................................................................. events.index ΓÇ║ EventsController@index
+  GET|HEAD        events/{event_type} ....................................................................................... events.events_of_type ΓÇ║ EventsController@ofType
+  GET|HEAD        events/{post} ......................................................................................................... events.show ΓÇ║ EventsController@show
+  GET|HEAD        forgot-password ................................................................................ password.request ΓÇ║ Auth\PasswordResetLinkController@create
+  POST            forgot-password ................................................................................... password.email ΓÇ║ Auth\PasswordResetLinkController@store
+  GET|HEAD        login .................................................................................................. login ΓÇ║ Auth\AuthenticatedSessionController@create
+  POST            login ........................................................................................................... Auth\AuthenticatedSessionController@store
+  POST            logout ............................................................................................... logout ΓÇ║ Auth\AuthenticatedSessionController@destroy
+  GET|HEAD        my/bookings ............................................................................................... my.bookings.index ΓÇ║ My\BookingsController@index
+  GET|HEAD        my/bookings/{booking} ....................................................................................... my.bookings.show ΓÇ║ My\BookingsController@show
+  PUT|PATCH       my/bookings/{booking} ................................................................................... my.bookings.update ΓÇ║ My\BookingsController@update
+  GET|HEAD        my/bookings/{booking}/messages ............................................................ my.booking_details.messages.index ΓÇ║ My\MessagesController@index
+  POST            my/bookings/{booking}/messages ............................................................ my.booking_details.messages.store ΓÇ║ My\MessagesController@store
+  GET|HEAD        my/bookings/{booking}/messages/create ................................................... my.booking_details.messages.create ΓÇ║ My\MessagesController@create
+  GET|HEAD        my/bookings/{booking}/messages/{message} .................................................... my.booking_details.messages.show ΓÇ║ My\MessagesController@show
+  PUT|PATCH       my/bookings/{booking}/messages/{message} ................................................ my.booking_details.messages.update ΓÇ║ My\MessagesController@update
+  DELETE          my/bookings/{booking}/messages/{message} .............................................. my.booking_details.messages.destroy ΓÇ║ My\MessagesController@destroy
+  GET|HEAD        my/bookings/{booking}/messages/{message}/content .................................. my.booking_details.messages.content ΓÇ║ My\MessagesController@showContent
+  GET|HEAD        my/bookings/{booking}/messages/{message}/edit ............................................... my.booking_details.messages.edit ΓÇ║ My\MessagesController@edit
+  GET|HEAD        my/bookings/{booking}/payments ............................................................ my.booking_details.payments.index ΓÇ║ My\PaymentsController@index
+  POST            my/bookings/{booking}/payments ............................................................ my.booking_details.payments.store ΓÇ║ My\PaymentsController@store
+  GET|HEAD        my/bookings/{booking}/payments/accept ............................................ my.booking_details.payments.accept ΓÇ║ My\PaymentsController@acceptPayment
+  GET|HEAD        my/bookings/{booking}/payments/create ................................................... my.booking_details.payments.create ΓÇ║ My\PaymentsController@create
+  GET|HEAD        my/bookings/{booking}/payments/{payment} .................................................... my.booking_details.payments.show ΓÇ║ My\PaymentsController@show
+  PUT|PATCH       my/bookings/{booking}/payments/{payment} ................................................ my.booking_details.payments.update ΓÇ║ My\PaymentsController@update
+  DELETE          my/bookings/{booking}/payments/{payment} .............................................. my.booking_details.payments.destroy ΓÇ║ My\PaymentsController@destroy
+  GET|HEAD        my/bookings/{booking}/payments/{payment}/edit ............................................... my.booking_details.payments.edit ΓÇ║ My\PaymentsController@edit
+  GET|HEAD        payments ........................................................................................................ payments.index ΓÇ║ PaymentsController@index
+  POST            payments ........................................................................................................ payments.store ΓÇ║ PaymentsController@store
+  GET|HEAD        payments/create ............................................................................................... payments.create ΓÇ║ PaymentsController@create
+  GET|HEAD        payments/{payment} ................................................................................................ payments.show ΓÇ║ PaymentsController@show
+  PUT|PATCH       payments/{payment} ............................................................................................ payments.update ΓÇ║ PaymentsController@update
+  DELETE          payments/{payment} .......................................................................................... payments.destroy ΓÇ║ PaymentsController@destroy
+  GET|HEAD        payments/{payment}/edit ........................................................................................... payments.edit ΓÇ║ PaymentsController@edit
+  GET|HEAD        posts ................................................................................................................ posts.index ΓÇ║ EventsController@index
+  GET|HEAD        posts/{event_type} ......................................................................................... posts.events_of_type ΓÇ║ EventsController@ofType
+  GET|HEAD        posts/{post} ........................................................................................................... posts.show ΓÇ║ EventsController@show
+  GET|HEAD        rdir ....................................................................................................................... HomeController@redirectForRole
+  GET|HEAD        redir ...................................................................................................................... HomeController@redirectForRole
+  GET|HEAD        register .................................................................................................. register ΓÇ║ Auth\RegisteredUserController@create
+  POST            register .............................................................................................................. Auth\RegisteredUserController@store
+  POST            reset-password ......................................................................................... password.update ΓÇ║ Auth\NewPasswordController@store
+  GET|HEAD        reset-password/{token} ................................................................................. password.reset ΓÇ║ Auth\NewPasswordController@create
+  GET|HEAD        sanctum/csrf-cookie ..................................................................... sanctum.csrf-cookie ΓÇ║ Laravel\Sanctum ΓÇ║ CsrfCookieController@show
+  GET|HEAD        search .................................................................................................................. search ΓÇ║ HomeController@getSearch
+  GET|HEAD        search/tagged ..................................................................................................... tagged ΓÇ║ HomeController@getTaggedSearch
+  GET|HEAD        splurge_gallery ................................................................................................... gallery.index ΓÇ║ GalleryController@index
+  GET|HEAD        splurge_gallery/{gallery} ........................................................................................... gallery.show ΓÇ║ GalleryController@show
+  GET|HEAD        splurge_services ................................................................................................ services.index ΓÇ║ ServicesController@index
+  GET|HEAD        splurge_services/{service} ........................................................................................ services.show ΓÇ║ ServicesController@show
+  POST            system/c ................................................................................................ system.cache ΓÇ║ Admin\ToolsController@executeCache
+  GET|HEAD        verify-email ........................................................................ verification.notice ΓÇ║ Auth\EmailVerificationPromptController@__invoke
+  GET|HEAD        verify-email/{id}/{hash} ........................................................................ verification.verify ΓÇ║ Auth\VerifyEmailController@__invoke
 
-                                                                                                                                         Showing [208] routes
+                                                                                                                                                         Showing [233] routes
 

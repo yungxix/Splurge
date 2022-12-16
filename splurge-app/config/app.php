@@ -180,7 +180,7 @@ return [
         App\Providers\RepositoriesServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\SearchProvider::class,
-
+        Milon\Barcode\BarcodeServiceProvider::class,
     ],
 
     /*
@@ -195,7 +195,9 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
+        'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
     ])->toArray(),
 
 
@@ -205,4 +207,10 @@ return [
         default_splurge_access_duration is default access duration in days
     */
     'default_splurge_access_duration' => env("DEFAULT_SPLURGE_ACCESS_DURATION", 30),
+
+
+    'barcode' => [
+        'type' => 'CODE39',
+        'dest' => 'images/barcodes'
+    ],
 ];

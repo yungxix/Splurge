@@ -5,9 +5,8 @@
     
     <link rel="icon" type="image/x-icon" href="{{ asset('images/splurge.ico') }}" />
     <title>
-        @section('title')
-            {{ config('app.name') }}
-        @show
+      {{ config('app.name') }} Admin |
+        @yield('title')
     </title>
 
         <!-- Fonts -->

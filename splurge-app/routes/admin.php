@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\CustomerEventGuestsController;
 use App\Http\Controllers\Admin\CustomerEventsController;
 use App\Http\Controllers\Admin\PaymentsController;
 use Illuminate\Routing\RouteUri;
+use App\Http\Controllers\Admin\MenuItemsController;
 
 Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group(function () {
     
@@ -64,11 +65,14 @@ Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group
         "messages" => CommunicationsController::class,
         "customers" => CustomersController::class,
         "payments" => PaymentsController::class,
-        "customer_events" => CustomerEventsController::class
+        "customer_events" => CustomerEventsController::class,
+        "menu_items" => MenuItemsController::class,
     ]);
 
     Route::prefix("/customer_events/{customer_event}")->name('customer_event_detail.')->group(function () {
         Route::resource('guests', CustomerEventGuestsController::class);
+        Route::post("/guests/{guest}/barcode", [CustomerEventGuestsController::class, "updateBarcode"]);
+        Route::patch("/guests/{guest}/barcode", [CustomerEventGuestsController::class, "updateBarcode"]);
     });
 
     

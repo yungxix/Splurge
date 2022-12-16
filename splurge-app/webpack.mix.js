@@ -26,6 +26,9 @@ mix.ts('resources/js/app.ts', 'public/js')
 }).ts('resources/js/v2/components/admin/customer_events/index.tsx', 'public/js/customer_events.js')
 .react()
 .extract(['react', 'react-dom', 'lodash', 'axios'])
+.ts('resources/js/v2/components/admin/menu_items/index.tsx', 'public/js/event_menu_items.js')
+.react()
+.extract(['react', 'react-dom', 'lodash', 'axios'])
 .webpackConfig(webpack => {
     return {
         plugins: [

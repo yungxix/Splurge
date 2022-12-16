@@ -10,6 +10,7 @@ use App\Listeners\NewBookingCreatedHandler;
 use App\Listeners\PaymentCreatedHandler;
 use App\Models\Booking;
 use App\Models\CustomerEvent;
+use App\Models\CustomerEventGuest;
 use App\Models\Gallery;
 use App\Models\GalleryItem;
 use App\Models\PostItem;
@@ -17,6 +18,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Service;
 use App\Observers\BookingObserver;
+use App\Observers\CustomerEventGuestObserver;
 use App\Observers\CustomerEventObserver;
 use App\Observers\GalleryItemObserver;
 use App\Observers\GalleryObserver;
@@ -114,6 +116,7 @@ class EventServiceProvider extends ServiceProvider
         Service::class => [ServiceObserver::class],
         Booking::class => [BookingObserver::class],
         CustomerEvent::class => [CustomerEventObserver::class],
+        CustomerEventGuest::class => [CustomerEventGuestObserver::class],
     ];
 
     /**

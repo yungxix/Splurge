@@ -43,6 +43,7 @@ class CustomerEventsController extends Controller
             ->with(['booking', 'booking.customer', 'booking.location'])
             ->orderBy(Arr::get($alt_column_names, $sorting[0], $sorting[0]), $sorting[1])
             ->paginate($request->input('page_size', 20));
+            
         if ($request->wantsJson()) {
             return CustomerEventResource::collection($events);
         }
@@ -134,6 +135,7 @@ class CustomerEventsController extends Controller
         ->with(['success_message' => "New customer event created"]);
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -142,6 +144,9 @@ class CustomerEventsController extends Controller
      */
     public function show(CustomerEvent $event,  Request $request)
     {
+        if ($request->wantsJson()) {
+            return new CustomerEventResource($event);
+        }
         $column_aliases = ['date' => 'attendance_at', 'attendance' => 'attendance_at', 'attended_at' => 'attendance_at'];
 
         $sort =  explode(' ', $request->input('sort', 'name asc'));

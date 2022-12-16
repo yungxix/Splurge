@@ -26,14 +26,14 @@ class BookingResource extends JsonResource
             'code' => $this->resource->code,
             'description' => $this->resource->description,
             'event_date' => $this->resource->event_date,
-            'location' => new AddressResource($this->whenLoaded("location")),
-            'customer' => new CustomerResource($this->whenLoaded("customer")),
+            'location' => $this->when($this->resource->relationLoaded('location'), fn () => new AddressResource($this->resource->location)),
+            'customer' => $this->when($this->resource->relationLoaded('customer'), fn () => new CustomerResource($this->resource->customer)),
             'verificationCode' => $this->when(!is_null($this->verificationCode), $this->verificationCode),
             'created_at' => $this->resource->created_at,
             'updated_at' => $this->resource->updated_at,
             'payments' => PaymentResource::collection($this->whenLoaded("payments")),
             'current_charge' => $this->resource->current_charge,
-            'service_tier' => new ServiceTierResource($this->whenLoaded('serviceTier'))
+            'service_tier' => $this->when($this->resource->relationLoaded('service_tier'), fn () => new ServiceTierResource($this->resource->serviceTier)),
         ];
     }
 }

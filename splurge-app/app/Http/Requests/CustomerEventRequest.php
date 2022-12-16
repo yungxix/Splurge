@@ -35,6 +35,24 @@ class CustomerEventRequest extends FormRequest
      */
     public function rules()
     {
+        if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
+            return [
+                'customer_event' => 'array',
+                'booking' => 'sometimes|array',
+                'customer_event.name' => 'required|max:255',
+                'customer_event.event_date' => 'required|date',
+                'booking.description' => 'nullable|max:400',
+                'booking.location' => 'sometimes|array',
+                'booking.location.line1' => 'sometimes|max:200',
+                'booking.location.line2' => 'sometimes|max:200',
+                'booking.location.state' => 'sometimes',
+                'booking.customer' => 'sometimes|array',
+                'booking.service_tier_id' => 'sometimes',
+                'booking.customer.full_name' => 'sometimes|max:230',
+                'booking.customer.email' => 'nullable|email',
+                'booking.customer.phone' => 'nullable|max:' . (12 * 3)
+            ];    
+        }
         return [
             'customer_event' => 'array',
             'booking' => 'array',
@@ -74,17 +92,26 @@ class CustomerEventRequest extends FormRequest
 
         $event->update($event_data);
 
-        $booking = $this->input('booking');
+        $booking = $this->input('booking', []);
+
+
         
         $event->booking->update(array_merge(
             [],
             Arr::only($booking, 'description'),
             Arr::only($event_data, 'event_date')
         ));
+        
         $customer_data = $this->input('booking.customer');
-        $event->booking->customer()->update(Arr::only($customer_data, ['first_name', 'last_name', 'email', 'phone']));
+
+        if (!is_null($customer_data)) {
+            $event->booking->customer()->update(Arr::only($customer_data, ['first_name', 'last_name', 'email', 'phone']));
+        }
+        
         $address = $this->input('booking.location');
-        $event->booking->location()->update($address);
+        if (!is_null($address)) {
+            $event->booking->location()->update($address);
+        }
 
         return $event;
     }

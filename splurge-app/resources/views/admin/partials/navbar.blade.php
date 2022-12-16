@@ -40,6 +40,10 @@ $items = [
             [
                 'text' => 'Messages',
                 'url' => route('admin.messages.index')
+            ],
+            [
+                'text' => 'Event Menu Items',
+                'url' => route('admin.menu_items.index')
             ]
         ]
     ],

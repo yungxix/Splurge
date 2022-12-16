@@ -83,3 +83,4 @@ assets/Videos/res.mp4
 splurge-app/.reset_migrations.txt
 splurge-app/.migrations.txt
 *.txt
+splurge-app/.routes.txt

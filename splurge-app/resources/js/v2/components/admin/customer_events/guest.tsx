@@ -14,6 +14,7 @@ import { parse as parseDate, parseISO, format as formatDate } from 'date-fns';
 import { useCommiter2 } from "./hooks";
 import { GuestContext, GuestOptionsContext } from "./contextx";
 import GuestAttachments from "./guest-attanchment";
+import { getErrorMessage } from "../../../utils";
 
 
 const TimeRenderer: FC<{ value: string; className?: string }> = ({ value, className, children }) => {
@@ -40,13 +41,6 @@ const TimeRenderer: FC<{ value: string; className?: string }> = ({ value, classN
 
 
 
-
-interface OptionsPresenterProps {
-    guestId: number;
-    value?: GuestOptions;
-    editable: boolean;
-    attribute: keyof CustomerEventGuest;
-}
 
 
 const EditableInput: FC<{
@@ -225,7 +219,7 @@ const AttendanceRenderer: FC<{
             id: props.guestId,
             value: time,
             attribute: 'attendance_at'
-        });    
+        });
         if (saved) {
             setCurrentTime(time);
         }
@@ -264,7 +258,7 @@ const AttendanceRenderer: FC<{
             At <TimeRenderer value={currentTime} />
             {
                 props.editable && (<a className="ml-4 cursor-pointer" title="Edit time" onClick={editor.edit}>
-                    <PencilIcon className="w-6 h-6" /> 
+                    <PencilIcon className="w-6 h-6" />
                 </a>)
             }
         </div>
@@ -304,43 +298,90 @@ const Row: FC<{
     </td>
 </tr>);
 
+const BarcodeView: FC<{
+    value: CustomerEventGuest
+}> = ({ value }) => {
+    const [url, setUrl] = useState(value.barcode_image_url || '');
+    const [updating, setUpdating] = useState(false);
+    const [error, setError] = useState('');
+    const c1 = useContext(GuestOptionsContext);
+
+    const requestForBarcode = async () => {
+        setUpdating(true);
+        setError('');
+        try {
+            const response = await axios.patch<{ url: string }>(`${c1.baseUrl}/guests/${value.id}/barcode`);
+            setUrl(response.data.url);
+
+        } catch (error) {
+            setError(getErrorMessage(error) || 'Failed to get barcode image');
+        } finally {
+            setUpdating(false);
+        }
+    };
+    const renderedError = error && (<div className="mb-4 text-center py-2 bg-red-700 text-white">
+        <em>
+            {error}
+        </em>
+    </div>);
+
+
+    if (updating) {
+        return <RefreshIcon className="w-8 h-8 animate-spin" />
+    }
+
+    if (url) {
+        return <div className="overflow-hidden">
+            {renderedError}
+            <img src={url} className="block" alt="Guest barcode" />
+            <a className="link mt-8" onClick={requestForBarcode}>
+                Re-generate barcode
+            </a>
+        </div>
+    }
+
+    return <div>
+        {renderedError}
+        <a className="link" onClick={requestForBarcode}>
+            Generate barcode
+        </a>
+    </div>
+};
 
 export const GuestView: FC<{
     value: CustomerEventGuest,
     editable: boolean;
 }> = ({ value, editable }) => {
-    return <GuestContext.Provider value={{id: value.id}}>
-        <div>
-        <table className="w-full border-separate">
-            <tbody>
-                <Row label="Name" render={() => (<GuestNameRenderer
-                    guestId={value.id} className="text-lg font-bold" value={value.name} editable={editable} />)} />
 
-                <Row label="Gender" render={() => (<EditableSelect
-                    editable={editable}
-                    value={value.gender || ''}
-                    guestAttribute='gender'
-                    guestId={value.id}
-                    options={asSelectOptions(['Unknown', 'Male', 'Female'])}
-                />)} />
-                <Row label="Table" render={() => (<EditableInput
-                    editable={editable}
-                    value={value.table || ''}
-                    emptyContent={(<em>N/A</em>)}
-                    placeholder="Enter table name"
-                    guestAttribute='table_name'
-                    guestId={value.id}
-                />)} />
-                <Row label="Attended at" render={() => (<AttendanceRenderer
-                    time={value.attended_at}
-                    guestId={value.id}
-                    editable={editable}
-                />)} />
-                <Row label="Barcode" render={() => (<span>
-                    {value.barcode_image_url && (<img src={value.barcode_image_url} />)}
-                    {!value.barcode_image_url && (<em>N/A</em>)}
-                </span>)} />
-                <Row label="Accepted" render={() => (<GuestAttachments
+    return <GuestContext.Provider value={{ id: value.id }}>
+        <div>
+            <table className="w-full border-separate">
+                <tbody>
+                    <Row label="Name" render={() => (<GuestNameRenderer
+                        guestId={value.id} className="text-lg font-bold" value={value.name} editable={editable} />)} />
+
+                    <Row label="Gender" render={() => (<EditableSelect
+                        editable={editable}
+                        value={value.gender || ''}
+                        guestAttribute='gender'
+                        guestId={value.id}
+                        options={asSelectOptions(['Unknown', 'Male', 'Female'])}
+                    />)} />
+                    <Row label="Table" render={() => (<EditableInput
+                        editable={editable}
+                        value={value.table || ''}
+                        emptyContent={(<em>N/A</em>)}
+                        placeholder="Enter table name"
+                        guestAttribute='table_name'
+                        guestId={value.id}
+                    />)} />
+                    <Row label="Attended at" render={() => (<AttendanceRenderer
+                        time={value.attended_at}
+                        guestId={value.id}
+                        editable={editable}
+                    />)} />
+                    <Row label="Barcode" render={() => (<BarcodeView value={value} />)} />
+                    {/* <Row label="Accepted" render={() => (<GuestAttachments
                     attribute="accepted"
                     value={value.accepted}
                     editable={editable}
@@ -349,11 +390,11 @@ export const GuestView: FC<{
                     attribute="presented"
                     value={value.presented}
                     editable={editable}
-                />)} />
-                
-            </tbody>
-        </table>
-    </div>
+                />)} /> */}
+
+                </tbody>
+            </table>
+        </div>
     </GuestContext.Provider>
-    
+
 }
