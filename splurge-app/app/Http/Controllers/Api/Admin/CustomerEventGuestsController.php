@@ -54,7 +54,11 @@ class CustomerEventGuestsController extends Controller
      */
     public function show(CustomerEvent $event, CustomerEventGuest $guest)
     {
-        $guest->loadMissing(['menu_preferences', 'customerEvent']);
+        $guest->loadMissing(['menu_preferences',
+         'customerEvent',
+          'customerEvent.booking',
+           'customerEvent.booking.customer',
+            'customerEvent.booking.location']);
         return new CustomerEventGuestResource($guest);
     }
 
@@ -91,10 +95,10 @@ class CustomerEventGuestsController extends Controller
 
     public function addMenuItem(Request $request, CustomerEvent $event, CustomerEventGuest $guest) {
         $request->validate([
-            'name' => 'required|max:255',
-            'comment' => 'nullable|max:255'
+            'item.name' => 'required|max:255',
+            'item.comment' => 'nullable|max:255'
         ]);
-        $guest->menuPreferences()->create($request->only(['name', 'comment']));
+        $guest->menuPreferences()->create($request->only(['item.name', 'item.comment']));
         $guest->loadMissing(['menuPreferences']);
         return new CustomerEventGuestResource($guest);
     }
@@ -113,9 +117,9 @@ class CustomerEventGuestsController extends Controller
 
     public function removeMenuItem(Request $request, CustomerEvent $event, CustomerEventGuest $guest) {
         $request->validate([
-            'name' => 'required'
+            'item.name' => 'required'
         ]);
-        $guest->menuPreferences()->where('name', 'like', $request->input('name'))->delete();
+        $guest->menuPreferences()->where('name', 'like', $request->input('item.name'))->delete();
         $guest->loadMissing(['menuPreferences']);
         return new CustomerEventGuestResource($guest);
     }
