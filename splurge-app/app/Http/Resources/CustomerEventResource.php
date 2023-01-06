@@ -20,7 +20,9 @@ class CustomerEventResource extends JsonResource
             'event_date' => $this->resource->event_date,
             'created_at' => $this->resource->created_at,
             'updated_at' => $this->resource->updated_at,
-            'booking' => $this->when($this->resource->relationLoaded('booking'), fn () => new BookingResource($this->resource->booking)),
+            $this->mergeWhen($this->resource->relationLoaded('booking'), [
+                'booking' => new BookingResource($this->resource->booking)
+            ]),
             'guests' => CustomerEventGuestResource::collection($this->whenLoaded('guests'))
         ];
     }

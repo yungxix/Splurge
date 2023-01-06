@@ -33,6 +33,16 @@ class CustomerEventGuestsController extends Controller
         return CustomerEventGuestResource::collection($guests);
     }
 
+    public function lookup(CustomerEvent $event, Request $request) {
+        $guest = $event->guests()->byTag($request->input('tag'))->first();
+        if (is_null($guest)) {
+            return response()->json(['message' => 'Guest not found'], 404);
+        }
+        $guest->load('customerEvent');
+
+        return new CustomerEventGuestResource($guest);
+    }
+
     
     /**
      * Store a newly created resource in storage.
@@ -54,7 +64,7 @@ class CustomerEventGuestsController extends Controller
      */
     public function show(CustomerEvent $event, CustomerEventGuest $guest)
     {
-        $guest->loadMissing(['menu_preferences',
+        $guest = $guest->loadMissing(['menu_preferences',
          'customerEvent',
           'customerEvent.booking',
            'customerEvent.booking.customer',
@@ -99,8 +109,8 @@ class CustomerEventGuestsController extends Controller
             'item.comment' => 'nullable|max:255'
         ]);
         $guest->menuPreferences()->create($request->only(['item.name', 'item.comment']));
-        $guest->loadMissing(['menuPreferences']);
-        return new CustomerEventGuestResource($guest);
+        
+        return new CustomerEventGuestResource($guest->loadMissing(['menuPreferences']));
     }
 
     public function setMenuItems(Request $request, CustomerEvent $event, CustomerEventGuest $guest) {
@@ -120,7 +130,7 @@ class CustomerEventGuestsController extends Controller
             'item.name' => 'required'
         ]);
         $guest->menuPreferences()->where('name', 'like', $request->input('item.name'))->delete();
-        $guest->loadMissing(['menuPreferences']);
+        $guest = $guest->loadMissing(['menuPreferences']);
         return new CustomerEventGuestResource($guest);
     }
 

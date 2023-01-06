@@ -9,6 +9,22 @@ use Illuminate\Http\Request;
 use Laminas\Barcode\Barcode;
 use Illuminate\Support\Str;
 
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Writer\ValidationException;
+
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use Endroid\QrCode\Label\Alignment\LabelAlignmentCenter;
+use Endroid\QrCode\Label\Font\NotoSans;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+
+
+
 class CustomerEventGuest extends Model
 {
     use HasFactory;
@@ -20,6 +36,10 @@ class CustomerEventGuest extends Model
         'presented' => 'array',
         'attendance_at' => 'datetime'
     ];
+
+    public function scopeByTag($builder, $tag) {
+        return $builder->where('tag', static::cleanTag($tag));
+    }
 
     public static function generateTag(int $event_id) {
         $base = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -.\$/+%";
@@ -74,24 +94,46 @@ class CustomerEventGuest extends Model
         $filename = sprintf('%s-g%s.png', Str::random(), $this->id);
 
         $real_path = $dir . DIRECTORY_SEPARATOR . $filename;
-        $barcodeOptions = ['text' => $this->tag, 'drawText' => false, 'barHeight' => 60];
-        $rendererOptions = [];
+        // $barcodeOptions = ['text' => $this->tag, 'drawText' => false, 'barHeight' => 60];
+        // $rendererOptions = [];
 
-        $renderer = Barcode::factory(
-            'code39',
-            'image',
-            $barcodeOptions,
-            $rendererOptions
-        );
+        // $renderer = Barcode::factory(
+        //     'code39',
+        //     'image',
+        //     $barcodeOptions,
+        //     $rendererOptions
+        // );
         
-        $image = $renderer->draw();
-        imagepng($image, $real_path);
-        @imagedestroy($image);
-        $path = sprintf('%s/%s', $dest, $filename);
-        $this->barcode_image_url = asset($path);
-        if ($save_after) {
-            $this->saveOrFail();
-        }
+        // $image = $renderer->draw();
+        // imagepng($image, $real_path);
+        // @imagedestroy($image);
+        // $path = sprintf('%s/%s', $dest, $filename);
+        // $this->barcode_image_url = asset($path);
+        // if ($save_after) {
+        //     $this->saveOrFail();
+        // }
+
+        $result = Builder::create()
+        ->writer(new PngWriter())
+        ->writerOptions([])
+        ->data($this->tag)
+        ->encoding(new Encoding('UTF-8'))
+        ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+        ->size(200)
+        ->margin(10)
+        ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
+        ->labelText(Str::limit('Splurge: ' . $this->name, 30))
+        ->labelFont(new NotoSans(15))
+        ->labelAlignment(new LabelAlignmentCenter())
+        ->validateResult(false)
+        ->build();
+
+        $result->saveToFile($real_path);
+
+        $this->barcode_image_url = asset(sprintf('%s/%s', $dest, $filename));
+
+        $this->saveOrFail();
+
         return $this;
     }
 
@@ -111,6 +153,15 @@ class CustomerEventGuest extends Model
                     $builder = $builder->where($attr, 'like', $term);
                 }
                 
+            }
+        }
+        $date_attributes = [
+            'from_date' => ['attribute' => 'created_at', 'op' => '>='],
+            'to_date' => ['attribute' => 'created_at', 'op' => '<='],
+        ];
+        foreach ($date_attributes as $key => $specs) {
+            if ($request->has($key)) {
+                $builder = $builder->where($specs['attribute'], $specs['op'], $request->input($key));
             }
         }
         foreach (['tag'] as $field) {

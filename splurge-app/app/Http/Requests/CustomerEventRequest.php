@@ -71,6 +71,25 @@ class CustomerEventRequest extends FormRequest
         ];
     }
 
+
+    public function attributes()
+    {
+        return [
+            'customer_event.name' => 'Name of event',
+            'customer_event.event_date' => 'Date of event',
+            'booking.description' => 'Short description of event',
+            'booking.location.line1' => 'Line #1 of address',
+            'booking.location.line2' => 'Line #2 of address',
+            'booking.location.state' => 'State of location',
+            'booking.location.zip' => 'Zip code of location',
+            'booking.customer.first_name' => 'First name of customer',
+            'booking.customer.last_name' => 'Last name of customer',
+            'booking.customer.email' => 'Email address of customer',
+            'booking.customer.phone' => 'Phone number of customer',
+            'booking.customer.full_name' => 'Name of customer'
+        ];
+    }
+
     public function commitNew() {
         return DB::transaction(function () {
             return $this->commitNewImpl();
@@ -123,8 +142,7 @@ class CustomerEventRequest extends FormRequest
         $customer->saveOrFail();
         $customer->bookings()->save($booking);
         $booking->location()->save($this->grabAddress());
-        $event->booking_id = $booking->id;
-        $event->saveOrFail();
+        $booking->customerEvent()->save($event);
         return $event;
     }
 

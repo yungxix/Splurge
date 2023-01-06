@@ -20,7 +20,8 @@ class ServiceResource extends JsonResource
             'description' => $this->resource->description,
             'image_url' => empty($this->resource->image_url) ? null : splurge_asset($this->resource->image_url),
             'thumbnail_image_url' => empty($this->resource->thumbnail_image_url) ? null : splurge_asset($this->resource->thumbnail_image_url),
-            'display' => $this->resource->display
+            'display' => $this->resource->display,
+            'tiers' => ServiceTierResource::collection($this->whenLoaded('tiers'))
         ];
     }
 }

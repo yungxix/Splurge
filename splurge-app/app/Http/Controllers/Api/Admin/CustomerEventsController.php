@@ -19,6 +19,11 @@ class CustomerEventsController extends Controller
     {
         $this->repository = $repository;
     }
+
+    public function getStats(Request $request) {
+        $data = $this->repository->getStats($request);
+        return response()->json($data->toArray());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -43,9 +48,10 @@ class CustomerEventsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerEventRequest $request)
     {
-        //
+        $customer_event = $request->commitNew();
+        return new CustomerEventResource($customer_event);
     }
 
     /**
@@ -54,10 +60,9 @@ class CustomerEventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(CustomerEvent $event)
+    public function show(Request $request, CustomerEvent $event)
     {
-        
-        $event->loadMissing(['booking', 'booking.customer', 'booking.location']);
+        $event = $event->loadMissing(['booking', 'booking.customer', 'booking.location']);
         return new CustomerEventResource($event);
     }
 
@@ -73,7 +78,7 @@ class CustomerEventsController extends Controller
     {
         $request->commitEdit($customer_event);
 
-        $customer_event->loadMissing(['booking', 'booking.customer', 'booking.location']);
+        // $customer_event->loadMissing(['booking', 'booking.customer', 'booking.location']);
 
         return new CustomerEventResource($customer_event);
     }
