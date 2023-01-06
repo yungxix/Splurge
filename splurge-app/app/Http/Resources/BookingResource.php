@@ -33,7 +33,7 @@ class BookingResource extends JsonResource
             'updated_at' => $this->resource->updated_at,
             'payments' => PaymentResource::collection($this->whenLoaded("payments")),
             'current_charge' => $this->resource->current_charge,
-            'service_tier' => $this->when($this->resource->relationLoaded('service_tier'), fn () => new ServiceTierResource($this->resource->serviceTier)),
+            'service_tier' => $this->when($this->resource->relationLoaded('serviceTier'), fn () => new ServiceTierResource($this->resource->serviceTier)),
         ];
     }
 }

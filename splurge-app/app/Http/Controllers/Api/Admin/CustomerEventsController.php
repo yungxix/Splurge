@@ -62,7 +62,7 @@ class CustomerEventsController extends Controller
      */
     public function show(Request $request, CustomerEvent $event)
     {
-        $event = $event->loadMissing(['booking', 'booking.customer', 'booking.location']);
+        $event = $event->loadMissing(['booking', 'booking.customer', 'booking.location', 'booking.serviceTier']);
         return new CustomerEventResource($event);
     }
 
