@@ -24,6 +24,11 @@ class CustomerEventsController extends Controller
         $data = $this->repository->getStats($request);
         return response()->json($data->toArray());
     }
+
+    public function getSingleStats(Request $request, $id) {
+        $data = $this->repository->getSingleEventStats($id);
+        return response()->json($data->toArray());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -60,9 +65,14 @@ class CustomerEventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, CustomerEvent $event)
+    public function show(Request $request, $id)
     {
-        $event = $event->loadMissing(['booking', 'booking.customer', 'booking.location', 'booking.serviceTier']);
+        $event = CustomerEvent::with(['booking', 'booking.customer', 'booking.location', 'booking.serviceTier'])
+        ->withCount(['guests'])
+        ->where('id', $id)
+        ->firstOrFail();
+        
+        $request->merge(['include_guest_count', true]);
         return new CustomerEventResource($event);
     }
 
@@ -74,8 +84,10 @@ class CustomerEventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CustomerEventRequest $request, CustomerEvent $customer_event)
+    public function update(CustomerEventRequest $request,$id)
     {
+        $customer_event = CustomerEvent::findOrFail($id);
+
         $request->commitEdit($customer_event);
 
         // $customer_event->loadMissing(['booking', 'booking.customer', 'booking.location']);
@@ -89,8 +101,9 @@ class CustomerEventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CustomerEvent $customer_event)
+    public function destroy(Request $request, $id)
     {
+        $customer_event = CustomerEvent::findOrFail($id);
         $customer_event->delete();
         return response()->json(['message' => 'Deleted event']);
     }

@@ -6,7 +6,6 @@ use App\Models\CustomerEvent;
 use App\Models\CustomerEventGuest;
 use App\Rules\DateOrTimeRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -33,6 +32,7 @@ class CustomerEventGuestRequest extends FormRequest
         if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
             return [
                 'guest' => 'required|array',
+                'guest.person_count' => 'integer|min:1',
                 'guest.name' => 'sometimes|max:25',
                 'guest.table_name' => 'sometimes|max:150',
                 'guest.gender' => 'sometimes|max:30',
@@ -47,11 +47,12 @@ class CustomerEventGuestRequest extends FormRequest
         return [
             'guest' => 'required|array',
             'guest.name' => 'required|max:255',
+            'guest.person_count' => 'integer|min:1',
             'guest.table_name' => 'nullable|max:150',
             'guest.gender' => 'nullable|max:30',
             'guest.accepted' => 'nullable|array',
             'guest.presented' => 'nullable|array',
-            'guest.attendance_at' => 'nullable|date',
+            'guest.attendance_at' => ['nullable', new DateOrTimeRule()],
             'guest.menu_preferences' => ['sometimes', 'array'],
             'guest.menu_preferences.name' => ['sometimes', 'max:255'],
             'guest.menu_preferences.comment' => ['sometimes', 'max:255']
@@ -64,23 +65,21 @@ class CustomerEventGuestRequest extends FormRequest
         });
     }
 
-    private function generateBarCode(CustomerEventGuest $guest) {
-     $guest->generateBarCode();
-    }
 
     private function grabMenuPrefences(CustomerEventGuest $guest) {
         $data = $this->input('guest.menu_preferences');
-        if (!is_null($data)) {
-            $root = [
-                'prefs' => $data
-            ];
-            Validator::make($root, [
-                'prefs' => ['required', 'array'],
-                'prefs.name' => ['required', 'max:255'],
-                'prefs.comment' => ['nullable', 'max:255']
-            ])->validate();
-
+        if (empty($data)) {
+            return;
         }
+        
+        $root = [
+            'prefs' => $data
+        ];
+        Validator::make($root, [
+            'prefs' => ['required', 'array'],
+            'prefs.name' => ['required', 'max:255'],
+            'prefs.comment' => ['nullable', 'max:255']
+        ])->validate();
 
         $guest->menuPreferences()->delete();
 
@@ -103,8 +102,12 @@ class CustomerEventGuestRequest extends FormRequest
     public function commitEdit(CustomerEventGuest $guest, CustomerEvent $event) {
         return DB::transaction(function () use ($guest, $event) {
             $data = static::attendanceToFullDate($this->input('guest'), $event);
-            $data = $this->grabBarcodeImage($data);
+            
             $guest->fill($data);
+            
+            if (is_null($guest->barcode_image_url)) {
+                $guest->generateBarcode(false);   
+            }
             $guest->saveOrFail();
             $this->grabMenuPrefences($guest);
             return $guest;
@@ -115,7 +118,7 @@ class CustomerEventGuestRequest extends FormRequest
         $data = $this->input('guest');
         $guest = new CustomerEventGuest(static::attendanceToFullDate($data, $event));
         $guest->tag = Str::random(10) . sprintf('-ev%s', $event->id);
-        $guest->barcode_image_url = $this->generateBarCode($guest);
+        $guest->generateBarcode(FALSE);
         $event->guests()->save($guest);
         $this->grabMenuPrefences($guest);
         return $guest;

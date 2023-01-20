@@ -15,10 +15,9 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\BookingsController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\CommunicationsController;
-use App\Http\Controllers\Admin\CustomerEventGuestsController;
+use App\Http\Controllers\Admin\CustomerEventGuestsAdminController;
 use App\Http\Controllers\Admin\CustomerEventsController;
 use App\Http\Controllers\Admin\PaymentsController;
-use Illuminate\Routing\RouteUri;
 use App\Http\Controllers\Admin\MenuItemsController;
 
 Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group(function () {
@@ -70,9 +69,9 @@ Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group
     ]);
 
     Route::prefix("/customer_events/{customer_event}")->name('customer_event_detail.')->group(function () {
-        Route::resource('guests', CustomerEventGuestsController::class);
-        Route::post("/guests/{guest}/barcode", [CustomerEventGuestsController::class, "updateBarcode"]);
-        Route::patch("/guests/{guest}/barcode", [CustomerEventGuestsController::class, "updateBarcode"]);
+        Route::resource('guests', CustomerEventGuestsAdminController::class);
+        Route::post("/guests/{guest}/barcode", [CustomerEventGuestsAdminController::class, "updateBarcode"]);
+        Route::patch("/guests/{guest}/barcode", [CustomerEventGuestsAdminController::class, "updateBarcode"]);
     });
 
     

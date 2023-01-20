@@ -18,8 +18,10 @@ class CustomerEventGuestsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CustomerEvent $event, Request $request)
+    public function index(Request $request, $eventId)
     {
+        $event = CustomerEvent::findOrFail($eventId);
+
         $column_aliases = ['date' => 'created_at', 'attendance' => 'attendance_at', 'attended_at' => 'attendance_at'];
 
         $sort =  explode(' ', $request->input('sort', 'name asc'));
@@ -33,15 +35,32 @@ class CustomerEventGuestsController extends Controller
         return CustomerEventGuestResource::collection($guests);
     }
 
-    public function lookup(CustomerEvent $event, Request $request) {
-        $guest = $event->guests()->byTag($request->input('tag'))->first();
-        if (is_null($guest)) {
-            return response()->json(['message' => 'Guest not found'], 404);
+    public function lookup(Request $request, $eventId) {
+        $guest = CustomerEventGuest::where(['customer_event_id' => $eventId, 'tag' => $request->input('tag')])
+                    ->firstOrFail();
+                    
+        if ($request->has('lean')) {
+            return new CustomerEventGuestResource($guest);
         }
-        $guest->load('customerEvent');
 
-        return new CustomerEventGuestResource($guest);
+        return new CustomerEventGuestResource($guest->loadMissing(['customerEvent',
+        'customerEvent.booking',
+         'customerEvent.booking.customer',
+          'customerEvent.booking.location']));
     }
+
+    public function lookupAny(Request $request) {
+        $guest = CustomerEventGuest::byTag($request->input('tag'))->firstOrFail();
+        if ($request->has('lean')) {
+            return new CustomerEventGuestResource($guest);
+        }
+        return new CustomerEventGuestResource($guest->loadMissing(['customerEvent',
+        'customerEvent.booking',
+         'customerEvent.booking.customer',
+          'customerEvent.booking.location']));
+    }
+
+
 
     
     /**
@@ -50,8 +69,9 @@ class CustomerEventGuestsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CustomerEvent $event, CustomerEventGuestRequest $request)
+    public function store(CustomerEventGuestRequest $request, $eventId)
     {
+        $event = CustomerEvent::findOrFail($eventId);
         $guest = $request->commitNew($event);
         return new CustomerEventGuestResource($guest);
     }
@@ -62,9 +82,10 @@ class CustomerEventGuestsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(CustomerEvent $event, CustomerEventGuest $guest)
+    public function show(Request $request, $eventId, $guestId)
     {
-        $guest = $guest->loadMissing(['menu_preferences',
+        $guest = CustomerEventGuest::findOrFail($guestId);
+        $guest = $guest->loadMissing(['menuPreferences',
          'customerEvent',
           'customerEvent.booking',
            'customerEvent.booking.customer',
@@ -80,8 +101,10 @@ class CustomerEventGuestsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CustomerEventGuestRequest $request, CustomerEvent $event, CustomerEventGuest $guest)
+    public function update(CustomerEventGuestRequest $request, $eventId, $guestId)
     {
+        $guest = CustomerEventGuest::findOrFail($guestId);
+        $event = CustomerEvent::findOrFail($eventId);
         $data = $request->commitEdit($guest, $event);
         return new CustomerEventGuestResource($data);
     }
@@ -92,18 +115,23 @@ class CustomerEventGuestsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, CustomerEvent $event, CustomerEventGuest $guest)
+    public function destroy(Request $request, $eventId, $guestId)
     {
+        $guest = CustomerEventGuest::findOrFail($guestId);
         $guest->delete();
         return response()->json(['message' => 'Deleted guest']);
     }
 
-    public function updateBarcode(Request $request, CustomerEvent $event, CustomerEventGuest $guest) {
+    public function updateBarcode(Request $request, $eventId, $guestId) {
+        $guest = CustomerEventGuest::findOrFail($guestId);
+        // $event = CustomerEvent::findOrFail($eventId);
         $guest->generateBarcode(TRUE);
         return response()->json(['url' => $guest->barcode_image_url]);
     }
 
-    public function addMenuItem(Request $request, CustomerEvent $event, CustomerEventGuest $guest) {
+    public function addMenuItem(Request $request, $eventId, $guestId) {
+        $guest = CustomerEventGuest::findOrFail($guestId);
+        // $event = CustomerEvent::findOrFail($eventId);
         $request->validate([
             'item.name' => 'required|max:255',
             'item.comment' => 'nullable|max:255'
@@ -113,7 +141,9 @@ class CustomerEventGuestsController extends Controller
         return new CustomerEventGuestResource($guest->loadMissing(['menuPreferences']));
     }
 
-    public function setMenuItems(Request $request, CustomerEvent $event, CustomerEventGuest $guest) {
+    public function setMenuItems(Request $request, $eventId, $guestId) {
+        $guest = CustomerEventGuest::findOrFail($guestId);
+        // $event = CustomerEvent::findOrFail($eventId);
         $request->validate([
             'items' => 'required|array',
             'items.name' => 'required|max:255',
@@ -125,10 +155,12 @@ class CustomerEventGuestsController extends Controller
         });
     }
 
-    public function removeMenuItem(Request $request, CustomerEvent $event, CustomerEventGuest $guest) {
+    public function removeMenuItem(Request $request, $eventId, $guestId) {
         $request->validate([
             'item.name' => 'required'
         ]);
+        $guest = CustomerEventGuest::findOrFail($guestId);
+        // $event = CustomerEvent::findOrFail($eventId);
         $guest->menuPreferences()->where('name', 'like', $request->input('item.name'))->delete();
         $guest = $guest->loadMissing(['menuPreferences']);
         return new CustomerEventGuestResource($guest);

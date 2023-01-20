@@ -20,7 +20,8 @@ class CustomerEventGuestResource extends JsonResource
             'gender' => $this->resource->gender,
             'accepted' => $this->resource->accepted,
             'presented' => $this->resource->presented,
-            'attended_at' => $this->resource->getAttendanceTime(),
+            'attended_at' => $this->resource->attendance_at,
+            'attendance_at' => $this->resource->attendance_at,
             'created_at' => $this->resource->created_at,
             'event' => $this->when($this->resource->relationLoaded('customerEvent'),
              fn () => new CustomerEventResource($this->resource->customerEvent) ),
@@ -30,7 +31,8 @@ class CustomerEventGuestResource extends JsonResource
             'tag' => $this->resource->tag,
             'event_id' => $this->resource->customer_event_id,
             'menu_preferences' => $this->when($this->resource->relationLoaded('menuPreferences'), 
-                fn () => MenuItemResource::collection($this->resource->menuPreferences) )
+                fn () => MenuItemResource::collection($this->resource->menuPreferences) ),
+            'person_count' => $this->resource->person_count
         ];
     }
 }

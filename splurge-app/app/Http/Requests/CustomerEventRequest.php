@@ -113,24 +113,28 @@ class CustomerEventRequest extends FormRequest
 
         $booking = $this->input('booking', []);
 
+        if (!empty($booking)) {
+            
+            $event->booking->update(array_merge(
+                [],
+                Arr::only($booking, 'description'),
+                Arr::only($event_data, 'event_date')
+            ));
+            
+            $customer_data = $this->input('booking.customer');
+
+            if (!is_null($customer_data)) {
+                $event->booking->customer()->update(Arr::only($customer_data, ['first_name', 'last_name', 'email', 'phone']));
+            }
+            
+            $address = $this->input('booking.location');
+            if (!is_null($address)) {
+                $event->booking->location()->update($address);
+            }
+        }
+
 
         
-        $event->booking->update(array_merge(
-            [],
-            Arr::only($booking, 'description'),
-            Arr::only($event_data, 'event_date')
-        ));
-        
-        $customer_data = $this->input('booking.customer');
-
-        if (!is_null($customer_data)) {
-            $event->booking->customer()->update(Arr::only($customer_data, ['first_name', 'last_name', 'email', 'phone']));
-        }
-        
-        $address = $this->input('booking.location');
-        if (!is_null($address)) {
-            $event->booking->location()->update($address);
-        }
 
         return $event;
     }
@@ -142,7 +146,7 @@ class CustomerEventRequest extends FormRequest
         $customer->saveOrFail();
         $customer->bookings()->save($booking);
         $booking->location()->save($this->grabAddress());
-        $booking->customerEvent()->save($event);
+        $event = $booking->customerEvent()->save($event);
         return $event;
     }
 

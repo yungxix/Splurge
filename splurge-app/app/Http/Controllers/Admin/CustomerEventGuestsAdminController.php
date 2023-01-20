@@ -9,9 +9,8 @@ use App\Models\CustomerEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Models\CustomerEventGuest;
-use Milon\Barcode\DNS2D;
 
-class CustomerEventGuestsController extends Controller
+class CustomerEventGuestsAdminController extends Controller
 {
     /**
      * Display a listing of the resource.

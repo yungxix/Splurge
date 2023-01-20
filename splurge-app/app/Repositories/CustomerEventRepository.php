@@ -28,6 +28,20 @@ class CustomerEventRepository {
         return $query;
     }
 
+    public function getSingleEventStats($eventId) {
+        return DB::table((new CustomerEventGuest())->getTable())
+                ->where('customer_event_id', $eventId)
+                ->groupBy('table_name', 'gender')
+                ->selectRaw(implode(', ', [
+                   'table_name', 'gender',
+                    'count(id) as guest_count'
+                    , 'min(created_at) as first_registered_date',
+                     'max(created_at) as last_registered_date',
+                      'sum(person_count) total_number_of_persons'
+                ]))
+                ->get();
+    }
+
     public function getStats(Request $request) {
         $date = Carbon::parse($request->input('pivot_date', Carbon::now()->toIso8601String()));
 

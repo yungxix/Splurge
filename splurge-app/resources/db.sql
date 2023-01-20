@@ -83,3 +83,10 @@ alter table `menu_preferences` add index `menu_preferences_guest_id_index`(`gues
 create table `menu_items` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `name` varchar(255) not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
 
 
+/-- 2023-01-15
+
+alter table `customer_event_guests` add `person_count` smallint not null default '1';
+create table `event_tables` (`id` bigint unsigned not null auto_increment primary key, `created_at` timestamp null, `updated_at` timestamp null, `customer_event_id` bigint not null, `name` varchar(60) not null, `capacity` smallint not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci'  ;  
+alter table `event_tables` add index `idx_customer_event_name`(`name`, `customer_event_id`);
+alter table `event_tables` add index `event_tables_customer_event_id_index`(`customer_event_id`);  
+

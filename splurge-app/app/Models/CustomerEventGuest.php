@@ -29,7 +29,7 @@ class CustomerEventGuest extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'gender', 'table_name', 'accepted', 'presented', 'attendance_at'];
+    protected $fillable = ['name', 'gender', 'table_name', 'accepted', 'presented', 'attendance_at', 'person_count'];
 
     protected $casts = [
         'accepted' => 'array',
@@ -94,24 +94,7 @@ class CustomerEventGuest extends Model
         $filename = sprintf('%s-g%s.png', Str::random(), $this->id);
 
         $real_path = $dir . DIRECTORY_SEPARATOR . $filename;
-        // $barcodeOptions = ['text' => $this->tag, 'drawText' => false, 'barHeight' => 60];
-        // $rendererOptions = [];
-
-        // $renderer = Barcode::factory(
-        //     'code39',
-        //     'image',
-        //     $barcodeOptions,
-        //     $rendererOptions
-        // );
-        
-        // $image = $renderer->draw();
-        // imagepng($image, $real_path);
-        // @imagedestroy($image);
-        // $path = sprintf('%s/%s', $dest, $filename);
-        // $this->barcode_image_url = asset($path);
-        // if ($save_after) {
-        //     $this->saveOrFail();
-        // }
+       
 
         $result = Builder::create()
         ->writer(new PngWriter())
@@ -132,7 +115,10 @@ class CustomerEventGuest extends Model
 
         $this->barcode_image_url = asset(sprintf('%s/%s', $dest, $filename));
 
-        $this->saveOrFail();
+
+        if ($save_after) {
+            $this->saveOrFail();
+        }
 
         return $this;
     }

@@ -36,4 +36,8 @@ class CustomerEvent extends Model
     public function safeEventDate() {
         return $this->event_date;
     }
+
+    public function eventTables() {
+        return $this->hasMany(EventTable::class);
+    }
 }

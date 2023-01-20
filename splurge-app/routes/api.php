@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Admin\CustomerEventsController;
 use App\Http\Controllers\Api\MenuItemsController;
 use App\Http\Controllers\Api\Admin\MenuItemsController as AdminMenuItemsController;
 use App\Http\Controllers\Api\Admin\ServicesController;
+use App\Http\Controllers\Api\Admin\EventTablesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,7 +22,12 @@ use App\Http\Controllers\Api\Admin\ServicesController;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    $user  = $request->user();
+    return response()->json([
+        'name' => $user->name,
+        'email' => $user->email,
+        'roles' => $user->roles->map(fn ($role) => $role->name)->all()
+    ]);
 });
 
 Route::middleware(['once'])->group(function () {
@@ -38,15 +44,21 @@ Route::middleware(['auth:sanctum', 'scan:admin,sanctum'])->prefix('admin')->name
     
     Route::resource('services', ServicesController::class)->only(['index']);
 
+    Route::get('/customer_events/{customer_event}/stats', [CustomerEventsController::class, 'getSingleStats'])->name('customer_events.detail_stats');
+    
     Route::get('/customer_events/stats', [CustomerEventsController::class, 'getStats'])->name('customer_events.stats');
+
+    
 
     Route::resource('customer_events', CustomerEventsController::class)->only('index', 'show', 'store', 'update', 'destroy');
 
     Route::resource('menu_items', AdminMenuItemsController::class);
 
-    
+    Route::get('/guests/lookup', [CustomerEventGuestsController::class, 'lookupAny']);
 
     Route::prefix('customer_events/{customer_event}')->name('customer_event_details.')->group(function () {
+
+        Route::resource('tables', EventTablesController::class)->only(['index', 'store', 'update', 'destroy']);
         
         Route::resource('guests', CustomerEventGuestsController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
 

@@ -23,6 +23,9 @@ class CustomerEventResource extends JsonResource
             $this->mergeWhen($this->resource->relationLoaded('booking'), [
                 'booking' => new BookingResource($this->resource->booking)
             ]),
+            $this->mergeWhen($request->has('include_guest_count'), [
+                'guests_count' => $this->resource->guests_count
+            ]),
             'guests' => CustomerEventGuestResource::collection($this->whenLoaded('guests'))
         ];
     }

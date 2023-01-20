@@ -15,9 +15,7 @@ class BookingObserver
      */
     public function created(Booking $booking)
     {
-        if (!$booking->isCustomerEventExists()) {
-            $booking->createDefaultCustomerEvent();
-        }
+        
     }
 
     /**
@@ -28,9 +26,7 @@ class BookingObserver
      */
     public function updated(Booking $booking)
     {
-        if (!$booking->isCustomerEventExists()) {
-            $booking->createDefaultCustomerEvent();
-        }
+        
     }
 
     /**
