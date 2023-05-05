@@ -69,9 +69,11 @@ Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group
     ]);
 
     Route::prefix("/customer_events/{customer_event}")->name('customer_event_detail.')->group(function () {
-        Route::resource('guests', CustomerEventGuestsAdminController::class);
+        Route::post("/guests/import", [CustomerEventGuestsAdminController::class, "handleImport"])->name('guests.import');
+        Route::get('/guests/print', [CustomerEventGuestsAdminController::class, 'getPrintView'])->name('guests.print');
         Route::post("/guests/{guest}/barcode", [CustomerEventGuestsAdminController::class, "updateBarcode"]);
         Route::patch("/guests/{guest}/barcode", [CustomerEventGuestsAdminController::class, "updateBarcode"]);
+        Route::resource('guests', CustomerEventGuestsAdminController::class);
     });
 
     

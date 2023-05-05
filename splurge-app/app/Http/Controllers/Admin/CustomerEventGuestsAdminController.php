@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerEventGuestRequest;
+use App\Http\Requests\CustomerEventGuestImportRequest;
 use App\Http\Resources\CustomerEventGuestResource;
 use App\Models\CustomerEvent;
 use Illuminate\Http\Request;
@@ -12,6 +13,11 @@ use App\Models\CustomerEventGuest;
 
 class CustomerEventGuestsAdminController extends Controller
 {
+    public function getPrintView(CustomerEvent $event) {
+        $guests = $event->guests()->paginate(100);
+        return view('admin.screens.customer_events.guests.print', ['guests' => $guests, 'customer_event' => $event]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +25,8 @@ class CustomerEventGuestsAdminController extends Controller
      */
     public function index(CustomerEvent $event, Request $request)
     {
+        $this->authorize('view', $event);
+        
         $column_aliases = ['date' => 'attendance_at', 'attendance' => 'attendance_at', 'attended_at' => 'attendance_at'];
 
         $sort =  explode(' ', $request->input('sort', 'name asc'));
@@ -35,6 +43,7 @@ class CustomerEventGuestsAdminController extends Controller
 
         return view('admin.screens.customer_events.show', [
             'customer_event' => $event,
+            'guests' => $guests,
              'guest_table' =>
               CustomerEventsController::guestsAsTable(
                 $guests, $event)
@@ -43,6 +52,18 @@ class CustomerEventGuestsAdminController extends Controller
                 ->withCaption('Guests')]);
     }
 
+    public function handleImport(CustomerEventGuestImportRequest $request, CustomerEvent $cutomer_event) {
+        $this->authorize('update', $cutomer_event);
+        $affected = $request->store($cutomer_event);
+        if ($request->wantsJson()) {
+            return response()->json([
+                'message' => "Imported $affected",
+                'affected' => $affected
+            ]);
+        }
+        return redirect()->back()->with(['success_message' => "Affected $affected"]);
+    } 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -50,6 +71,7 @@ class CustomerEventGuestsAdminController extends Controller
      */
     public function create(CustomerEvent $event, Request $request)
     {
+        $this->authorize('update', $event);
         return view('admin.screens.customer_events.guests.create',
          ['customer_event' => $event, 'guest' => static::getOldGuest($request)]);
     }
@@ -71,6 +93,7 @@ class CustomerEventGuestsAdminController extends Controller
      */
     public function store(CustomerEvent $event, CustomerEventGuestRequest $request)
     {
+        $this->authorize('update', $event);
         $guest = $request->commitNew($event);
         if ($request->wantsJson()) {
             return new CustomerEventGuestResource($guest);
@@ -86,6 +109,7 @@ class CustomerEventGuestsAdminController extends Controller
      */
     public function show(CustomerEvent $event, CustomerEventGuest $guest)
     {
+        $this->authorize('update', $event);
         return view('admin.screens.customer_events.guests.show', ['guest' => $guest, 'customer_event' => $event]);
     }
 
@@ -97,6 +121,7 @@ class CustomerEventGuestsAdminController extends Controller
      */
     public function edit(CustomerEvent $event, CustomerEventGuest $guest)
     {
+        $this->authorize('update', $event);
         return view('admin.screens.customer_events.guests.edit', ['guest' => $guest, 'customer_event' => $event]);
     }
 
@@ -109,6 +134,7 @@ class CustomerEventGuestsAdminController extends Controller
      */
     public function update(CustomerEventGuestRequest $request, CustomerEvent $event, CustomerEventGuest $guest)
     {
+        $this->authorize('update', $event);
         $data = $request->commitEdit($guest, $event);
         if ($request->wantsJson()) {
             return new CustomerEventGuestResource($data);
@@ -132,6 +158,7 @@ class CustomerEventGuestsAdminController extends Controller
      */
     public function destroy(Request $request, CustomerEvent $event, CustomerEventGuest $guest)
     {
+        $this->authorize('update', $event);
         $guest->delete();
         if ($request->wantsJson()) {
             return response()->json(['message' => 'Deleted guest']);
@@ -140,6 +167,7 @@ class CustomerEventGuestsAdminController extends Controller
     }
 
     public function updateBarcode(Request $request, CustomerEvent $event, CustomerEventGuest $guest) {
+        $this->authorize('update', $event);
         $guest->generateBarcode(TRUE);
         if ($request->wantsJson()) {
             return response()->json(['url' => $guest->barcode_image_url]);

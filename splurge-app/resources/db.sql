@@ -90,3 +90,6 @@ create table `event_tables` (`id` bigint unsigned not null auto_increment primar
 alter table `event_tables` add index `idx_customer_event_name`(`name`, `customer_event_id`);
 alter table `event_tables` add index `event_tables_customer_event_id_index`(`customer_event_id`);  
 
+
+!-- 2023/01/30
+alter table `customer_events` add `require_guest_confirmation` tinyint(1) not null default '0';

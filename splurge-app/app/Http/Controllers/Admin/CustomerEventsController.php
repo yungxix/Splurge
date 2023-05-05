@@ -36,6 +36,7 @@ class CustomerEventsController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', CustomerEvent::class);
         $sorting =  explode(' ', $request->input('sort', 'date desc'));
         $alt_column_names = ['date' => 'event_date', 'created' => 'created_at', 'updated' => 'updated_at'];
 
@@ -43,6 +44,8 @@ class CustomerEventsController extends Controller
             ->with(['booking', 'booking.customer', 'booking.location'])
             ->orderBy(Arr::get($alt_column_names, $sorting[0], $sorting[0]), $sorting[1])
             ->paginate($request->input('page_size', 20));
+
+            
             
         if ($request->wantsJson()) {
             return CustomerEventResource::collection($events);
@@ -61,6 +64,7 @@ class CustomerEventsController extends Controller
      */
     public function create(Request $request)
     {
+        $this->authorize('create', CustomerEvent::class);
         $services = Service::with(['tiers'])->get();
 
         return view('admin.screens.customer_events.create', [
@@ -127,7 +131,9 @@ class CustomerEventsController extends Controller
      */
     public function store(CustomerEventRequest $request)
     {
+        
         $event = $request->commitNew();
+        $this->authorize('create', CustomerEvent::class);
         if ($request->wantsJson()) {
             return new CustomerEventResource($event);
         }
@@ -144,6 +150,8 @@ class CustomerEventsController extends Controller
      */
     public function show(CustomerEvent $event,  Request $request)
     {
+        $this->authorize('view', $event);
+
         if ($request->wantsJson()) {
             return new CustomerEventResource($event);
         }
@@ -269,6 +277,7 @@ class CustomerEventsController extends Controller
      */
     public function edit(CustomerEvent $customer_event)
     {
+        $this->authorize('update', $customer_event);
         $services = Service::with(['tiers'])->get();
         return view('admin.screens.customer_events.edit', ['customer_event' => $customer_event, 'services' => $services]);
     }
@@ -282,6 +291,7 @@ class CustomerEventsController extends Controller
      */
     public function update(CustomerEventRequest $request, CustomerEvent $customer_event)
     {
+        $this->authorize('update', $customer_event);
         $request->commitEdit($customer_event);
         if ($request->wantsJson()) {
             return new CustomerEventResource($customer_event);
@@ -297,6 +307,7 @@ class CustomerEventsController extends Controller
      */
     public function destroy(CustomerEvent $customer_event)
     {
+        $this->authorize('destroy', $customer_event);
         $customer_event->delete();
         
         return redirect()->route('admin.customer_events.index')->with(['success_message' => 'Deleted customer event']);

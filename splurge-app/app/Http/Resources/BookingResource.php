@@ -31,6 +31,7 @@ class BookingResource extends JsonResource
             'verificationCode' => $this->when(!is_null($this->verificationCode), $this->verificationCode),
             'created_at' => $this->resource->created_at,
             'updated_at' => $this->resource->updated_at,
+            'service_tier_id' => $this->resource->service_tier_id,
             'payments' => PaymentResource::collection($this->whenLoaded("payments")),
             'current_charge' => $this->resource->current_charge,
             'service_tier' => $this->when($this->resource->relationLoaded('serviceTier'), fn () => new ServiceTierResource($this->resource->serviceTier)),

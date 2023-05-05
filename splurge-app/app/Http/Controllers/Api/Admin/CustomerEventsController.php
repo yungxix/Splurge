@@ -42,6 +42,8 @@ class CustomerEventsController extends Controller
         $events = $this->repository->findAll($request)
             ->orderBy(Arr::get($alt_column_names, $sorting[0], $sorting[0]), $sorting[1])
             ->paginate($request->input('page_size', 20));
+
+        $this->authorize('viewAny', CustomerEvent::class);    
             
         return CustomerEventResource::collection($events);
     }
@@ -55,6 +57,7 @@ class CustomerEventsController extends Controller
      */
     public function store(CustomerEventRequest $request)
     {
+        $this->authorize('create', CustomerEvent::class);
         $customer_event = $request->commitNew();
         return new CustomerEventResource($customer_event);
     }
@@ -67,14 +70,29 @@ class CustomerEventsController extends Controller
      */
     public function show(Request $request, $id)
     {
+        if ($request->has('full')) {
+            $event = CustomerEvent::with(['booking', 'booking.customer', 'booking.location', 'booking.serviceTier', 'guests', 'guests.menuPreferences'])
+            ->where('id', $id)
+            ->firstOrFail();
+
+            $this->authorize('view', $event);
+            
+
+            return new CustomerEventResource($event);
+        }
         $event = CustomerEvent::with(['booking', 'booking.customer', 'booking.location', 'booking.serviceTier'])
         ->withCount(['guests'])
         ->where('id', $id)
         ->firstOrFail();
+
+        $this->authorize('view', $event);
         
         $request->merge(['include_guest_count', true]);
+
         return new CustomerEventResource($event);
     }
+
+    
 
 
     /**
@@ -87,6 +105,8 @@ class CustomerEventsController extends Controller
     public function update(CustomerEventRequest $request,$id)
     {
         $customer_event = CustomerEvent::findOrFail($id);
+
+        $this->authorize('update', $customer_event);
 
         $request->commitEdit($customer_event);
 
@@ -104,6 +124,7 @@ class CustomerEventsController extends Controller
     public function destroy(Request $request, $id)
     {
         $customer_event = CustomerEvent::findOrFail($id);
+        $this->authorize('destroy', $customer_event);
         $customer_event->delete();
         return response()->json(['message' => 'Deleted event']);
     }

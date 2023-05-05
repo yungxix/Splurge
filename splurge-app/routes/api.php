@@ -10,6 +10,8 @@ use App\Http\Controllers\Api\MenuItemsController;
 use App\Http\Controllers\Api\Admin\MenuItemsController as AdminMenuItemsController;
 use App\Http\Controllers\Api\Admin\ServicesController;
 use App\Http\Controllers\Api\Admin\EventTablesController;
+use App\Http\Controllers\Api\Admin\UsersController;
+use App\Http\Controllers\Api\Admin\GuestMenuPreferencesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,6 +26,7 @@ use App\Http\Controllers\Api\Admin\EventTablesController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     $user  = $request->user();
     return response()->json([
+        'id' => $user->id,
         'name' => $user->name,
         'email' => $user->email,
         'roles' => $user->roles->map(fn ($role) => $role->name)->all()
@@ -38,10 +41,14 @@ Route::middleware(['auth:sanctum', 'scan:admin,sanctum'])->group(function () {
     Route::resources([
         'menu_items' => MenuItemsController::class
     ]);
+
+    
 });
 
 Route::middleware(['auth:sanctum', 'scan:admin,sanctum'])->prefix('admin')->name('api.admin.')->group(function () {
-    
+   
+    Route::resource('users', UsersController::class)->only(['index', 'show', 'update', 'store', 'destroy']);
+
     Route::resource('services', ServicesController::class)->only(['index']);
 
     Route::get('/customer_events/{customer_event}/stats', [CustomerEventsController::class, 'getSingleStats'])->name('customer_events.detail_stats');
@@ -58,6 +65,8 @@ Route::middleware(['auth:sanctum', 'scan:admin,sanctum'])->prefix('admin')->name
 
     Route::prefix('customer_events/{customer_event}')->name('customer_event_details.')->group(function () {
 
+        Route::post('/guests/import', [CustomerEventGuestsController::class, 'handleImport'])->name('guests.import');
+
         Route::resource('tables', EventTablesController::class)->only(['index', 'store', 'update', 'destroy']);
         
         Route::resource('guests', CustomerEventGuestsController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
@@ -69,9 +78,7 @@ Route::middleware(['auth:sanctum', 'scan:admin,sanctum'])->prefix('admin')->name
         Route::patch("/guests/{guest}/barcode", [CustomerEventGuestsController::class, "updateBarcode"])->name('update_barcode');
 
         Route::prefix('guests/{guest}')->name('guest_details.')->group(function () {
-            Route::post('menu_preference', [CustomerEventGuestsController::class, 'addMenuItem'])->name('add_menu_preference');
-            Route::post('menu_preferences', [CustomerEventGuestsController::class, 'setMenuItems'])->name('replace_menu_preferences');;
-            Route::delete('menu_preference', [CustomerEventGuestsController::class, 'removeMenuItem'])->name('remove_menu_preference');;
+            Route::resource('menu_preferences', GuestMenuPreferencesController::class);
         });
     });
 });

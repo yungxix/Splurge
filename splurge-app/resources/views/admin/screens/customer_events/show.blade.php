@@ -18,12 +18,15 @@
     <x-breadcrumbs :items="$breadcrumbItems"></x-breadcrumbs>
     @include('partials.page-header', ['title' => Str::limit($customer_event->name, 50)])
     <section class="container mx-auto">
-        <div class="flex flex-row justify-end items-center gap-4 py-4 px-2">
+        <div class="flex flex-row justify-end items-center gap-8 divide-x py-4 px-2">
             <a class="link" title="Add new customer event" href="{{ route('admin.customer_events.create') }}">
                 Add an event
             </a>
             <a class="link" title="Edit customer event" href="{{ route('admin.customer_events.edit', $customer_event) }}">
                 Edit
+            </a>
+            <a class="link" title="Print Guests" target="_blank" href="{{ route('admin.customer_event_detail.guests.print', $customer_event) }}">
+                Print Guests
             </a>
             <form title="Delete customer event" action="{{ route('admin.customer_events.destroy', $customer_event) }}" method="POST" onsubmit="javascript: return confirm('Are you sure you want to delete this event?')" class="inline">
                 @csrf

@@ -10,12 +10,13 @@ class CustomerEvent extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['booking_id', 'name', 'event_date'];
+    protected $fillable = ['booking_id', 'name', 'event_date', 'require_guest_confirmation'];
 
     private $safeDate;
 
     protected $casts = [
-        'event_date' => 'date'
+        'event_date' => 'date',
+        'require_guest_confirmation' => 'boolean'
     ];
 
     public function booking() {

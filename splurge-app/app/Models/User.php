@@ -58,4 +58,10 @@ class User extends Authenticatable
             return strnatcasecmp($role->name, $name) === 0;
         });
     }
+
+    public function hasAnyRole(array $names) {
+        return $this->roles->contains(function ($role, $k) use ($names) {
+            return in_array($role->name, $names);
+        });
+    }
 }

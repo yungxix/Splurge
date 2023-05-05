@@ -20,6 +20,7 @@ class CustomerEventResource extends JsonResource
             'event_date' => $this->resource->event_date,
             'created_at' => $this->resource->created_at,
             'updated_at' => $this->resource->updated_at,
+            'require_guest_confirmation' => $this->resource->require_guest_confirmation,
             $this->mergeWhen($this->resource->relationLoaded('booking'), [
                 'booking' => new BookingResource($this->resource->booking)
             ]),

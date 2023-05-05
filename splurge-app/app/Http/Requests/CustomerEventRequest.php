@@ -50,7 +50,8 @@ class CustomerEventRequest extends FormRequest
                 'booking.service_tier_id' => 'sometimes',
                 'booking.customer.full_name' => 'sometimes|max:230',
                 'booking.customer.email' => 'nullable|email',
-                'booking.customer.phone' => 'nullable|max:' . (12 * 3)
+                'booking.customer.phone' => 'nullable|max:' . (12 * 3),
+                'customer_event.require_guest_confirmation' => 'sometimes|boolean'
             ];    
         }
         return [
@@ -67,7 +68,8 @@ class CustomerEventRequest extends FormRequest
             'booking.service_tier_id' => 'required',
             'booking.customer.full_name' => 'required|max:230',
             'booking.customer.email' => 'nullable|email',
-            'booking.customer.phone' => 'nullable|max:' . (12 * 3)
+            'booking.customer.phone' => 'nullable|max:' . (12 * 3),
+            'customer_event.require_guest_confirmation' => 'sometimes|boolean'
         ];
     }
 
@@ -86,7 +88,8 @@ class CustomerEventRequest extends FormRequest
             'booking.customer.last_name' => 'Last name of customer',
             'booking.customer.email' => 'Email address of customer',
             'booking.customer.phone' => 'Phone number of customer',
-            'booking.customer.full_name' => 'Name of customer'
+            'booking.customer.full_name' => 'Name of customer',
+            'customer_event.require_guest_confirmation' => 'Requires guest confirmation'
         ];
     }
 
