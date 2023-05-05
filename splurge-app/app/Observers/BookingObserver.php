@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Booking;
+use App\Models\Address;
 
 class BookingObserver
 {
@@ -14,7 +15,7 @@ class BookingObserver
      */
     public function created(Booking $booking)
     {
-        //
+        
     }
 
     /**
@@ -25,7 +26,7 @@ class BookingObserver
      */
     public function updated(Booking $booking)
     {
-        //
+        
     }
 
     /**
@@ -36,7 +37,7 @@ class BookingObserver
      */
     public function deleted(Booking $booking)
     {
-        //
+        Address::where(['addressable_id' => $booking->id, 'addressable_type' => Booking::class])->delete();
     }
 
     /**

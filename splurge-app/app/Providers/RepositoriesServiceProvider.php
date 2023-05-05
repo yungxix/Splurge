@@ -42,6 +42,10 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->singleton(\App\Repositories\CustomerRepository::class, \App\Repositories\CustomerRepository::class);
 
         $this->app->singleton(\App\Repositories\CommunicationsRepository::class, \App\Repositories\CommunicationsRepository::class);
+
+        $this->app->singleton(\App\Repositories\CustomerEventRepository::class, \App\Repositories\CustomerEventRepository::class);
+
+        $this->app->singleton(\App\Repositories\EventTablesRepository::class, \App\Repositories\EventTablesRepository::class);
     }
 
     /**

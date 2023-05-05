@@ -22,6 +22,9 @@ class ImageTableColumn extends TableColumn {
     public function render($model, $row_loop = NULL, $column_loop = NULL)
     {
         $url = is_callable($this->urlGetter) ? call_user_func($this->urlGetter, $model) : asset(Arr::get($model, $this->urlGetter));
+        if (empty($url)) {
+            return '';
+        }
         $class_name = Arr::get($this->imageAttributes, 'class', '');
         $alt = Arr::get($this->imageAttributes, 'alt', '');
         $template = "
@@ -33,5 +36,15 @@ class ImageTableColumn extends TableColumn {
     public function renderHead($loop)
     {
         return $this->text;    
+    }
+
+    public static function of($options, $getter = NULL) {
+        if (is_callable($options)) {
+            return new ImageTableColumn([], $options);
+        }
+        if (isset($options['url'])) {
+            return new ImageTableColumn($options, $options['url']);    
+        }
+        return new ImageTableColumn($options, $getter);
     }
 }

@@ -15,7 +15,7 @@ class Customer extends Model
         return $this->hasMany(Booking::class);
     }
 
-    public function fullName() {
+    public function getFullNameAttribute() {
         return sprintf('%s %s', $this->first_name, $this->last_name);
     }
 }

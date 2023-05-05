@@ -24,7 +24,7 @@ class BookingsController extends Controller
     }
 
     public function show(Request $request, Booking $booking) {
-        $booking->loadMissing(['customer', 'location', 'serviceTier', 'serviceTier.service']);
+        $booking = $booking->loadMissing(['customer', 'location', 'serviceTier', 'serviceTier.service']);
         $totalPaid = Payment::where('booking_id', $booking->id)->sum('amount');
         return view('my.screens.bookings.show', [
             'booking' => $booking,

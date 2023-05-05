@@ -17,12 +17,16 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::factory(5)->create();
-        $user = User::create([
-            'name' => 'Serene Admin',
-            'email' => 'admin@splurgeevents.com',
-            'password' => '$2y$10$tNGj/G13dFtqfYIxo/fpAeJSVZRqmXFnThPelC7E8DzOr7iqdYuUG'
-        ]);
-        $user->roles()->create(['name' => 'admin']);
-        $user->roles()->create(['name' => 'system']);
+        $systemEmail = 'admin@splurgeevents.com';
+        $exists = User::where('email', $systemEmail)->selectRaw('1 as one')->take(1)->get()->count() > 0;
+        if (!$exists) {
+            $user = User::create([
+                'name' => 'Serene Admin',
+                'email' => $systemEmail,
+                'password' => '$2y$10$tNGj/G13dFtqfYIxo/fpAeJSVZRqmXFnThPelC7E8DzOr7iqdYuUG'
+            ]);
+            $user->roles()->create(['name' => 'admin']);
+            $user->roles()->create(['name' => 'system']);
+        }
     }
 }

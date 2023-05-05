@@ -48,7 +48,7 @@ class PaymentsController extends Controller
             'amount' => $balance
         ]);
 
-        $booking->loadMissing(['customer', 'location']);
+        $booking = $booking->loadMissing(['customer', 'location']);
 
         // TODO: In the future this is supposed to go to paystack. For now just simulate it
 

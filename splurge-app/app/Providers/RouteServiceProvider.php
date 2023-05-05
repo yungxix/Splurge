@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Communication;
+use App\Models\CustomerEvent;
+use App\Models\CustomerEventGuest;
 use App\Models\MediaOwner;
 use App\Models\ServiceTier;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -40,6 +42,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::model("tier", ServiceTier::class);
         Route::model("tiers", ServiceTier::class);
+        Route::model('customer_event', CustomerEvent::class);
+        Route::model('customer_event_guest', CustomerEventGuest::class);
+        Route::model('guest', CustomerEventGuest::class);
 
         Route::bind("message", function ($key) {
             return Communication::findOrFail($key);

@@ -5,11 +5,12 @@ namespace App\Providers;
 use App\Events\BookingPriceChangedEvent;
 use App\Events\NewBookingCreatedEvent;
 use App\Events\PaymentCreatedEvent;
-use App\Http\Requests\NewBookingRequest;
 use App\Listeners\BookingPriceChangedListener;
 use App\Listeners\NewBookingCreatedHandler;
 use App\Listeners\PaymentCreatedHandler;
 use App\Models\Booking;
+use App\Models\CustomerEvent;
+use App\Models\CustomerEventGuest;
 use App\Models\Gallery;
 use App\Models\GalleryItem;
 use App\Models\PostItem;
@@ -17,6 +18,8 @@ use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Service;
 use App\Observers\BookingObserver;
+use App\Observers\CustomerEventGuestObserver;
+use App\Observers\CustomerEventObserver;
 use App\Observers\GalleryItemObserver;
 use App\Observers\GalleryObserver;
 use App\Observers\PostItemObserver;
@@ -26,7 +29,7 @@ use App\Observers\TagObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
+
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -112,6 +115,8 @@ class EventServiceProvider extends ServiceProvider
         Tag::class => [TagObserver::class],
         Service::class => [ServiceObserver::class],
         Booking::class => [BookingObserver::class],
+        CustomerEvent::class => [CustomerEventObserver::class],
+        CustomerEventGuest::class => [CustomerEventGuestObserver::class],
     ];
 
     /**
