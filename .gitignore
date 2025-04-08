@@ -86,3 +86,4 @@ splurge-app/.migrations.txt
 splurge-app/.routes.txt
 splurge-app/.routes.txt
 splurge-app/.routes.txt
+splurge-app/prepare_release.ps1
