@@ -25,10 +25,11 @@ class ToolsController extends Controller
             }
             
             if ($request->wantsJson()) {
+                return response()->json(['message' => 'Done  with codes ' . $code]);
+            } else {
                 $request->session()->flash('info_message', "Called task with exit code: $code");
                 return redirect()->route('admin.admin_dashboard');
-            } else {
-                return response()->json(['message' => 'Done']);
+                
             }
             
             
@@ -37,7 +38,7 @@ class ToolsController extends Controller
             
             
             if ($request->wantsJson()) {
-                return response()->json(['message' => 'Done']);
+                return response()->json(['message' => 'Error']);
             } else {
                 $request->session()->flash('error_message', "Task failed");
                 return redirect()->route('admin.admin_dashboard');
