@@ -213,4 +213,6 @@ return [
         'type' => 'CODE39',
         'dest' => 'images/barcodes'
     ],
+
+    'tll' => env('TOOLING', '')
 ];

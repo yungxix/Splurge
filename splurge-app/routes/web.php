@@ -27,6 +27,7 @@ use App\Http\Controllers\AccessController;
 require __DIR__.'/auth.php';
 require __DIR__ . '/admin.php';
 require __DIR__  . '/my.php';
+require __DIR__ . './tools.php';
 
 Route::controller(CalendarsController::class)->group(function () {
     
