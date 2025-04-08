@@ -23,6 +23,8 @@ use App\Http\Controllers\Api\Admin\GuestMenuPreferencesController;
 |
 */
 
+require __DIR__ . '/tools.php';
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     $user  = $request->user();
     return response()->json([
