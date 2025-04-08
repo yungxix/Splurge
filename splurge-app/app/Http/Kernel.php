@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'saccess' => \App\Http\Middleware\SplurgeAccessMiddleware::class,
         'my' => \App\Http\Middleware\SplurgeAccessMiddleware::class,
         'once' => \App\Http\Middleware\OneTimeCredentials::class,
+        'allowTooling' => \App\Http\Middleware\AllowTooling::class,
     ];
 }
