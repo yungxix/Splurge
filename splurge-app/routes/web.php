@@ -28,6 +28,10 @@ require __DIR__.'/auth.php';
 require __DIR__ . '/admin.php';
 require __DIR__  . '/my.php';
 
+Route::controller(CalendarsController::class)->group(function () {
+    
+});
+
 Route::controller(AccessController::class)->prefix('access')->name('access.')->group(function () {
     Route::get('/', 'index');
     Route::get("/{entity}/{uuid}", "create")->name('create');
@@ -51,20 +55,6 @@ Route::controller(HomeController::class)->group(function () {
     Route::get("/rdir", "redirectForRole")->middleware(["auth"]);
 });
 
-
-Route::controller(BookingController::class)->prefix('book')->group(function () {
-    Route::get('/', 'index')->name('book');
-
-    Route::post('/{service}', 'store')->name('post_booking');
-
-    Route::get('/{service}', 'create')->name('book_service');
-
-    Route::get("/{booking}", "show")->name("show_booking");
-});
-
-Route::prefix("bookings/{booking}")->name("booking_details.")->group(function () {
-    Route::resource("payments", PaymentsController::class);
-});
 
 Route::resource("payments", PaymentsController::class);
 

@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Events\PaymentCreatedEvent;
-use App\Models\Booking;
 use App\Models\Payment;
 use App\Models\SplurgeAccessToken;
 use Illuminate\Foundation\Http\FormRequest;
@@ -68,15 +67,15 @@ class PaymentRequest extends FormRequest
     }
 
     private function loadVerificationToken() {
-        if ($this->loaded === true) {
-            return;
-        }
-        $this->loaded = true;
-        $this->accessToken = SplurgeAccessToken::where([
-            "token" => $this->input("verification_code"),
-            'access_type' => Booking::class
-        ])
-        ->first();
-        return $this->accessToken;
+        // if ($this->loaded === true) {
+        //     return;
+        // }
+        // $this->loaded = true;
+        // $this->accessToken = SplurgeAccessToken::where([
+        //     "token" => $this->input("verification_code"),
+        //     'access_type' => Booking::class
+        // ])
+        // ->first();
+        // return $this->accessToken;
     }
 }

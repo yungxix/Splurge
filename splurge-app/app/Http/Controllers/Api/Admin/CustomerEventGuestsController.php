@@ -108,7 +108,6 @@ class CustomerEventGuestsController extends Controller
     }
 
     public function handleImport(CustomerEventGuestImportRequest $request, $eventId) {
-        dd($eventId);
         $event = CustomerEvent::findOrFail($eventId);
         $this->authorize('update', $event);
         $affected = $request->store($event);

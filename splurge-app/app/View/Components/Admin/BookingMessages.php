@@ -2,7 +2,7 @@
 
 namespace App\View\Components\Admin;
 
-use App\Models\Booking;
+// use App\Models\Booking;
 use Illuminate\View\Component;
 
 use App\Models\Communication;
@@ -19,9 +19,9 @@ class BookingMessages extends Component
      *
      * @return void
      */
-    public function __construct(Booking $booking, $perPage = NULL)
+    public function __construct(/*Booking $booking,*/ $perPage = NULL)
     {
-        $this->booking = $booking;
+        $this->booking = null;
         $this->perPage = $perPage ?? 5;
     }
 
@@ -33,8 +33,8 @@ class BookingMessages extends Component
     public function render()
     {
         $messages = Communication::where([
-            "channel_id" => $this->booking->id,
-            "channel_type" => Booking::class
+            "channel_id" => -1,
+            "channel_type" => "Models/Booking"
         ])->orderBy("created_at", "desc")->cursorPaginate($this->perPage, ['*'], 'message_cursor');
 
         return view('components.admin.booking-messages', ['messages' => $messages]);

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Booking;
+// use App\Models\Booking;
 use App\Models\SplurgeAccessToken;
 use Illuminate\Support\Str;
 use App\Models\User;
@@ -18,7 +18,7 @@ class SplurgeAccessTokenRepository {
 
             $email = sprintf("%s@splurge_%s.com", Str::random(8), Str::random(4));
 
-            if ($model instanceof Booking) {
+            if (false /*$model instanceof Booking*/) {
                 $user = User::create(['name' => $model->customer->fullName(), 'email' => $email, 'password' => bcrypt($token)]);
             } else {
                 $user = User::create(['name' => 'Splurge Access', 'email' => $email, 'password' => bcrypt($token)]);

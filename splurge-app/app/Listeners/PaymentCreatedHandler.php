@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use App\Events\PaymentCreatedEvent;
 use App\Mail\PaymentCreated;
-use App\Models\Booking;
+// use App\Models\Booking;
 use App\Models\Communication;
 use App\Repositories\SplurgeAccessTokenRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -33,24 +33,24 @@ class PaymentCreatedHandler implements ShouldQueue
      */
     public function handle(PaymentCreatedEvent $event)
     {
-        $booking = $event->payment->booking;
-        $mailable = new PaymentCreated($event->payment,
-        CompanySetting::first(),
-         $this->splurgeRepo->findForModel($booking));
+        // $booking = $event->payment->booking;
+        // $mailable = new PaymentCreated($event->payment,
+        // CompanySetting::first(),
+        //  $this->splurgeRepo->findForModel($booking));
         
-         Mail::to($booking->customer->email)
-                ->send($mailable);
+        //  Mail::to($booking->customer->email)
+        //         ->send($mailable);
 
-        $comm = new Communication();
-        $comm->sender = "company";
-        $comm->receiver = sprintf("%s %s<%s>", $booking->customer->first_name,
-                            $booking->customer->last_name, $booking->customer->email);
+        // $comm = new Communication();
+        // $comm->sender = "company";
+        // $comm->receiver = sprintf("%s %s<%s>", $booking->customer->first_name,
+        //                     $booking->customer->last_name, $booking->customer->email);
 
 
-        $comm->content = $mailable->render();
-        $comm->channel_type = Booking::class;
-        $comm->channel_id = $event->payment->booking_id;
-        $comm->subject = sprintf("New Payment for Booking #%s", $booking->code);
-        $comm->save();
+        // $comm->content = $mailable->render();
+        // $comm->channel_type = Booking::class;
+        // $comm->channel_id = $event->payment->booking_id;
+        // $comm->subject = sprintf("New Payment for Booking #%s", $booking->code);
+        // $comm->save();
     }
 }

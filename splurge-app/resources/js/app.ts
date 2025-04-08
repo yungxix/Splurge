@@ -168,7 +168,7 @@ const plugins = {
     my,
     services
 }
-var Splurge = (<any>window).Splurge || {};
+const Splurge = (<any>window).Splurge || {};
 
 Object.assign(Splurge, plugins);
 

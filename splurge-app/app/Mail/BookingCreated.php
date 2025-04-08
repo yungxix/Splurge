@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\Booking;
+// use App\Models\Booking;
 use App\Models\CompanySetting;
 use App\Models\SplurgeAccessToken;
 use Illuminate\Bus\Queueable;
@@ -25,11 +25,11 @@ class BookingCreated extends Mailable
      *
      * @return void
      */
-    public function __construct(Booking $booking, CompanySetting $companySetting, SplurgeAccessToken $splurgeAccessToken)
+    public function __construct(/*Booking $booking, */CompanySetting $companySetting, SplurgeAccessToken $splurgeAccessToken)
     {
         $this->afterCommit();
 
-        $this->booking = $booking;
+        // $this->booking = $booking;
         $this->companySetting = $companySetting;
         $this->splurgeAccessToken = $splurgeAccessToken;
     }

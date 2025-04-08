@@ -2,7 +2,7 @@
 
 namespace App\Support;
 
-use App\Models\Booking;
+// use App\Models\Booking;
 use App\Models\Communication;
 use Illuminate\Support\Arr;
 use App\Models\Customer;
@@ -53,35 +53,35 @@ class CommunicationHelper {
         
         $this->loaded = true;
 
-        $booking_ids = $this->messages->filter(fn ($c, $i) => $c->receiver == 'customer' &&
-                                              $c->channel_type === Booking::class)
-                                        ->map(fn ($c, $i) => $c->channel_id)->toArray();
+        // $booking_ids = $this->messages->filter(fn ($c, $i) => $c->receiver == 'customer' &&
+        //                                       $c->channel_type === "Models/Booking")
+        //                                 ->map(fn ($c, $i) => $c->channel_id)->toArray();
 
-        if (empty($booking_ids)) {
-            return;
-        }                                
+        // if (empty($booking_ids)) {
+        //     return;
+        // }                                
 
-        $booking_table = (new Booking())->getTable();
+        // $booking_table = (new Booking())->getTable();
 
-        $customer_table = (new Customer())->getTable();
+        // $customer_table = (new Customer())->getTable();
 
-        $customers = Customer::join($booking_table, "${customer_table}.id", "=", "${booking_table}.customer_id")
-                            ->whereIn("${booking_table}.id", $booking_ids)
-                            ->select("${customer_table}.first_name",
-                             "${customer_table}.last_name",
-                              "${customer_table}.email", "${booking_table}.id as booking_id")->get();
-
-
-        foreach ($customers as $customer) {
-            $full_key = sprintf("receiver_%s_%s", Booking::class, $customer->booking_id);
-            $this->email_hash[$full_key] = sprintf("%s %s <%s>",
-             $customer->first_name, $customer->last_name, $customer->email);
+        // $customers = Customer::join($booking_table, "${customer_table}.id", "=", "${booking_table}.customer_id")
+        //                     ->whereIn("${booking_table}.id", $booking_ids)
+        //                     ->select("${customer_table}.first_name",
+        //                      "${customer_table}.last_name",
+        //                       "${customer_table}.email", "${booking_table}.id as booking_id")->get();
 
 
-             $full_key = sprintf("sender_%s_%s", Booking::class, $customer->booking_id);
-             $this->email_hash[$full_key] = sprintf("%s %s <%s>",
-              $customer->first_name, $customer->last_name, $customer->email);  
-        }                    
+        // foreach ($customers as $customer) {
+        //     $full_key = sprintf("receiver_%s_%s", Booking::class, $customer->booking_id);
+        //     $this->email_hash[$full_key] = sprintf("%s %s <%s>",
+        //      $customer->first_name, $customer->last_name, $customer->email);
+
+
+        //      $full_key = sprintf("sender_%s_%s", Booking::class, $customer->booking_id);
+        //      $this->email_hash[$full_key] = sprintf("%s %s <%s>",
+        //       $customer->first_name, $customer->last_name, $customer->email);  
+        // }                    
 
     }
 

@@ -9,7 +9,6 @@ use App\Http\Resources\ServiceTierResource;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Models\ServiceTier;
-use App\Models\Booking;
 
 class ServiceTiersController extends Controller
 {
@@ -88,8 +87,9 @@ class ServiceTiersController extends Controller
     }
 
     private function inUse(ServiceTier $tier) {
-        return !is_null(Booking::where("service_tier_id", $tier->id)
-            ->selectRaw("1")->first());
+        throw new \ErrorException("Not implement yet", 500);
+        // return !is_null(Booking::where("service_tier_id", $tier->id)
+        //     ->selectRaw("1")->first());
     }
 
 }
