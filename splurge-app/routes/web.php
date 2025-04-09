@@ -60,7 +60,7 @@ Route::controller(HomeController::class)->group(function () {
 Route::resource("payments", PaymentsController::class);
 
 
-Route::controller(GalleryController::class)->prefix('splurge_gallery')->group(function () {
+Route::controller(GalleryController::class)->prefix('gallery')->group(function () {
     
     Route::get('/{gallery}', 'show')->name('gallery.show');
 
@@ -68,7 +68,7 @@ Route::controller(GalleryController::class)->prefix('splurge_gallery')->group(fu
 });
 
 
-Route::controller(ServicesController::class)->prefix('splurge_services')->group(function () {
+Route::controller(ServicesController::class)->prefix('services')->group(function () {
     
     Route::get('/{service}', 'show')->name('services.show');
     Route::get('/', 'index')->name('services.index');
