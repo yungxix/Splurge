@@ -25,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
             return $app["splurge.access"];
         });
 
+        if (env('HOSTED')) {
+            $this->app->bind('path.public', function () {
+                return getcwd();
+            });
+        }        
+
         
     }
 
@@ -35,11 +41,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+<<<<<<< HEAD
         if (env('HOSTED')) {
             $this->app->bind('path.public', function () {
                 return getcwd();
             });
         }  
+=======
+       
+>>>>>>> main
         if (config('logging.log_queries')) {
             DB::listen(function (QueryExecuted $query) {
                 Log::debug("[Query] {$query->sql}", [
