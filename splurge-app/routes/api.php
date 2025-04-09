@@ -25,6 +25,8 @@ use App\Http\Controllers\Api\Admin\GuestMenuPreferencesController;
 
 require __DIR__ . '/tools.php';
 
+require __DIR__ . '/pub.php';
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     $user  = $request->user();
     return response()->json([
@@ -34,6 +36,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         'roles' => $user->roles->map(fn ($role) => $role->name)->all()
     ]);
 });
+
+
+
+Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
+    $user  = $request->user();
+    return response()->json([
+        'id' => $user->id,
+        'name' => $user->name,
+        'email' => $user->email,
+        'roles' => $user->roles->map(fn ($role) => $role->name)->all()
+    ]);
+});
+
 
 Route::middleware(['once'])->group(function () {
     Route::post('/tokens', [TokensController::class, 'create']);
