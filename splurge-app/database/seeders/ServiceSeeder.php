@@ -71,10 +71,9 @@ class ServiceSeeder extends Seeder
         $tier = new ServiceTier(array_merge([
             'name' => $element->getAttribute('name'),
             'position' => $position,
+            'code' => $element->getAttribute('code')
             
         ], static::getDescriptionArray($xpath->query('description', $element)->item(0), 'description')));
-
-        $tier->code = $tier->generateCode();
 
         if ($element->hasAttribute('price')) {
             $tier->price = floatval($element->getAttribute('price'));
