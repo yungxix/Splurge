@@ -39,8 +39,12 @@ class AppServiceProvider extends ServiceProvider
             $this->app->bind('path.public', function () {
                 return getcwd();
             });
+<<<<<<< HEAD
         }
         
+=======
+        }        
+>>>>>>> main
         if (config('logging.log_queries')) {
             DB::listen(function (QueryExecuted $query) {
                 Log::debug("[Query] {$query->sql}", [
