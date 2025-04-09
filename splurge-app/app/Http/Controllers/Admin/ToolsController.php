@@ -17,7 +17,7 @@ class ToolsController extends Controller
                 $codes = array_map(function ($item) {
                     return
                     Artisan::call("{$item}:cache");
-                }, ['view', 'config', 'routes']);
+                }, ['view', 'config', 'route']);
 
                 $code = implode(', ', $codes);
             } else {
