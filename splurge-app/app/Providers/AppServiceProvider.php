@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
             return $app["splurge.access"];
         });
 
-        if (env('HOSTED')) {
+        if (config('app.hosted')) {
             $this->app->bind('path.public', function () {
                 return getcwd();
             });

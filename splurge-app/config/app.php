@@ -214,5 +214,6 @@ return [
         'dest' => 'images/barcodes'
     ],
 
-    'tll' => env('TOOLING', '')
+    'tll' => env('TOOLING', ''),
+    'hosted' => env('HOSTED', false)
 ];
