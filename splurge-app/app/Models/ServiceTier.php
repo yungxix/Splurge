@@ -9,7 +9,7 @@ class ServiceTier extends Model
 {
     use HasFactory, HasCode;
 
-    protected $fillable = ['service_id', 'options',
+    protected $fillable = ['service_id', 'options', 'code',
      'description',
       'options', 'price',
        'footer_message', 'name', "position", "image_url"];
