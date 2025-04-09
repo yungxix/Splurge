@@ -25,12 +25,6 @@ $items = [
         'url' => route('gallery.index'),
         'active' => Request::is('*gallery*')
     ],
-    ServiceSupport::hideServicesMenuItem() ? (isset($services) ? 'services_menu' : null) :
-    [
-        'text' => 'Our Services',
-        'url' => route('services.index'),
-        'active' => Request::is('*services*')
-    ],
     [
         'text' => 'About Us',
         'url' => url('/about'),
