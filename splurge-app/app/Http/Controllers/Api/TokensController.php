@@ -13,7 +13,7 @@ class TokensController extends Controller
 {
     public function create(Request $request) {
         
-        $token = $request->user()->createToken('splurge_access_' . Str::random(6));
+        $token = $request->user('api')->createToken('splurge_access_' . Str::random(6));
 
         return response()->json([
             'token' => $token->plainTextToken
