@@ -49,12 +49,9 @@ Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
     ]);
 });
 
+Route::post('/tokens', [TokensController::class, 'create']);
 
-Route::middleware(['once'])->group(function () {
-    Route::post('/tokens', [TokensController::class, 'create']);
-});
-
-Route::middleware(['auth:sanctum', 'scan:admin,sanctum'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::resources([
         'menu_items' => MenuItemsController::class
     ]);
@@ -62,7 +59,7 @@ Route::middleware(['auth:sanctum', 'scan:admin,sanctum'])->group(function () {
     
 });
 
-Route::middleware(['auth:sanctum', 'scan:admin,sanctum'])->prefix('admin')->name('api.admin.')->group(function () {
+Route::middleware(['auth:sanctum'])->prefix('admin')->name('api.admin.')->group(function () {
    
     Route::resource('users', UsersController::class)->only(['index', 'show', 'update', 'store', 'destroy']);
 
