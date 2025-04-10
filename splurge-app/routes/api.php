@@ -49,7 +49,7 @@ Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
     ]);
 });
 
-Route::post('/tokens', [TokensController::class, 'create']);
+Route::post('/tokens', [TokensController::class, 'create'])->middleware('login_once');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::resources([

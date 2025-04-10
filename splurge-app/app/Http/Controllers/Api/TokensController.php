@@ -12,24 +12,11 @@ use Illuminate\Support\Str;
 class TokensController extends Controller
 {
     public function create(Request $request) {
-        $credentails = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => 'required'
-        ]);
-        $guard = 'api';
-
         
-        if (Auth::guard($guard)->once($credentails)) {
-            $user = Auth::user();
-            $token = $user->createToken('splurge_access_' . Str::random(6));
-
-            return response()->json([
-                'token' => $token->plainTextToken
-            ]);
-        }
+        $token = $request->user()->createToken('splurge_access_' . Str::random(6));
 
         return response()->json([
-            'message' => 'Invalid credentials'
-        ], 402);
+            'token' => $token->plainTextToken
+        ]);
     }
 }

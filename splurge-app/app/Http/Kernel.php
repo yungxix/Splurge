@@ -68,7 +68,7 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\HasRole::class,
         'saccess' => \App\Http\Middleware\SplurgeAccessMiddleware::class,
         'my' => \App\Http\Middleware\SplurgeAccessMiddleware::class,
-        'once' => \App\Http\Middleware\OneTimeCredentials::class,
+        'login_once' => \App\Http\Middleware\OneTimeCredentials::class,
         'allowTooling' => \App\Http\Middleware\AllowTooling::class,
     ];
 }
