@@ -11,7 +11,7 @@ class MenuPreference extends Model
 
     protected $fillable = ['name', 'comment', 'guest_id'];
 
-    public function guest() {
-        return $this->belongsTo(CustomerEventGuest::class, "guest_id");
-    }
+    // public function guest() {
+    //     return $this->belongsTo(CustomerEventGuest::class, "guest_id");
+    // }
 }

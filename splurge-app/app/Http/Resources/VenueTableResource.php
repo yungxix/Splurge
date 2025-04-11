@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MenuItemResource extends JsonResource
+class VenueTableResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,14 @@ class MenuItemResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->resource->id,
-            'name' => $this->resource->name,
+            'id' => $this->id,
+            'name' => $this->name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'location_id' => $this->address_id,
+            'venue_id' => $this->address_id,
+            'address_id' => $this->address_id,
+            'venue' => new AddressResource($this->whenLoaded('location')),
         ];
     }
 }

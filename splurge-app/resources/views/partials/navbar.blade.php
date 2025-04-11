@@ -53,7 +53,7 @@ if (Auth::check()) {
     } else {
         $items[] = [
             'url' => url('/dashboard'),
-            'text' => 'My Dashboard',
+            'text' => 'Dashboard',
             'active' => Request::is('dashboard*')
         ];
     }

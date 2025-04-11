@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\TokensController;
-use App\Http\Controllers\Api\Admin\CustomerEventGuestsController;
 use App\Http\Controllers\Api\Admin\CustomerEventsController;
 use App\Http\Controllers\Api\MenuItemsController;
 use App\Http\Controllers\Api\Admin\MenuItemsController as AdminMenuItemsController;
@@ -65,9 +64,11 @@ Route::middleware(['auth:sanctum'])->prefix('admin')->name('api.admin.')->group(
 
     Route::resource('services', ServicesController::class)->only(['index']);
 
+    Route::get('/customer_events/stats', [CustomerEventsController::class, 'getStats'])->name('customer_events.stats');
+
     Route::get('/customer_events/{customer_event}/stats', [CustomerEventsController::class, 'getSingleStats'])->name('customer_events.detail_stats');
     
-    Route::get('/customer_events/stats', [CustomerEventsController::class, 'getStats'])->name('customer_events.stats');
+    
 
     
 
@@ -79,20 +80,20 @@ Route::middleware(['auth:sanctum'])->prefix('admin')->name('api.admin.')->group(
 
     Route::prefix('customer_events/{customer_event}')->name('customer_event_details.')->group(function () {
 
-        Route::post('/guests/import', [CustomerEventGuestsController::class, 'handleImport'])->name('guests.import');
+        // Route::post('/guests/import', [CustomerEventGuestsController::class, 'handleImport'])->name('guests.import');
 
-        Route::resource('tables', EventTablesController::class)->only(['index', 'store', 'update', 'destroy']);
+        // Route::resource('tables', EventTablesController::class)->only(['index', 'store', 'update', 'destroy']);
         
-        Route::resource('guests', CustomerEventGuestsController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+        // Route::resource('guests', CustomerEventGuestsController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
 
-        Route::get('/guests/lookup', [CustomerEventGuestsController::class, 'lookup']);
+        // Route::get('/guests/lookup', [CustomerEventGuestsController::class, 'lookup']);
         
-        Route::post("/guests/{guest}/barcode", [CustomerEventGuestsController::class, "updateBarcode"])->name('set_barcode');
+        // Route::post("/guests/{guest}/barcode", [CustomerEventGuestsController::class, "updateBarcode"])->name('set_barcode');
         
-        Route::patch("/guests/{guest}/barcode", [CustomerEventGuestsController::class, "updateBarcode"])->name('update_barcode');
+        // Route::patch("/guests/{guest}/barcode", [CustomerEventGuestsController::class, "updateBarcode"])->name('update_barcode');
 
-        Route::prefix('guests/{guest}')->name('guest_details.')->group(function () {
-            Route::resource('menu_preferences', GuestMenuPreferencesController::class);
-        });
+        // Route::prefix('guests/{guest}')->name('guest_details.')->group(function () {
+        //     Route::resource('menu_preferences', GuestMenuPreferencesController::class);
+        // });
     });
 });
