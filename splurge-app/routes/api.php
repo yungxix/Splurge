@@ -8,9 +8,16 @@ use App\Http\Controllers\Api\Admin\CustomerEventsController;
 use App\Http\Controllers\Api\MenuItemsController;
 use App\Http\Controllers\Api\Admin\MenuItemsController as AdminMenuItemsController;
 use App\Http\Controllers\Api\Admin\ServicesController;
-use App\Http\Controllers\Api\Admin\EventTablesController;
 use App\Http\Controllers\Api\Admin\UsersController;
-use App\Http\Controllers\Api\Admin\GuestMenuPreferencesController;
+use App\Http\Controllers\Api\Admin\CustomerBagController;
+use App\Http\Controllers\Api\Admin\CustomerMenuItemsController;
+use App\Http\Controllers\Api\Admin\EventLocationsController;
+use App\Http\Controllers\Api\Admin\LocationTablesController;
+use App\Http\Controllers\Api\Admin\SplurgeEventUsersController;
+
+use App\Http\Controllers\Api\Admin\SplurgeEventUserTablesController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -74,11 +81,31 @@ Route::middleware(['auth:sanctum'])->prefix('admin')->name('api.admin.')->group(
 
     Route::resource('customer_events', CustomerEventsController::class)->only('index', 'show', 'store', 'update', 'destroy');
 
+    Route::post("/menu_items/all", [AdminMenuItemsController::class, 'storeAll'])->name('storeManyMenuItems');
+    
     Route::resource('menu_items', AdminMenuItemsController::class);
 
-    Route::get('/guests/lookup', [CustomerEventGuestsController::class, 'lookupAny']);
+    Route::get('/guests/lookup', [SplurgeEventUsersController::class, 'lookup'])->name('lookupAnyGuest');
 
-    Route::prefix('customer_events/{customer_event}')->name('customer_event_details.')->group(function () {
+    Route::prefix('customer_events/{event}')->name('customer_event_details.')->group(function () {
+
+        Route::get("/guests/lookup", [SplurgeEventUsersController::class, 'lookup'])->name('lookupGuest');
+
+        Route::resource('guests', SplurgeEventUsersController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+
+        Route::resource('locations', EventLocationsController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+
+        Route::prefix('/guests/{guest}')->name('event_guest_details.')->group(function () {
+            Route::resource('bag', CustomerBagController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+            Route::resource('menu_items', CustomerMenuItemsController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+        });
+
+        Route::prefix('/locations/{location}')->name('event_location_details.')->group(function () {
+            Route::resource('tables', LocationTablesController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+            Route::delete('/assignments/all', [SplurgeEventUserTablesController::class, 'unassignAll'])->name('assignments.removeAll');
+            Route::post('/assignments/all', [SplurgeEventUserTablesController::class, 'assignAll'])->name('assignments.addAll');
+            Route::resource('assignments', SplurgeEventUserTablesController::class)->only(['index', 'store', 'show', 'destroy']);
+        });
 
         // Route::post('/guests/import', [CustomerEventGuestsController::class, 'handleImport'])->name('guests.import');
 

@@ -24,7 +24,7 @@ class SplurgeEventUserResource extends JsonResource
             'tag' => $this->tag,
             'role' => $this->role,
             'barcode_image_url' => $this->barcode_image_url,
-            'splurge_event' => new SplurgeEventResource($this->whenLoaded('splurgeEvent')),
+            'splurge_event' => $this->when($this->resource->relationLoaded('splurgeEvent'), fn () => new SplurgeEventResource($this->resource->splurge_event)),
             'menu_items' => GuestMenuItemResource::collection($this->whenLoaded('menuItems')),
             'tables' => AssignedVenueTableResource::collection($this->whenLoaded('tables')),
             'bag_items' => GuestUserBagItemResource::collection($this->whenLoaded('bagItems')),

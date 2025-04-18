@@ -5,7 +5,7 @@ namespace App\Http\Requests\Api;
 use Illuminate\Foundation\Http\FormRequest;
 
 use App\Models\SplurgeEvent;
-
+use App\Support\BarcodeGenerator;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Arr;
@@ -56,12 +56,14 @@ class CreateSplurgeEventRequest extends FormRequest
 
             $event->saveOrFail();
 
+            $tag = "splurge://events/{$event->code}/customer";
 
             $event->members()->create(array_merge(
                 $this->safe()->input['customer'],
                 [
-                    'tag' => "splurge://events/{$event->code}/customer",
-                    "role" => "CUSTOMER"
+                    'tag' => $tag,
+                    "role" => "CUSTOMER",
+                    'barcode_image_url' => BarcodeGenerator::create($tag)
                 ]
                 ));
 

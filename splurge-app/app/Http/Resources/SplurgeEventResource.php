@@ -24,7 +24,7 @@ class SplurgeEventResource extends JsonResource
           'created_at' => $this->created_at,
           'updated_at' => $this->updated_at,
           'venues' => AddressResource::collection($this->whenLoaded('location')),
-          'service_tier' => new ServiceTierResource($this->whenLoaded('serviceTier')),
+          'service_tier' => $this->when($this->resource->relationLoaded('serviceTier'), fn () => new ServiceTierResource($this->resource->service_tier)),
           'members' => SplurgeEventUserResource::collection($this->whenLoaded('members')),
         ];
     }

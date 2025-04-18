@@ -19,16 +19,7 @@ class MenuItemsController extends Controller
         return MenuItemResource::collection($items);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
+  
     /**
      * Store a newly created resource in storage.
      *
@@ -37,11 +28,21 @@ class MenuItemsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+       $validated = $request->validate([
             'name' => 'required|max:255'
         ]);
-        $item = MenuItem::create(['name' => $request->input('name')]);
+        $item = MenuItem::create(['name' => $validated['name']]);
         return new MenuItemResource($item);
+    }
+
+    public function storeMany(Request $request) {
+        $validated = $request->validate([
+            'names' => ['required', 'array']
+        ]);
+        $items = MenuItem::createMany(array_map(function ($name) {
+            return ['name' => $name];
+        }, $validated['names'])); 
+        return MenuItemResource::collection($items);
     }
 
     /**

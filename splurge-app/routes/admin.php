@@ -12,11 +12,7 @@ use App\Http\Controllers\Admin\ServiceItemsController;
 use App\Http\Controllers\Admin\ToolsController;
 use App\Http\Controllers\Admin\ServiceTiersController;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\BookingsController;
-use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\CommunicationsController;
-use App\Http\Controllers\Admin\CustomerEventGuestsAdminController;
-use App\Http\Controllers\Admin\CustomerEventsController;
 use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\MenuItemsController;
 
@@ -60,21 +56,12 @@ Route::prefix("admin")->name('admin.')->middleware(['auth', 'can:admin'])->group
         'gallery' => GalleryController::class,
         'services' => ServicesController::class,
         'media' => MediaController::class,
-        "bookings" => BookingsController::class,
         "messages" => CommunicationsController::class,
-        "customers" => CustomersController::class,
         "payments" => PaymentsController::class,
-        "customer_events" => CustomerEventsController::class,
         "menu_items" => MenuItemsController::class,
     ]);
 
-    Route::prefix("/customer_events/{customer_event}")->name('customer_event_detail.')->group(function () {
-        Route::post("/guests/import", [CustomerEventGuestsAdminController::class, "handleImport"])->name('guests.import');
-        Route::get('/guests/print', [CustomerEventGuestsAdminController::class, 'getPrintView'])->name('guests.print');
-        Route::post("/guests/{guest}/barcode", [CustomerEventGuestsAdminController::class, "updateBarcode"]);
-        Route::patch("/guests/{guest}/barcode", [CustomerEventGuestsAdminController::class, "updateBarcode"]);
-        Route::resource('guests', CustomerEventGuestsAdminController::class);
-    });
+    
 
     
 

@@ -20,8 +20,8 @@ class AssignedVenueTableResource extends JsonResource
             'updated_at' => $this->updated_at,
             'event_user_id' => $this->event_user_id,
             'table_id' => $this->table_id,
-            'event_user' => new SplurgeEventUserResource($this->whenLoaded('guest')),
-            'venue_table' => new VenueTableResource($this->whenLoaded('venueTable')),
+            'event_user' => $this->when($this->resource->relationLoaded('guest'), fn () =>  new SplurgeEventUserResource($this->resource->guest)),
+            'venue_table' => $this->when($this->resource->relationLoaded('venueTable'), fn () => new VenueTableResource($this->resource->venue_table))  ,
         ];
     }
 }

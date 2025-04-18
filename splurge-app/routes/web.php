@@ -8,8 +8,6 @@ use App\Http\Controllers\EventsController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ServicesController;
 
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\AccessController;
 
 /*
@@ -56,8 +54,6 @@ Route::controller(HomeController::class)->group(function () {
     Route::get("/rdir", "redirectForRole")->middleware(["auth"]);
 });
 
-
-Route::resource("payments", PaymentsController::class);
 
 
 Route::controller(GalleryController::class)->prefix('gallery')->group(function () {

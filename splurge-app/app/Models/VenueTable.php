@@ -14,4 +14,8 @@ class VenueTable extends Model
     public function location() {
         return $this->belongsTo(Address::class, 'address_id');
     }
+
+    public function assignments() {
+        return $this->hasMany(AssignedVenueTable::class, 'table_id');
+    }
 }

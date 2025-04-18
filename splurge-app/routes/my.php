@@ -1,6 +1,5 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\My\BookingsController;
 use App\Http\Controllers\My\PaymentsController;
 use App\Http\Controllers\My\MessagesController;
 
@@ -9,7 +8,6 @@ Route::prefix("my")->name("my.")->middleware([
     'auth:my',
     'saccess'
 ])->group(function () {
-    Route::resource('bookings', BookingsController::class)->only(['index', 'show', 'update']);
     
     Route::prefix("/bookings/{booking}")->name('booking_details.')->group(function () {
 

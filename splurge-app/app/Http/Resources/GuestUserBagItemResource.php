@@ -24,7 +24,7 @@ class GuestUserBagItemResource extends JsonResource
             'confirmed_at' => $this->confirmed_at,
             'confirmed_by' => $this->confirmed_by,
             'event_user_id' => $this->event_user_id,
-            'event_user' => new SplurgeEventResource($this->whenLoaded('eventUser')),
+            'event_user' => $this->when($this->resource->relationLoaded('eventUser'), fn () => new SplurgeEventUserResource($this->resource->event_user)),
         ];
     }
 }

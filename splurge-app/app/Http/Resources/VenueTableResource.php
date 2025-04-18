@@ -22,7 +22,8 @@ class VenueTableResource extends JsonResource
             'location_id' => $this->address_id,
             'venue_id' => $this->address_id,
             'address_id' => $this->address_id,
-            'venue' => new AddressResource($this->whenLoaded('location')),
+            'venue' => $this->when($this->resource->relationLoaded('location'), fn () => new AddressResource($this->resource->location)),
+            'assigned_guests' => AssignedVenueTableResource::collection($this->whenLoaded('assignments')),
         ];
     }
 }

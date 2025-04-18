@@ -17,6 +17,8 @@ class ServiceTierResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'name' => $this->resource->name,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
             'description' => $this->resource->description,
             'options' => $this->resource->options ?: [],
             'footer_message' => $this->resource->footer_message,

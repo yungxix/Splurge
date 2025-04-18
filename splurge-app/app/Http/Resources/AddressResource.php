@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\SplurgeEvent;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AddressResource extends JsonResource
@@ -26,7 +27,9 @@ class AddressResource extends JsonResource
             'latitude' => $this->resource->latitude,
             'longitude' => $this->resource->longitude,
             'purpose' => $this->resource->purpose,
-            'tables' => VenueTableResource::collection($this->whenLoaded('tables'))
+            'tables' => VenueTableResource::collection($this->whenLoaded('tables')),
+            'splurge_event' => $this->when($this->resource->addressable_type === SplurgeEvent::class && $this->resource->relationLoaded('addressable'), 
+                fn () => new SplurgeEventResource($this->resource->addressable))
             
         ];
     }

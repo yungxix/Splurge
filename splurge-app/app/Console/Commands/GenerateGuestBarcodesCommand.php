@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-use App\Models\CustomerEventGuest as Guest;
+use App\Models\SplurgeEventUser as Guest;
 
 use Illuminate\Support\Facades\DB;
 
