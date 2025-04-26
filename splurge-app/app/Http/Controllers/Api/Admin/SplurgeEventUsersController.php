@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CreateSplurgeEventUserRequest;
+use App\Http\Requests\Api\ImportSplurgeEventUsersRequest;
 use App\Http\Requests\Api\UpdateSplurgeEventUserRequest;
 use App\Http\Resources\SplurgeEventUserResource;
 use App\Models\SplurgeEvent;
@@ -45,6 +46,34 @@ class SplurgeEventUsersController extends Controller
             }
         }
 
+        if ($table = $request->input('assigned_to_table')) {
+            $query = $query->whereHas('tables', function ($tableQuery) use ($table) {
+                return $tableQuery->where('table_id', $table);
+            });
+        }
+
+        if ($table = $request->input('assigned_to_location')) {
+            $query = $query->whereHas('tables', function ($tableQuery) use ($table) {
+                return $tableQuery->whereHas('table', fn ($q) => $q->where('address_id', $table));
+            });
+        }
+
+        if ($table = $request->input('not_assigned_to_table')) {
+            $query = $query->whereNot(function ($inner) use ($table) {
+                return $inner->whereHas('tables', function ($tableQuery) use ($table) {
+                    return $tableQuery->where('table_id', $table);
+                });
+            });
+        }
+
+        if ($table = $request->input('not_assigned_to_location')) {
+            $query = $query->whereNot(function ($inner) use ($table) {
+                return $inner->whereHas('tables', function ($tableQuery) use ($table) {
+                    return $tableQuery->whereHas('table', fn ($q) => $q->where('address_id', $table));
+                });
+            });
+        }
+
 
         return SplurgeEventUserResource::collection($query->paginate($request->input('page_size', 15)));
     }
@@ -61,6 +90,11 @@ class SplurgeEventUsersController extends Controller
         return new SplurgeEventUserResource($user);
     }
 
+    public function importFromSpreadsheet(ImportSplurgeEventUsersRequest $request, $event) {
+        $model = SplurgeEvent::findOrFail($event);
+        $users =  $request->commit($model);
+        return SplurgeEventUserResource::collection($users);
+    }
 
 
     /**

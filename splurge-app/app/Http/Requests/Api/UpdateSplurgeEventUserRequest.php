@@ -4,6 +4,7 @@ namespace App\Http\Requests\Api;
 
 use App\Models\SplurgeEventUser;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
 
 class UpdateSplurgeEventUserRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class UpdateSplurgeEventUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user('api')->can('admin');
+        return true;
     }
 
     /**
@@ -30,11 +31,19 @@ class UpdateSplurgeEventUserRequest extends FormRequest
             'last_name' => ['sometimes', 'max:120'],
             'email' => ['sometimes', 'nullable', 'email'],
             'phone' => ['sometimes', 'nullable', 'max:16'],
-            'gender' => ['sometimes', 'nullable', 'max:16']
+            'gender' => ['sometimes', 'nullable', 'max:16'],
+            'present_at' => ['sometimes', 'date'],
         ];
     }
 
     public function commit(SplurgeEventUser $user) {
-       return $user->update($this->validated());
+        $validated = $this->validated();
+        $safe_attributes = Arr::except($validated, 'present_at');
+        $user->fill($safe_attributes);
+        if ($validated['present_at'] && is_null($user->present_at)) {
+            $user->present_at = $validated['present_at'];
+        }
+       $user->saveOrFail();
+       return $user;
     }
 }

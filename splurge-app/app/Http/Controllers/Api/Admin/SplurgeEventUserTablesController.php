@@ -19,7 +19,7 @@ class SplurgeEventUserTablesController extends Controller
      */
     public function index(Request $request, $event, $location, $guest = 0)
     {
-        $query = AssignedVenueTable::with(['guest', 'venueTable'])
+        $query = AssignedVenueTable::with(['venueTable'])
         ->whereHas('guest', function ($guestQuery) use ($event) {
             return $guestQuery->where('event_id', $event);
         })->whereHas('venueTable', function ($table) use ($location) {
@@ -39,7 +39,7 @@ class SplurgeEventUserTablesController extends Controller
         if ($guests = $request->input('guest_ids')) {
             $query = $query->whereIn('event_user_id', explode(',', $guests));
         }
-        return AssignedVenueTableResource::collection($query->get());
+        return AssignedVenueTableResource::collection($query->paginate());
     }
 
 
@@ -173,5 +173,12 @@ class SplurgeEventUserTablesController extends Controller
         $model->delete();
 
         return response()->json(['message' => 'Table assignment has been deleted']);
+    }
+
+    public function destroyMany(Request $request, $event, $location) {
+        $affected = AssignedVenueTable::whereHas('guest', function ($guest) use ($event) {
+            return $guest->where('event_id', $event);
+        })->whereIn('id', explode(',', $request->input('ids')))->delete();
+        return response()->json(['message' => "$affected records were affected"]);
     }
 }

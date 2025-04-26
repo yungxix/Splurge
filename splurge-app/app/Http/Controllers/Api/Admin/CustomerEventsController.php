@@ -29,7 +29,20 @@ class CustomerEventsController extends Controller
         }
 
         if (!empty($request->input('q'))) {
-            $query = $query->where('name', 'like', "%{$request->input('q')}%");
+            $term = "%{$request->input('q')}%";
+            $query = $query->where('name', 'like', $term)->orWhereHas("members", function($member) use ($term) {
+                return $member->where('purpose', 'CUSTOMER')
+                                    ->where(function ($q) use ($term) {
+                                        foreach (['first_name', 'last_name', 'email'] as $index => $field) {
+                                            if ($index === 0) {
+                                                $q = $q->where($field, 'like', $term);
+                                            } else {
+                                                $q = $q->orWhere($field, 'like', $term);
+                                            }
+                                        }
+                                        return $q;
+                                    });
+            });
         }
 
         $date_columns = ['from_date' => '>=', 'to_date' => '<='];

@@ -30,6 +30,7 @@ class SplurgeEventUserResource extends JsonResource
             'bag_items' => GuestUserBagItemResource::collection($this->whenLoaded('bagItems')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'present_at' => $this->present_at
         ];
     }
 }

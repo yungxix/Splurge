@@ -9,6 +9,7 @@ class SplurgeEventUser extends Model
 {
     use HasFactory;
 
+    protected $casts = ['present_at' => 'datetime'];
     protected $fillable = ['first_name', 'last_name', 'barcode_image_url', 'gender', 'tag', 'title', 'customer_relationship', 'role', 'remote_id'];
 
     public function splurgeEvent() {

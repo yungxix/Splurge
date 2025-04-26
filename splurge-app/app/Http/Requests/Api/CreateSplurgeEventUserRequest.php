@@ -32,7 +32,7 @@ class CreateSplurgeEventUserRequest extends FormRequest
             'last_name' => ['required', 'max:120'],
             'email' => ['sometimes', 'nullable', 'email'],
             'phone' => ['sometimes', 'nullable', 'max:16'],
-            'gender' => ['sometimes', 'nullable', 'max:16']
+            'gender' => ['sometimes', 'nullable', 'max:16'],
         ];
     }
 

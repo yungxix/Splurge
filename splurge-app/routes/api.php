@@ -91,6 +91,8 @@ Route::middleware(['auth:sanctum'])->prefix('admin')->name('api.admin.')->group(
 
         Route::get("/guests/lookup", [SplurgeEventUsersController::class, 'lookup'])->name('lookupGuest');
 
+        Route::post('/guests/import', [SplurgeEventUsersController::class, 'importFromSpreadsheet'])->name('importGuests');
+
         Route::resource('guests', SplurgeEventUsersController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
 
         Route::resource('locations', EventLocationsController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
@@ -98,12 +100,16 @@ Route::middleware(['auth:sanctum'])->prefix('admin')->name('api.admin.')->group(
         Route::prefix('/guests/{guest}')->name('event_guest_details.')->group(function () {
             Route::resource('bag', CustomerBagController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
             Route::resource('menu_items', CustomerMenuItemsController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+            Route::resource('assignments', SplurgeEventUserTablesController::class)->only(['index', 'store', 'show', 'destroy']);
         });
 
         Route::prefix('/locations/{location}')->name('event_location_details.')->group(function () {
             Route::resource('tables', LocationTablesController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
             Route::delete('/assignments/all', [SplurgeEventUserTablesController::class, 'unassignAll'])->name('assignments.removeAll');
             Route::post('/assignments/all', [SplurgeEventUserTablesController::class, 'assignAll'])->name('assignments.addAll');
+            
+            Route::delete('/assignments/batch', [SplurgeEventUserTablesController::class, 'destroyMany']);
+
             Route::resource('assignments', SplurgeEventUserTablesController::class)->only(['index', 'store', 'show', 'destroy']);
         });
 
