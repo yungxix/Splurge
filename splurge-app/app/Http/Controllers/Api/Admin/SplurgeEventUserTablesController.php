@@ -19,7 +19,7 @@ class SplurgeEventUserTablesController extends Controller
      */
     public function index(Request $request, $event, $location, $guest = 0)
     {
-        $query = AssignedVenueTable::with(['venueTable'])
+        $query = AssignedVenueTable::with(['venueTable', 'guest'])
         ->whereHas('guest', function ($guestQuery) use ($event) {
             return $guestQuery->where('event_id', $event);
         })->whereHas('venueTable', function ($table) use ($location) {
