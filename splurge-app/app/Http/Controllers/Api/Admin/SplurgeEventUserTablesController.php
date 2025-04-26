@@ -39,7 +39,7 @@ class SplurgeEventUserTablesController extends Controller
         if ($guests = $request->input('guest_ids')) {
             $query = $query->whereIn('event_user_id', explode(',', $guests));
         }
-        return AssignedVenueTableResource::collection($query->paginate());
+        return AssignedVenueTableResource::collection($query->paginate($request->input('page_size', '15')));
     }
 
 
